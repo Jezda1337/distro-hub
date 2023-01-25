@@ -1,43 +1,46 @@
-import { Fragment, useState } from "react";
+import { MyContext } from "@/context";
 import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { Fragment, useContext, useEffect, useState } from "react";
+import data from "../../data.json";
 
-const people = [
-  { id: 1, name: "Wade Cooper" },
-  { id: 2, name: "Arlene Mccoy" },
-  { id: 3, name: "Devon Webb" },
-  { id: 4, name: "Tom Cook" },
-  { id: 5, name: "Tanya Fox" },
-  { id: 6, name: "Hellen Schmidt" },
-];
+interface Selected {
+  id: number;
+  name: string;
+  category: string[];
+  popularity: string;
+}
 
 export default function Example() {
-  const [selected, setSelected] = useState("");
+  // const [selected, setSelected] = useState<Selected | null>(null);
   const [query, setQuery] = useState("");
+  const { search, setSearch, list } = useContext(MyContext);
 
   const filteredPeople =
-    query === ""
-      ? people
-      : people.filter((person) =>
-          person.name
+    query.length >= 3
+      ? data.filter((distro: any) =>
+          distro.name
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+        )
+      : [];
 
   return (
     <div className="top-16 w-72">
-      <Combobox value={selected} onChange={setSelected}>
+      <Combobox value={search} onChange={setSearch}>
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left sm:text-sm border border-gray-300">
             <Combobox.Input
+              autoComplete="off"
               placeholder="Search by name .."
               className="w-full h-9 border-none font-bold py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 outline-none"
               displayValue={(distro: { id: number; name: string }) =>
-                distro.name
+                !query ? "" : distro?.name
               }
               onChange={(event) => setQuery(event.target.value)}
             />
+
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
               <MagnifyingGlassIcon
                 className="h-5 w-5  text-gray-400"
@@ -58,36 +61,23 @@ export default function Example() {
                   Nothing found.
                 </div>
               ) : (
-                filteredPeople.map((person) => (
+                filteredPeople.map((distro) => (
                   <Combobox.Option
-                    key={person.id}
+                    key={distro.id}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? "bg-teal-600 text-white" : "text-gray-900"
+                      `relative cursor-default select-none py-2 pl-3 pr-4 ${
+                        active ? "bg-black text-white" : "text-gray-900"
                       }`
                     }
-                    value={person}
+                    value={distro}
                   >
-                    {({ selected, active }) => (
-                      <>
-                        <span
-                          className={`block truncate ${
-                            selected ? "font-medium" : "font-normal"
-                          }`}
-                        >
-                          {person.name}
-                        </span>
-                        {selected ? (
-                          <span
-                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                              active ? "text-white" : "text-teal-600"
-                            }`}
-                          >
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                          </span>
-                        ) : null}
-                      </>
-                    )}
+                    <span
+                      className={`block truncate ${
+                        search ? "font-bold" : "font-normal"
+                      }`}
+                    >
+                      {distro.name}
+                    </span>
                   </Combobox.Option>
                 ))
               )}

@@ -1,34 +1,35 @@
 import Search from "./Form/Search";
 import Select from "./Form/Select";
 
-export default function Filters() {
-  const options: any[] = [
-    {
-      id: 1,
-      value: "Ubuntu",
-    },
-    {
-      id: 2,
-      value: "Arch",
-    },
-  ];
+interface Data {
+  id: number;
+  name: string;
+  category: string[];
+  popularity: string;
+}
 
-  const categoryOptions: any[] = [
-    {
-      id: 1,
-      value: "Gaming",
-    },
-    {
-      id: 2,
-      value: "Programming",
-    },
-  ];
+const catergory = [
+  {
+    id: 1,
+    name: "gaming",
+  },
+  {
+    id: 2,
+    name: "programming",
+  },
+  {
+    id: 3,
+    name: "general",
+  },
+];
+
+export default function Filters() {
   return (
     <section className="my-20">
       <form className="flex justify-between">
         <div className="flex gap-6">
-          <Select options={options} placeholder="Based on Ubuntu .." />
-          <Select options={categoryOptions} placeholder="Choose category .." />
+          <Select options={catergory} placeholder="Based on Ubuntu .." />
+          <Select options={catergory} placeholder="Choose category .." />
         </div>
 
         <Search />

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Ubuntu",
+    "category": ["gaming", "programming", "general", "begginner"],
+    "popularity": "hight"
+  },
+  {
+    "id": 2,
+    "name": "Arch",
+    "category": ["gaming", "programming", "advanced"],
+    "popularity": "hight"
+  },
+  {
+    "id": 3,
+    "name": "Mint",
+    "category": ["gaming", "general", "begginner"],
+    "popularity": "hight"
+  },
+  {
+    "id": 4,
+    "name": "PoP!_OS",
+    "category": ["gaming", "general", "begginner", "programming"],
+    "popularity": "hight"
+  }
+]

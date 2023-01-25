@@ -1,14 +1,16 @@
-import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { Fragment, useState } from "react";
 
 interface Option {
   id: number;
-  value: string;
+  name: string;
+  category: string[];
+  popularity?: string;
 }
 
 interface Props {
-  options: Option[];
+  options?: { id: number; name: string; category?: string[] }[];
   placeholder: string;
 }
 
@@ -18,12 +20,12 @@ function classNames(...classes: any) {
 
 export default function Select({ options, placeholder }: Props) {
   const [selected, setSelected] = useState("");
-
   return (
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
         <>
           <div className="relative mt-1 w-56">
+            {/* <Listbox.Label>Assignee:</Listbox.Label> */}
             <Listbox.Button className="relative h-9 w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left sm:text-sm">
               <span className="block truncate font-bold">
                 {selected ? (
@@ -48,16 +50,16 @@ export default function Select({ options, placeholder }: Props) {
               leaveTo="opacity-0"
             >
               <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {options.map(({ id, value }) => (
+                {options?.map(({ id, name }) => (
                   <Listbox.Option
                     key={id}
                     className={({ active }) =>
                       classNames(
-                        active ? "text-white bg-indigo-600" : "text-gray-900",
+                        active ? "text-white bg-black" : "text-gray-900",
                         "relative cursor-default select-none py-2 pl-3 pr-9"
                       )
                     }
-                    value={value}
+                    value={name}
                   >
                     {({ selected, active }) => (
                       <>
@@ -68,14 +70,14 @@ export default function Select({ options, placeholder }: Props) {
                               "ml-3 block truncate"
                             )}
                           >
-                            {value}
+                            {name}
                           </span>
                         </div>
 
                         {selected ? (
                           <span
                             className={classNames(
-                              active ? "text-white" : "text-indigo-600",
+                              active ? "text-white" : "text-black",
                               "absolute inset-y-0 right-0 flex items-center pr-4"
                             )}
                           >
@@ -93,4 +95,7 @@ export default function Select({ options, placeholder }: Props) {
       )}
     </Listbox>
   );
+}
+function useContext(MyContext: any): { test: any } {
+  throw new Error("Function not implemented.");
 }
