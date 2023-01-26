@@ -6,19 +6,15 @@ export function Wrapper({ children }: { children: React.ReactNode }) {
   const [list, setList] = useState(data);
   const [search, setSearch] = useState<any>("");
 
-  function setBySearch(query: {
-    id: number;
-    name: string;
-    category: string[];
-    popularity: string;
-  }) {
-    if (!query) return;
+  function setBySearch(query: string) {
+    console.log(query.length);
+    if (query.length >= 3) {
+      const listByQuery = data.filter(({ name }) =>
+        name.toLowerCase().includes(query.toLowerCase())
+      );
 
-    const listByQuery = data.filter(
-      ({ name }) => name.toLowerCase() === query?.name?.toLowerCase()
-    );
-    console.log(list);
-    setList(listByQuery);
+      setList(listByQuery);
+    } else setList(data);
   }
 
   useEffect(() => {

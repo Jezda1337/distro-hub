@@ -1,101 +1,82 @@
-import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
-interface Option {
-  id: number;
-  name: string;
-  category: string[];
-  popularity?: string;
-}
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 
-interface Props {
-  options?: { id: number; name: string; category?: string[] }[];
-  placeholder: string;
-}
+const list = [
+  {
+    id: 1,
+    value: "value 1",
+  },
+  {
+    id: 2,
+    value: "value 2",
+  },
+  {
+    id: 3,
+    value: "value 3",
+  },
+];
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Select({ options, placeholder }: Props) {
+export default function App() {
+  const [show, setShow] = useState(false);
   const [selected, setSelected] = useState("");
+
+  function handleShow() {
+    setShow(!show);
+  }
+
+  function handleSelection(selectedValue: string) {
+    setSelected(selectedValue);
+  }
+  function handleBlur() {
+    setShow(false);
+  }
   return (
-    <Listbox value={selected} onChange={setSelected}>
-      {({ open }) => (
-        <>
-          <div className="relative mt-1 w-56">
-            {/* <Listbox.Label>Assignee:</Listbox.Label> */}
-            <Listbox.Button className="relative h-9 w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left sm:text-sm">
-              <span className="block truncate font-bold">
-                {selected ? (
-                  selected
-                ) : (
-                  <span className="text-slate-500">{placeholder}</span>
-                )}
-              </span>
-              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-                <ChevronUpDownIcon
-                  className="h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-              </span>
-            </Listbox.Button>
+    <div
+      tabIndex={-1}
+      onClick={handleShow}
+      onBlur={handleBlur}
+      className="w-56 relative bg-white border rounded h-9"
+    >
+      <button
+        id="menu-button"
+        aria-expanded="true"
+        aria-haspopup="true"
+        type="button"
+        className="w-full flex items-center h-full"
+      >
+        <span className="block text-left py-2 px-3 w-full h-full leading-none">
+          {selected ? (
+            selected
+          ) : (
+            <span className="text-slate-400">Select ..</span>
+          )}
+        </span>
+        <span className="absolute block right-3">
+          <ChevronUpDownIcon className="w-6 h-6 text-gray-500" />
+        </span>
+      </button>
 
-            <Transition
-              show={open}
-              as={Fragment}
-              leave="transition ease-in duration-100"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {options?.map(({ id, name }) => (
-                  <Listbox.Option
-                    key={id}
-                    className={({ active }) =>
-                      classNames(
-                        active ? "text-white bg-black" : "text-gray-900",
-                        "relative cursor-default select-none py-2 pl-3 pr-9"
-                      )
-                    }
-                    value={name}
-                  >
-                    {({ selected, active }) => (
-                      <>
-                        <div className="flex items-center">
-                          <span
-                            className={classNames(
-                              selected ? "font-semibold" : "font-normal",
-                              "ml-3 block truncate"
-                            )}
-                          >
-                            {name}
-                          </span>
-                        </div>
-
-                        {selected ? (
-                          <span
-                            className={classNames(
-                              active ? "text-white" : "text-black",
-                              "absolute inset-y-0 right-0 flex items-center pr-4"
-                            )}
-                          >
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                          </span>
-                        ) : null}
-                      </>
-                    )}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </Transition>
-          </div>
-        </>
-      )}
-    </Listbox>
+      <ul
+        role="menu"
+        aria-orientation="vertical"
+        aria-labelledby="menu-button"
+        tabIndex={-1}
+        className={`absolute top-[calc(100%+1rem)] w-full bg-inherit rounded px-0 mx-0 border border-black list-none
+          ${show ? "block" : "hidden"}`}
+      >
+        {list.map((li) => (
+          <li
+            role="menuitem"
+            tabIndex={-1}
+            className={`hover:text-white hover:bg-black hover:cursor-pointer px-2 py-1`}
+            onMouseDown={() => handleSelection(li.value)}
+            key={li.id}
+          >
+            {li.value}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
-}
-function useContext(MyContext: any): { test: any } {
-  throw new Error("Function not implemented.");
 }
