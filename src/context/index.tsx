@@ -5,9 +5,9 @@ export const MyContext = createContext<any | null>(null);
 export function Wrapper({ children }: { children: React.ReactNode }) {
   const [list, setList] = useState(data);
   const [search, setSearch] = useState<any>("");
+  const [popUp, setPopUp] = useState(false);
 
   function setBySearch(query: string) {
-    console.log(query.length);
     if (query.length >= 3) {
       const listByQuery = data.filter(({ name }) =>
         name.toLowerCase().includes(query.toLowerCase())
@@ -22,7 +22,7 @@ export function Wrapper({ children }: { children: React.ReactNode }) {
   }, [search]);
 
   return (
-    <MyContext.Provider value={{ list, search, setSearch }}>
+    <MyContext.Provider value={{ list, search, setSearch, popUp, setPopUp }}>
       {children}
     </MyContext.Provider>
   );

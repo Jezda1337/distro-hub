@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { MyContext } from "@/context";
 
 const list = [
   {
@@ -20,6 +21,7 @@ const list = [
 export default function App() {
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState("");
+  // const { list } = useContext(MyContext);
 
   function handleShow() {
     setShow(!show);
@@ -62,7 +64,7 @@ export default function App() {
         aria-orientation="vertical"
         aria-labelledby="menu-button"
         tabIndex={-1}
-        className={`absolute top-[calc(100%+1rem)] w-full bg-inherit rounded px-0 mx-0 border border-black list-none
+        className={`absolute top-[calc(100%+1rem)] max-h-44 overflow-scroll shadow w-full bg-inherit rounded px-0 mx-0 border border-black list-none
           ${show ? "block" : "hidden"}`}
       >
         {list.map((li) => (
