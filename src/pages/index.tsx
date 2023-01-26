@@ -1,6 +1,7 @@
 import DistroCard from "@/components/DistroCard";
 import Filters from "@/components/Filters";
 import Header from "@/components/Header";
+import WorkInProgressBar from "@/components/WorkInProgressBar";
 import { MyContext } from "@/context";
 import { Poppins } from "@next/font/google";
 import { useContext } from "react";
@@ -17,6 +18,7 @@ export default function Home() {
       {list.map((distro: any) => (
         <DistroCard key={distro.id} distro={distro} />
       ))}
+      <WorkInProgressBar />
     </section>
   );
 }
