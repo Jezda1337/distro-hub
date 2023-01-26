@@ -1,13 +1,6 @@
 import Search from "./Form/Search";
 import Select from "./Form/Select";
 
-interface Data {
-  id: number;
-  name: string;
-  category: string[];
-  popularity: string;
-}
-
 const catergory = [
   {
     id: 1,
@@ -39,6 +32,14 @@ const basedOn = [
   {
     id: 4,
     name: "Fedora",
+  },
+  {
+    id: 5,
+    name: "Debian Stable",
+  },
+  {
+    id: 6,
+    name: "Debian Nightly",
   },
 ];
 

@@ -1,10 +1,11 @@
 import { MyContext } from "@/context";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { useState, useContext } from "react";
+import { useContext } from "react";
+import { Input } from "../ui/Input";
 
 export default function Test() {
   // const [search, setSearch] = useState("");
-  const { search, setSearch, list } = useContext(MyContext);
+  const { setSearch } = useContext(MyContext);
 
   function handleSearch(e: any) {
     e.preventDefault();
@@ -13,12 +14,10 @@ export default function Test() {
 
   return (
     <div className="h-9 relative w-[255px]">
-      <input
+      <Input
         onChange={handleSearch}
-        autoComplete="off"
-        className="w-full border rounded py-2 pr-7 px-3 h-9 focus:outline-black"
-        type="text"
         placeholder="Search by name .."
+        autoComplete="off"
       />
       <div className="absolute inset-y-0 right-0 flex items-center pr-2">
         <MagnifyingGlassIcon
@@ -26,7 +25,6 @@ export default function Test() {
           aria-hidden="true"
         />
       </div>
-      {search}
     </div>
   );
 }
