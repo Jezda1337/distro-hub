@@ -2,30 +2,35 @@
   {
     "id": 1,
     "name": "Ubuntu",
+    "image": "/images/ubuntu.svg",
     "category": ["gaming", "programming", "general", "begginner"],
     "popularity": "hight"
   },
   {
     "id": 2,
     "name": "Arch",
+    "image": "/images/arch.svg",
     "category": ["gaming", "programming", "advanced"],
     "popularity": "hight"
   },
   {
     "id": 3,
     "name": "Mint",
+    "image": "/images/mint.svg",
     "category": ["gaming", "general", "begginner"],
     "popularity": "hight"
   },
   {
     "id": 4,
     "name": "PoP!_OS",
+    "image": "/images/pop.svg",
     "category": ["gaming", "general", "begginner", "programming"],
     "popularity": "hight"
   },
   {
     "id": 5,
     "name": "Kubuntu",
+    "image": "/images/kubuntu.svg",
     "category": ["gaming", "general", "begginner"],
     "popularity": "hight"
   }

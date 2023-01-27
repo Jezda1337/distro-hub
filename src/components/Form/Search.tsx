@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { Input } from "../ui/Input";
 
 export default function Test() {
-  // const [search, setSearch] = useState("");
   const { setSearch } = useContext(MyContext);
 
   function handleSearch(e: any) {
@@ -13,11 +12,12 @@ export default function Test() {
   }
 
   return (
-    <div className="h-9 relative w-[255px]">
+    <div className="w-full md:w-[255px] h-9 relative mt-8 md:mt-0">
       <Input
         onChange={handleSearch}
         placeholder="Search by name .."
         autoComplete="off"
+        className="font-black"
       />
       <div className="absolute inset-y-0 right-0 flex items-center pr-2">
         <MagnifyingGlassIcon

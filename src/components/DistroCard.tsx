@@ -1,21 +1,25 @@
-import Image from "next/image"
+import Image from "next/image";
+import Link from "next/link";
 
 interface Distro {
-  id: number
-  name: string
-  popularity: string
-  category: string[]
+  id: number;
+  name: string;
+  image: string;
+  popularity: string;
+  category: string[];
 }
 
 export default function DistroCard({ distro }: { distro: Distro }) {
   return (
-    <article className="w-full flex border rounded border-gray-500 px-4 py-1 my-3">
+    <article className="w-full flex items-center border rounded border-gray-500 px-4 py-1 my-3 md:hover:shadow-lg md:hover:transition-all">
       <div>
-        <Image src="next.svg" alt="" width={100} height={100} />
+        <Image src={distro.image} alt="" width={32} height={32} />
       </div>
 
       <h3 className="ml-4 font-bold">{distro.name}</h3>
-      <p className="ml-auto">website</p>
+      <Link className="ml-auto" href={"/distro/" + distro.id}>
+        <p className="ml-auto">read more</p>
+      </Link>
     </article>
-  )
+  );
 }
