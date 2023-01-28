@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Ubuntu",
+    "website": "web",
+    "logo": "/images/ubuntu.svg"
+  },
+  {
+    "id": 2,
+    "name": "Arch linux",
+    "website": "web",
+    "logo": "/images/arch.svg"
+  },
+  {
+    "id": 3,
+    "name": "Kubuntu linux",
+    "website": "web",
+    "logo": "/images/kubuntu.svg"
+  }
+]

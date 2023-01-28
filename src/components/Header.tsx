@@ -1,6 +1,7 @@
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { useState, FormEvent } from "react";
+import DropdownMenu from "./DropdownMenu";
 import { Button } from "./ui/Button";
 import { Dialog } from "./ui/Dialog";
 import { Input } from "./ui/Input";
@@ -26,12 +27,15 @@ export default function Header() {
       <Link href="/">
         <h1 className="text-2xl font-bold">DistroHub</h1>
       </Link>
-      <Button
-        onClick={() => setOpen(!open)}
-        className="bg-black text-white text-xl border-none relative after:border after:absolute after:inset-0 after:translate-x-1 after:translate-y-1 hover:after:translate-x-2 hover:after:translate-y-2 after:-z-10 after:rounded after:transition-all hover:after:bg-black"
-      >
-        Submit distro
-      </Button>
+      <div className="flex gap-6">
+        <DropdownMenu />
+        <Button
+          onClick={handleOpen}
+          className="bg-black text-white text-xl border-none relative after:border after:absolute after:inset-0 after:translate-x-1 after:translate-y-1 hover:after:translate-x-2 hover:after:translate-y-2 after:-z-10 after:rounded after:transition-all hover:after:bg-black"
+        >
+          Submit distro
+        </Button>
+      </div>
 
       {open ? (
         <div
