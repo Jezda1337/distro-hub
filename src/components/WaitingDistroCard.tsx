@@ -5,8 +5,6 @@ interface Distro {
   id: number;
   name: string;
   logo: string;
-  popularity: string;
-  category: string[];
   website: string;
 }
 
