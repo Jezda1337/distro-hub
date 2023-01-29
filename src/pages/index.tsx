@@ -14,7 +14,7 @@ export default function Home() {
       <div className="flex text-sm items-center px-4 mb-4 text-slate-500">
         <div>
           <span>Logo</span>
-          <span className="mx-1">|</span>
+          <span className="mx-2">|</span>
           <span>Name</span>
         </div>
         <span className="ml-auto">Details</span>
