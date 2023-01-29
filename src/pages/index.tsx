@@ -11,7 +11,7 @@ export default function Home() {
       <Filters />
       <h1 className="text-3xl font-bold mb-8">Most Popular</h1>
 
-      <div className="flex items-center px-4 mb-4 text-slate-500">
+      <div className="flex text-sm items-center px-4 mb-4 text-slate-500">
         <div>
           <span>Logo</span>
           <span className="mx-1">|</span>

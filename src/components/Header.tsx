@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import { useState, FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import DropdownMenu from "./DropdownMenu";
 import { Button } from "./ui/Button";
 import { Dialog } from "./ui/Dialog";
@@ -8,18 +8,31 @@ import { Input } from "./ui/Input";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [distroName, setDistoName] = useState("");
-  const [distroWeb, setDistoWeb] = useState("");
+  const [newDistro, setNewDistro] = useState({
+    email: "",
+    name: "",
+    website: "",
+    message: "",
+  });
 
   function handleOpen() {
     setOpen(!open);
   }
 
+  const handleChange = (event: InputEvent) => {
+    const target = event.target as HTMLInputElement;
+    setNewDistro({
+      ...newDistro,
+      [target.name]: target.value,
+    });
+  };
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     setOpen(false);
-    console.log(distroName);
-    console.log(distroWeb);
+
+    console.log(newDistro);
   }
 
   return (
@@ -47,29 +60,50 @@ export default function Header() {
           <Dialog
             onClick={(e) => e.stopPropagation()}
             open={open}
-            className="bg-white shadow rounded border w-11/12 md:w-4/12 md:h-1/4"
+            className="bg-white shadow rounded border w-11/12 md:w-4/12"
           >
-            <header className="flex justify-between items-center">
+            <header className="flex justify-between items-center border-b pb-3 mb-3">
               <p className="text-lg font-medium">Submit distro</p>
               <Button onClick={handleOpen}>
                 <XMarkIcon className="w-5 h-5" />
               </Button>
             </header>
-            <form method="POST" onSubmit={handleSubmit} className="mt-4">
-              <div className="mb-4">
+            <form
+              method="POST"
+              onSubmit={handleSubmit}
+              className="mt-4 flex flex-col gap-4"
+            >
+              <div>
                 <Input
-                  name="distroName"
+                  onChange={handleChange}
+                  name="email"
                   required={true}
-                  onChange={(e) => setDistoName(e.target.value)}
+                  placeholder="Email"
+                />
+              </div>
+              <div>
+                <Input
+                  onChange={handleChange}
+                  name="name"
+                  required={true}
                   placeholder="Distro name"
                 />
               </div>
               <div>
                 <Input
-                  name="distroWeb"
+                  onChange={handleChange}
+                  name="website"
                   required={true}
-                  onChange={(e) => setDistoWeb(e.target.value)}
                   placeholder="Distro website"
+                />
+              </div>
+              <div>
+                <textarea
+                  onChange={handleChange}
+                  className="border rounded focus:outline-black w-full px-3 py-2"
+                  name="message"
+                  required={true}
+                  placeholder="Distro Brief"
                 />
               </div>
               <div className="mt-6 text-right">

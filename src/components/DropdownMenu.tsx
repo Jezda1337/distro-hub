@@ -34,11 +34,21 @@ export default function DropdownMenu() {
             <li className="border-b px-5 pb-2">
               <p className="font-medium">Menu</p>
             </li>
-            <li className="hover:cursor-pointer hover:bg-black hover:text-white px-5 py-2">
-              <Link href={"/waiting-list"}>Waiting list</Link>
+            <li
+              onClick={() => setOpen(false)}
+              className="hover:cursor-pointer hover:bg-black hover:text-white px-5 py-2"
+            >
+              <Link className="block" href={"/waiting-list"}>
+                Waiting list
+              </Link>
             </li>
-            <li className="hover:cursor-pointer hover:bg-black hover:text-white px-5 py-2">
-              <Link href={"/about"}>About</Link>
+            <li
+              onClick={() => setOpen(false)}
+              className="hover:cursor-pointer hover:bg-black hover:text-white px-5 py-2"
+            >
+              <Link className="block" href={"/about"}>
+                About
+              </Link>
             </li>
           </ul>
         </div>

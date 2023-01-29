@@ -3,18 +3,21 @@
     "id": 1,
     "name": "Ubuntu",
     "website": "web",
-    "logo": "/images/ubuntu.svg"
+    "logo": "/images/ubuntu.svg",
+    "submited_date": "23.01.2023"
   },
   {
     "id": 2,
     "name": "Arch linux",
     "website": "web",
-    "logo": "/images/arch.svg"
+    "logo": "/images/arch.svg",
+    "submited_date": "23.01.2023"
   },
   {
     "id": 3,
     "name": "Kubuntu linux",
     "website": "web",
-    "logo": "/images/kubuntu.svg"
+    "logo": "/images/kubuntu.svg",
+    "submited_date": "23.01.2023"
   }
 ]

@@ -10,8 +10,10 @@ export function Wrapper({ children }: { children: React.ReactNode }) {
   function setBySearch(query: string) {
     if (query.length >= 3) {
       const listByQuery = data.filter(({ name }) =>
-        name.toLowerCase().includes(query.toLowerCase())
+        name.toLowerCase().match(query.toLowerCase())
       );
+
+      console.log(listByQuery);
 
       setList(listByQuery);
     } else setList(data);

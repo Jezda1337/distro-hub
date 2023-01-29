@@ -1,14 +1,14 @@
 import { MyContext } from "@/context";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { useContext } from "react";
+import { useContext, FormEvent } from "react";
 import { Input } from "../ui/Input";
 
 export default function Test() {
-  const { setSearch } = useContext(MyContext);
+  const { search, setSearch } = useContext(MyContext);
 
-  function handleSearch(e: any) {
+  function handleSearch(e: FormEvent<HTMLInputElement>) {
     e.preventDefault();
-    setSearch(e.target.value);
+    setSearch(e.currentTarget.value);
   }
 
   return (
