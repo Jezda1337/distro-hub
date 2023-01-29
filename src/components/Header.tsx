@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, ChangeEvent } from "react";
 import DropdownMenu from "./DropdownMenu";
 import { Button } from "./ui/Button";
 import { Dialog } from "./ui/Dialog";
@@ -19,8 +19,10 @@ export default function Header() {
     setOpen(!open);
   }
 
-  const handleChange = (event: InputEvent) => {
-    const target = event.target as HTMLInputElement;
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const target = event.target;
     setNewDistro({
       ...newDistro,
       [target.name]: target.value,

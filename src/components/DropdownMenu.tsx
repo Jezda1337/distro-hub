@@ -34,19 +34,19 @@ export default function DropdownMenu() {
             <li className="border-b px-5 pb-2">
               <p className="font-medium">Menu</p>
             </li>
-            <li
-              onClick={() => setOpen(false)}
-              className="hover:cursor-pointer hover:bg-black hover:text-white px-5 py-2"
-            >
-              <Link className="block" href={"/waiting-list"}>
+            <li onClick={() => setOpen(false)}>
+              <Link
+                className="block hover:text-white hover:bg-black px-5 py-2"
+                href={"/waiting-list"}
+              >
                 Waiting list
               </Link>
             </li>
-            <li
-              onClick={() => setOpen(false)}
-              className="hover:cursor-pointer hover:bg-black hover:text-white px-5 py-2"
-            >
-              <Link className="block" href={"/about"}>
+            <li onClick={() => setOpen(false)}>
+              <Link
+                className="block hover:text-white hover:bg-black px-5 py-2"
+                href={"/about"}
+              >
                 About
               </Link>
             </li>
