@@ -17,7 +17,7 @@ export default function DistroCard({ distro }: { distro: Distro }) {
       </div>
 
       <h3 className="ml-4 font-bold">{distro.name}</h3>
-      <Link className="ml-auto" href={"/distro/" + distro.id}>
+      <Link className="ml-auto" href={"/" + distro.name.toLowerCase()}>
         <p className="ml-auto">read more</p>
       </Link>
     </article>
