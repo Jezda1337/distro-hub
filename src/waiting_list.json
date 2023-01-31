@@ -4,20 +4,20 @@
     "name": "Ubuntu",
     "website": "web",
     "logo": "/images/ubuntu.svg",
-    "submited_date": "23.01.2023"
+    "createdAt": "2023-01-31 14:18:45.817"
   },
   {
     "id": 2,
     "name": "Arch linux",
     "website": "web",
     "logo": "/images/arch.svg",
-    "submited_date": "23.01.2023"
+    "createdAt": "2023-01-31 14:18:45.817"
   },
   {
     "id": 3,
     "name": "Kubuntu linux",
     "website": "web",
     "logo": "/images/kubuntu.svg",
-    "submited_date": "23.01.2023"
+    "createdAt": "2023-01-31 14:18:45.817"
   }
 ]

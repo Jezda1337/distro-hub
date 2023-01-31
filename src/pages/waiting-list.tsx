@@ -1,14 +1,35 @@
-// import waiting_list from "@/waiting_list.json";
 import WaitingDistroCard from "@/components/WaitingDistroCard";
-
+import waiting_list from "@/waiting_list.json";
 export async function getServerSideProps() {
   const res = await fetch("http://localhost:3000/api/waitingList/get");
+
   const data = await res.json();
 
-  return { props: { data } };
+  function isEmpty(obj: any) {
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) return false;
+    }
+
+    return true;
+  }
+
+  if (isEmpty(data)) {
+    return {
+      props: {
+        data: waiting_list,
+      },
+    };
+  } else {
+    return {
+      props: {
+        data,
+      },
+    };
+  }
 }
 
 export default function WaitingList({ data }: any) {
+  console.log(data);
   return (
     <section className="mt-40">
       <div className="w-full flex justify-between text-sm text-slate-500 items-center border-gray-500 px-4 py-1">

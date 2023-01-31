@@ -6,7 +6,6 @@ interface Distro {
   name: string;
   logo: string;
   website: string;
-  submited_date: string;
   createdAt: Date;
 }
 

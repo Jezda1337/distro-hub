@@ -9,9 +9,11 @@ export default async function handler(
 
   try {
     const getWaitingList = await prisma.waitingDistro.findMany();
-    console.log(getWaitingList);
-    res.status(200).json(getWaitingList);
+    return res.status(200).json(getWaitingList);
   } catch (error) {
     console.error(error);
+    return res.status(500).json({
+      message: res.statusMessage,
+    });
   }
 }
