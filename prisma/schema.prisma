@@ -33,3 +33,14 @@ model Distro {
   published Boolean  @default(false)
   createdAt DateTime @default(now()) @db.Timestamp(6)
 }
+
+model WaitingDistro {
+  id      Int    @id @default(autoincrement())
+  email   String @unique
+  name    String @db.VarChar(255)
+  website String @db.VarChar(255)
+  brief   String @db.VarChar(255)
+  logo    String
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+}

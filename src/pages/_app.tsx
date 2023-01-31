@@ -1,8 +1,8 @@
 import Header from "@/components/Header";
 import Wrapper from "@/context";
+import { Poppins } from "@next/font/google";
 import type { AppProps } from "next/app";
 import "tailwindcss/tailwind.css";
-import { Poppins } from "@next/font/google";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] });
 

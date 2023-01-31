@@ -16,6 +16,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
     name: "",
     website: "",
     message: "",
+    logo: "",
   });
 
   function handleChange(
@@ -27,10 +28,31 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
       [target.name]: target.value,
     });
   }
+  function handleImages(event: ChangeEvent<HTMLInputElement>) {
+    const selectedFile = event.target.files![0]; // using ! is not recommendent should finde better way
+    if (!selectedFile) return;
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onload = () => {
+      console.log(reader.result);
+      setNewDistro({ ...newDistro, logo: reader.result as string });
+    };
+  }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setOpen(false);
+
+    try {
+      const res = await fetch("/api/waitingList/create", {
+        method: "POST",
+        body: JSON.stringify(newDistro),
+      });
+      console.log(await res.json());
+      return res.status;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -78,6 +100,15 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
               name="website"
               required={true}
               placeholder="Distro website"
+            />
+          </div>
+          <div>
+            <input
+              onChange={handleImages}
+              type="file"
+              name="logo"
+              required={true}
+              placeholder="Distro logo"
             />
           </div>
           <div>

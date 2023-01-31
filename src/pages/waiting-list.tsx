@@ -1,7 +1,14 @@
+// import waiting_list from "@/waiting_list.json";
 import WaitingDistroCard from "@/components/WaitingDistroCard";
-import waiting_list from "@/waiting_list.json";
 
-export default function WaitingList() {
+export async function getServerSideProps() {
+  const res = await fetch("http://localhost:3000/api/waitingList/get");
+  const data = await res.json();
+
+  return { props: { data } };
+}
+
+export default function WaitingList({ data }: any) {
   return (
     <section className="mt-40">
       <div className="w-full flex justify-between text-sm text-slate-500 items-center border-gray-500 px-4 py-1">
@@ -15,9 +22,18 @@ export default function WaitingList() {
         </div>
         <span className="ml-auto">Details</span>
       </div>
-      {waiting_list.map((distro) => (
-        <WaitingDistroCard key={distro.id} distro={distro} />
-      ))}
+      {/* {waiting_list.map((distro) => ( */}
+      {/*   <WaitingDistroCard key={distro.id} distro={distro} /> */}
+      {/* ))} */}
+      {data.length !== 0 ? (
+        data.map((distro: any) => (
+          <WaitingDistroCard key={distro.id} distro={distro} />
+        ))
+      ) : (
+        <p className="font-bold text-center mt-7 text-2xl">
+          No waiting distros.
+        </p>
+      )}
     </section>
   );
 }
