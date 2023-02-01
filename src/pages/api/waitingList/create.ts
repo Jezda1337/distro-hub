@@ -9,6 +9,8 @@ export default async function handler(
   const data = JSON.parse(body);
   const prisma = new PrismaClient();
 
+  console.log(data);
+
   try {
     const newWaitingDistro = await prisma.waitingDistro.create({
       data: {

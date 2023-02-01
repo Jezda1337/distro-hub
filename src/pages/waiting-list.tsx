@@ -1,8 +1,8 @@
 import WaitingDistroCard from "@/components/WaitingDistroCard";
 import waiting_list from "@/waiting_list.json";
+
 export async function getServerSideProps() {
   const res = await fetch("http://localhost:3000/api/waitingList/get");
-
   const data = await res.json();
 
   function isEmpty(obj: any) {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { twMerge } from "tailwind-merge";
 
-const defaultStyle = `px-3 py-1 border rounded bg-white hover:bg-black hover:text-white transition-all`;
+const defaultStyle = `px-3 py-1 border rounded bg-white hover:bg-black hover:text-white transition-all cursor-pointer`;
 
 const Button = React.forwardRef<
   HTMLButtonElement,

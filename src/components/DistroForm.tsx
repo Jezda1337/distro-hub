@@ -1,8 +1,10 @@
+import { IsFileSizeOk } from "@/helpers/fileSize.validator";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "./ui/Button";
 import { Dialog } from "./ui/Dialog";
 import { Input } from "./ui/Input";
+import { InputFile } from "./ui/InputFile";
 
 interface Props {
   handleOpen(): void;
@@ -11,6 +13,8 @@ interface Props {
 }
 
 export default function DistroForm({ handleOpen, setOpen, open }: Props) {
+  const [fileName, setFileName] = useState("");
+  const [fileError, setFileError] = useState(false);
   const [newDistro, setNewDistro] = useState({
     email: "",
     name: "",
@@ -30,11 +34,19 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
   }
   function handleImages(event: ChangeEvent<HTMLInputElement>) {
     const selectedFile = event.target.files![0]; // using ! is not recommendent should finde better way
+
+    if (IsFileSizeOk(selectedFile?.size)) {
+      setFileName(selectedFile?.name);
+      setFileError(false);
+    } else {
+      setFileName("");
+      setFileError(true);
+    }
+
     if (!selectedFile) return;
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
     reader.onload = () => {
-      console.log(reader.result);
       setNewDistro({ ...newDistro, logo: reader.result as string });
     };
   }
@@ -67,8 +79,11 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
         open={open}
         className="bg-white shadow rounded border w-11/12 md:w-4/12"
       >
-        <header className="flex justify-between items-center border-b pb-3 mb-3">
-          <p className="text-lg font-medium">Submit distro</p>
+        <header className="flex justify-between items-start border-b pb-3 mb-3">
+          <div>
+            <p className="text-lg font-medium">Submit distro</p>
+            <p className="text-sm text-slate-500">Please fill in the fields.</p>
+          </div>
           <Button onClick={handleOpen}>
             <XMarkIcon className="w-5 h-5" />
           </Button>
@@ -82,6 +97,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
             <Input
               onChange={handleChange}
               name="email"
+              type="email"
               required={true}
               placeholder="Email"
             />
@@ -103,12 +119,13 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
             />
           </div>
           <div>
-            <input
+            <InputFile
+              className={`${fileName != "" ? "bg-green-400" : ""} ${
+                fileError ? "bg-red-500" : ""
+              }`}
+              accept=".jpg, .jpeg, .svg, .png, .webp"
               onChange={handleImages}
-              type="file"
-              name="logo"
-              required={true}
-              placeholder="Distro logo"
+              label={fileName ? fileName : fileError ? "File is too big" : ""}
             />
           </div>
           <div>
