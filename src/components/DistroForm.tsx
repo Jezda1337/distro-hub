@@ -1,3 +1,4 @@
+import { ConvertToBase64 } from "@/helpers/convertToBase64";
 import { IsFileSizeOk } from "@/helpers/fileSize.validator";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -32,7 +33,8 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
       [target.name]: target.value,
     });
   }
-  function handleImages(event: ChangeEvent<HTMLInputElement>) {
+
+  async function handleImages(event: ChangeEvent<HTMLInputElement>) {
     const selectedFile = event.target.files![0]; // using ! is not recommendent should finde better way
 
     if (IsFileSizeOk(selectedFile?.size)) {
@@ -44,11 +46,8 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
     }
 
     if (!selectedFile) return;
-    const reader = new FileReader();
-    reader.readAsDataURL(selectedFile);
-    reader.onload = () => {
-      setNewDistro({ ...newDistro, logo: reader.result as string });
-    };
+    const logoBase64 = (await ConvertToBase64(selectedFile)) as string;
+    setNewDistro({ ...newDistro, logo: logoBase64 });
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -60,7 +59,6 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
         method: "POST",
         body: JSON.stringify(newDistro),
       });
-      console.log(await res.json());
       return res.status;
     } catch (error) {
       console.error(error);

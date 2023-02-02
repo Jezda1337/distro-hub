@@ -20,7 +20,7 @@ export default function DropdownMenu() {
   }, []);
 
   return (
-    <div ref={menuRef} className="relative">
+    <div tabIndex={0} ref={menuRef} className="relative">
       <Button onClick={() => setOpen(!open)}>
         {!open ? (
           <Bars3BottomRightIcon className="w-6 h-6" />
@@ -29,8 +29,11 @@ export default function DropdownMenu() {
         )}
       </Button>
       {open ? (
-        <div className="absolute right-0 borderpy-3 border rounded mt-3 z-10 bg-white min-w-[150px] shadow">
-          <ul className="py-2">
+        <div
+          tabIndex={0}
+          className="absolute right-0 borderpy-3 border rounded mt-3 z-10 bg-white min-w-[150px] shadow"
+        >
+          <ul className="py-2" tabIndex={0}>
             <li className="border-b px-5 pb-2">
               <p className="font-medium">Menu</p>
             </li>

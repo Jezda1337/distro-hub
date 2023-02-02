@@ -13,8 +13,6 @@ export function Wrapper({ children }: { children: React.ReactNode }) {
         name.toLowerCase().match(query.toLowerCase())
       );
 
-      console.log(listByQuery);
-
       setList(listByQuery);
     } else setList(data);
   }

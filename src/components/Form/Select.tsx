@@ -32,7 +32,6 @@ export default function Select({ options, placeholder }: Props) {
   }
   return (
     <div
-      tabIndex={-1}
       onClick={handleShow}
       onBlur={handleBlur}
       className="w-full md:w-56 relative bg-white border rounded h-9"
@@ -65,21 +64,19 @@ export default function Select({ options, placeholder }: Props) {
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="menu-button"
-        tabIndex={-1}
         className={`absolute z-10 top-[calc(100%+1rem)] max-h-44 overflow-auto shadow w-full bg-inherit rounded px-0 mx-0 border border-black list-none
           ${show ? "block" : "hidden"}`}
       >
         {options.map((option: { id: number; name: string; image: string }) => (
           <li
             role="menuitem"
-            tabIndex={-1}
             className={`flex items-center hover:text-white hover:bg-black hover:cursor-pointer px-2 py-1 ${
               option.name === selected?.name ? "bg-black text-white" : null
             }`}
             onMouseDown={() => handleSelection(option)}
             key={option.id}
           >
-            <div className="mr-3">
+            <div tabIndex={0} className="mr-3">
               <Image
                 src={`${option?.image}`}
                 width={16}

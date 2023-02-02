@@ -28,8 +28,18 @@ export async function getServerSideProps() {
   }
 }
 
-export default function WaitingList({ data }: any) {
-  console.log(data);
+interface Distro {
+  id: number;
+  name: string;
+  image: string;
+  popularity: string;
+  category: string[];
+}
+interface Props {
+  data: Distro[];
+}
+
+export default function WaitingList({ data }: Props) {
   return (
     <section className="mt-40">
       <div className="w-full flex justify-between text-sm text-slate-500 items-center border-gray-500 px-4 py-1">
@@ -43,9 +53,6 @@ export default function WaitingList({ data }: any) {
         </div>
         <span className="ml-auto">Details</span>
       </div>
-      {/* {waiting_list.map((distro) => ( */}
-      {/*   <WaitingDistroCard key={distro.id} distro={distro} /> */}
-      {/* ))} */}
       {data.length !== 0 ? (
         data.map((distro: any) => (
           <WaitingDistroCard key={distro.id} distro={distro} />

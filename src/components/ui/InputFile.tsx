@@ -1,8 +1,9 @@
 import * as React from "react";
 import { twMerge } from "tailwind-merge";
 import { Button } from "./Button";
+import { ArrowUpTrayIcon } from "@heroicons/react/20/solid";
 
-const defaultStyling = `block px-3 py-1 md:hover:cursor-pointer`;
+const defaultStyling = `flex w-full gap-3 justify-center items-center px-3 py-3 text-slate-500 md:hover:cursor-pointer`;
 
 const InputFile = React.forwardRef<
   HTMLInputElement,
@@ -17,18 +18,19 @@ const InputFile = React.forwardRef<
           htmlFor="input_file"
           className={twMerge(defaultStyling, className)}
         >
-          {label ? label : "Upload file"}
+          <span>{label ? label : "Upload file"}</span>
+          <ArrowUpTrayIcon className="w-5 h-5" />
+          <input
+            id="input_file"
+            placeholder="Placeholder .."
+            ref={ref}
+            type="file"
+            className="hidden"
+            autoComplete="off"
+            {...props}
+          />
         </label>
       </Button>
-      <input
-        id="input_file"
-        placeholder="Placeholder .."
-        ref={ref}
-        type="file"
-        className="hidden"
-        autoComplete="off"
-        {...props}
-      />
     </div>
   );
 });

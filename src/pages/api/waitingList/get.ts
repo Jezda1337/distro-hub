@@ -5,7 +5,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const prisma = new PrismaClient();
-  console.log(req.body);
 
   try {
     const getWaitingList = await prisma.waitingDistro.findMany();
