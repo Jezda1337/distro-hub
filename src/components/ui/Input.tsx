@@ -8,7 +8,7 @@ const Input = React.forwardRef<
   React.InputHTMLAttributes<HTMLInputElement>
 >(({ className, ...props }, ref) => {
   return (
-    <div>
+    <div className="w-full">
       <input
         placeholder="Placeholder .."
         className={twMerge(defaultStyling, className)}

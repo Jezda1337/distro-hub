@@ -108,8 +108,12 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
               placeholder="Distro name"
             />
           </div>
-          <div>
+          <div className="flex items-center">
+            <div className="border rounded px-3 py-2 h-9 leading-none">
+              www.
+            </div>
             <Input
+              className="w-full"
               onChange={handleChange}
               name="website"
               required={true}

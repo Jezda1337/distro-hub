@@ -3,7 +3,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useContext, FormEvent } from "react";
 import { Input } from "../ui/Input";
 
-export default function Test() {
+export default function Search() {
   const { search, setSearch } = useContext(MyContext);
 
   function handleSearch(e: FormEvent<HTMLInputElement>) {
@@ -17,7 +17,7 @@ export default function Test() {
         onChange={handleSearch}
         placeholder="Search by name .."
         autoComplete="off"
-        className="font-black"
+        className="font-black pr-8"
       />
       <div className="absolute inset-y-0 right-0 flex items-center pr-2">
         <MagnifyingGlassIcon

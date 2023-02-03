@@ -6,6 +6,7 @@ import { useContext } from "react";
 
 export default function Home() {
   const { list } = useContext(MyContext);
+
   return (
     <section>
       <Filters />

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 interface Distro {
   id: number;
@@ -36,9 +35,14 @@ export default function WaitingDistroCard({ distro }: { distro: Distro }) {
         </h3>
       </div>
 
-      <Link className="ml-auto" href={distro.website}>
+      <a
+        className="ml-auto"
+        target="_blank"
+        rel="noreferrer"
+        href={`http://www.${distro.website}`}
+      >
         <p className="ml-auto">website</p>
-      </Link>
+      </a>
     </article>
   );
 }
