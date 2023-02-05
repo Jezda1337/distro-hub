@@ -30,7 +30,8 @@ export default function Select({
   placeholder,
   setSelect,
 }: {
-  options: Props["options"] | { id: number; name: string; image: string }[];
+  // options: Props["options"] | { id: number; name: string; image: string }[];
+  options: any;
   placeholder: Props["placeholder"];
   setSelect: Props["setSelect"];
 }) {
