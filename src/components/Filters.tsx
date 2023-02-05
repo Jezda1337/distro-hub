@@ -1,25 +1,15 @@
+import { MyContext } from "@/context";
+import { useContext } from "react";
+import de_list from "../de_list.json";
 import Search from "./Form/Search";
 import Select from "./Form/Select";
 
-const catergory = [
-  {
-    id: 1,
-    name: "gaming",
-    image: "/images/arch.svg",
-  },
-  {
-    id: 2,
-    name: "programming",
-    image: "/images/arch.svg",
-  },
-  {
-    id: 3,
-    name: "general",
-    image: "/images/arch.svg",
-  },
-];
-
 const basedOn = [
+  {
+    id: 0,
+    name: "none",
+    image: "/images/ubuntu.svg",
+  },
   {
     id: 1,
     name: "Ubuntu",
@@ -53,6 +43,7 @@ const basedOn = [
 ];
 
 export default function Filters() {
+  const { setSelectByBasedOn, setSelectByEnv } = useContext(MyContext);
   return (
     <section className="my-20">
       <form
@@ -60,8 +51,16 @@ export default function Filters() {
         className="flex justify-between flex-col md:flex-row"
       >
         <div className="flex gap-6 flex-col md:flex-row">
-          <Select options={basedOn} placeholder="Based on Ubuntu .." />
-          <Select options={catergory} placeholder="Category .." />
+          <Select
+            options={basedOn}
+            placeholder="Based on Ubuntu .."
+            setSelect={setSelectByBasedOn}
+          />
+          <Select
+            options={de_list}
+            placeholder="Desktop env .."
+            setSelect={setSelectByEnv}
+          />
         </div>
         <Search />
       </form>

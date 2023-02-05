@@ -4,34 +4,44 @@
     "name": "Ubuntu",
     "image": "/images/ubuntu.svg",
     "category": ["gaming", "programming", "general", "begginner"],
-    "popularity": "hight"
+    "popularity": "hight",
+    "desktopEnvironments": ["gnome", "kde", "xfce"],
+    "basedOn": ["debian"]
   },
   {
     "id": 2,
     "name": "Arch",
     "image": "/images/arch.svg",
     "category": ["gaming", "programming", "advanced"],
-    "popularity": "hight"
+    "popularity": "hight",
+    "desktopEnvironments": ["gnome", "kde", "xfce", "i3", "mate"],
+    "basedOn": ["independent"]
   },
   {
     "id": 3,
     "name": "Mint",
     "image": "/images/mint.svg",
     "category": ["gaming", "general", "begginner"],
-    "popularity": "hight"
+    "popularity": "hight",
+    "desktopEnvironments": ["cinnemon", "xfce", "mate"],
+    "basedOn": ["debian", "ubuntu"]
   },
   {
     "id": 4,
     "name": "PoP!_OS",
     "image": "/images/pop.svg",
     "category": ["gaming", "general", "begginner", "programming"],
-    "popularity": "hight"
+    "popularity": "hight",
+    "desktopEnvironments": ["cosmic", "gnome"],
+    "basedOn": ["ubuntu"]
   },
   {
     "id": 5,
     "name": "Kubuntu",
     "image": "/images/kubuntu.svg",
     "category": ["gaming", "general", "begginner"],
-    "popularity": "hight"
+    "popularity": "hight",
+    "desktopEnvironments": ["kde"],
+    "basedOn": ["ubuntu"]
   }
 ]

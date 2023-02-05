@@ -1,67 +1,67 @@
-import { ConvertToBase64 } from "@/helpers/convertToBase64";
-import { IsFileSizeOk } from "@/helpers/fileSize.validator";
-import { XMarkIcon } from "@heroicons/react/20/solid";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { Button } from "./ui/Button";
-import { Dialog } from "./ui/Dialog";
-import { Input } from "./ui/Input";
-import { InputFile } from "./ui/InputFile";
+import { ConvertToBase64 } from "@/helpers/convertToBase64"
+import { IsFileSizeOk } from "@/helpers/fileSize.validator"
+import { XMarkIcon } from "@heroicons/react/20/solid"
+import { ChangeEvent, FormEvent, useState } from "react"
+import { Button } from "./ui/Button"
+import { Dialog } from "./ui/Dialog"
+import { Input } from "./ui/Input"
+import { InputFile } from "./ui/InputFile"
 
 interface Props {
-  handleOpen(): void;
-  setOpen(open: boolean): void;
-  open: boolean;
+  handleOpen(): void
+  setOpen(open: boolean): void
+  open: boolean
 }
 
 export default function DistroForm({ handleOpen, setOpen, open }: Props) {
-  const [fileName, setFileName] = useState("");
-  const [fileError, setFileError] = useState(false);
+  const [fileName, setFileName] = useState("")
+  const [fileError, setFileError] = useState(false)
   const [newDistro, setNewDistro] = useState({
     email: "",
     name: "",
     website: "",
     message: "",
     logo: "",
-  });
+  })
 
   function handleChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    const target = event.target;
+    const target = event.target
     setNewDistro({
       ...newDistro,
       [target.name]: target.value,
-    });
+    })
   }
 
   async function handleImages(event: ChangeEvent<HTMLInputElement>) {
-    const selectedFile = event.target.files![0]; // using ! is not recommendent should finde better way
+    const selectedFile = event.target.files![0] // using ! is not recommendent should finde better way
 
     if (IsFileSizeOk(selectedFile?.size)) {
-      setFileName(selectedFile?.name);
-      setFileError(false);
+      setFileName(selectedFile?.name)
+      setFileError(false)
     } else {
-      setFileName("");
-      setFileError(true);
+      setFileName("")
+      setFileError(true)
     }
 
-    if (!selectedFile) return;
-    const logoBase64 = (await ConvertToBase64(selectedFile)) as string;
-    setNewDistro({ ...newDistro, logo: logoBase64 });
+    if (!selectedFile) return
+    const logoBase64 = (await ConvertToBase64(selectedFile)) as string
+    setNewDistro({ ...newDistro, logo: logoBase64 })
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setOpen(false);
+    event.preventDefault()
+    setOpen(false)
 
     try {
       const res = await fetch("/api/waitingList/create", {
         method: "POST",
         body: JSON.stringify(newDistro),
-      });
-      return res.status;
+      })
+      return res.status
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 
@@ -75,7 +75,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
       <Dialog
         onClick={(e) => e.stopPropagation()}
         open={open}
-        className="bg-white shadow rounded border w-11/12 md:w-4/12"
+        className="bg-white shadow rounded border w-11/12 md:w-6/12"
       >
         <header className="flex justify-between items-start border-b pb-3 mb-3">
           <div>
@@ -109,7 +109,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
             />
           </div>
           <div className="flex items-center">
-            <div className="border rounded px-3 py-2 h-9 leading-none">
+            <div className="border rounded px-3 py-2 h-9 leading-none mr-2 md:mr-4">
               www.
             </div>
             <Input
@@ -145,5 +145,5 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
         </form>
       </Dialog>
     </div>
-  );
+  )
 }

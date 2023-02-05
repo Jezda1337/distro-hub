@@ -1,0 +1,61 @@
+{
+  "de": [
+    {
+      "id": 1,
+      "name": "Gnome",
+      "image": "/de/gnome.svg"
+    },
+    {
+      "id": 2,
+      "name": "KDE",
+      "image": "/de/kde.svg"
+    },
+    {
+      "id": 3,
+      "name": "Mate",
+      "image": "/de/mate.svg"
+    },
+    {
+      "id": 4,
+      "name": "Budgie",
+      "image": "/de/budgie.svg"
+    },
+    {
+      "id": 5,
+      "name": "Lxqt",
+      "image": "/de/lxqt.svg"
+    },
+    {
+      "id": 6,
+      "name": "Cinnamon",
+      "image": "/de/cinnamon.svg"
+    },
+    {
+      "id": 7,
+      "name": "Deepin",
+      "image": "/de/deepin.svg"
+    },
+    {
+      "id": 8,
+      "name": "Xfce",
+      "image": "/de/xfce.svg"
+    }
+  ],
+  "wm": [
+    {
+      "id": 1,
+      "name": "Awesome",
+      "image": "/wm/awesome.svg"
+    },
+    {
+      "id": 2,
+      "name": "I3",
+      "image": "/wm/i3.svg"
+    },
+    {
+      "id": 3,
+      "name": "BSPWM",
+      "image": "/wm/bspwm.svg"
+    }
+  ]
+}

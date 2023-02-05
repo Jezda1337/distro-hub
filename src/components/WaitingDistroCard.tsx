@@ -1,20 +1,20 @@
-import Image from "next/image";
+import Image from "next/image"
 
 interface Distro {
-  id: number;
-  name: string;
-  logo: string;
-  website: string;
-  createdAt: Date;
+  id: number
+  name: string
+  logo: string
+  website: string
+  createdAt: Date
 }
 
 export default function WaitingDistroCard({ distro }: { distro: Distro }) {
-  const submittedDate = new Date(distro.createdAt);
+  const submittedDate = new Date(distro.createdAt)
 
   function toJSONLocal(date: Date) {
-    var local = new Date(date);
-    local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-    return local.toJSON().slice(0, 10);
+    var local = new Date(date)
+    local.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+    return local.toJSON().slice(0, 10)
   }
 
   return (
@@ -23,8 +23,9 @@ export default function WaitingDistroCard({ distro }: { distro: Distro }) {
         <Image
           src={distro.logo ? distro.logo : "/images/arch.svg"}
           alt="test"
-          width={32}
-          height={32}
+          width="0"
+          height="0"
+          className="w-8 h-8"
         />
       </div>
 
@@ -44,5 +45,5 @@ export default function WaitingDistroCard({ distro }: { distro: Distro }) {
         <p className="ml-auto">website</p>
       </a>
     </article>
-  );
+  )
 }
