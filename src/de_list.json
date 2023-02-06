@@ -1,6 +1,10 @@
 {
   "de": [
     {
+      "id": 0,
+      "name": "None"
+    },
+    {
       "id": 1,
       "name": "Gnome",
       "image": "/de/gnome.svg"

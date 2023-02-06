@@ -7,8 +7,7 @@ import Select from "./Form/Select";
 const basedOn = [
   {
     id: 0,
-    name: "none",
-    image: "/images/ubuntu.svg",
+    name: "None",
   },
   {
     id: 1,

@@ -1,3 +1,4 @@
+import { NoSymbolIcon } from "@heroicons/react/20/solid";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useState } from "react";
@@ -7,12 +8,12 @@ interface Props {
     de: {
       id: number;
       name: string;
-      image: string;
+      image?: string;
     }[];
     wm: {
       id: number;
       name: string;
-      image: string;
+      image?: string;
     }[];
   };
   placeholder: string;
@@ -22,7 +23,7 @@ interface Props {
 interface Selected {
   id: number;
   name: string;
-  image: string;
+  image?: string;
 }
 
 export default function Select({
@@ -31,7 +32,7 @@ export default function Select({
   setSelect,
 }: {
   // options: Props["options"] | { id: number; name: string; image: string }[];
-  options: any;
+  options: any; // this needs to be fixed
   placeholder: Props["placeholder"];
   setSelect: Props["setSelect"];
 }) {
@@ -43,7 +44,7 @@ export default function Select({
   }
 
   function handleSelection(selectedValue: any) {
-    if (selectedValue.name === "none") {
+    if (selectedValue.name === "None") {
       setSelected(null);
       setSelect("");
       return;
@@ -73,15 +74,19 @@ export default function Select({
           {selected ? (
             <div className="flex items-center">
               <div className="mr-3">
-                <Image
-                  src={selected.image}
-                  width="0"
-                  height="0"
-                  className="w-5 h-5"
-                  alt=""
-                />
+                {selected.image ? (
+                  <Image
+                    src={selected.image}
+                    width="0"
+                    height="0"
+                    className="w-5 h-5"
+                    alt=""
+                  />
+                ) : (
+                  <NoSymbolIcon className="w-5 h-5 " />
+                )}
               </div>
-              <span> {selected.name}</span>
+              <span>{selected.name}</span>
             </div>
           ) : (
             <span className="text-slate-400">{placeholder}</span>
@@ -106,7 +111,7 @@ export default function Select({
         ) : null}
         {Object.hasOwn(options, "de")
           ? options.de.map(
-              (option: { id: number; name: string; image: string }) => (
+              (option: { id: number; name: string; image?: string }) => (
                 <li
                   role="menuitem"
                   className={`flex items-center hover:text-white hover:bg-black hover:cursor-pointer px-2 py-1 ${
@@ -118,13 +123,17 @@ export default function Select({
                   key={option.id}
                 >
                   <div tabIndex={0} className="mr-3">
-                    <Image
-                      src={`${option?.image}`}
-                      width="0"
-                      height="0"
-                      className="w-5 h-5"
-                      alt="some image"
-                    />
+                    {option.id === 0 ? (
+                      <NoSymbolIcon className="w-5 h-5" />
+                    ) : (
+                      <Image
+                        src={`${option.image}`}
+                        width="0"
+                        height="0"
+                        className="w-5 h-5"
+                        alt="some image"
+                      />
+                    )}
                   </div>
                   {option.name}
                 </li>
@@ -143,13 +152,17 @@ export default function Select({
                   key={option.id}
                 >
                   <div tabIndex={0} className="mr-3">
-                    <Image
-                      src={`${option?.image}`}
-                      width="0"
-                      height="0"
-                      className="w-5 h-5"
-                      alt="some image"
-                    />
+                    {option.id === 0 ? (
+                      <NoSymbolIcon className="w-5 h-5" />
+                    ) : (
+                      <Image
+                        src={`${option?.image}`}
+                        width="0"
+                        height="0"
+                        className="w-5 h-5"
+                        alt="some image"
+                      />
+                    )}
                   </div>
                   {option.name}
                 </li>
@@ -172,13 +185,17 @@ export default function Select({
                   key={option.id}
                 >
                   <div tabIndex={0} className="mr-3">
-                    <Image
-                      src={`${option?.image}`}
-                      width="0"
-                      height="0"
-                      className="w-5 h-5"
-                      alt="some image"
-                    />
+                    {option.image !== "undefined" ? (
+                      <Image
+                        src={`${option.image}`}
+                        width="0"
+                        height="0"
+                        className="w-5 h-5"
+                        alt="some image"
+                      />
+                    ) : (
+                      <NoSymbolIcon className="w-5 h-5" />
+                    )}
                   </div>
                   {option.name}
                 </li>
