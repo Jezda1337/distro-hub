@@ -1,4 +1,4 @@
-import { createDistro, getDistroByName } from "@/services/distro.service";
+import { createDistro, getDistros } from "@/services/distro.service";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -6,12 +6,12 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const distro = await getDistroByName("Arch Linux");
-    return res.status(200).json(distro);
+    const distros = await getDistros();
+    return res.status(200).json(distros);
   }
 
   if (req.method === "POST") {
-    const distro = await createDistro(req.body).then((d) => console.log(d));
-    return distro; // this need to change
+    const distro = await createDistro(req.body);
+    return res.status(200).json(distro);
   }
 }

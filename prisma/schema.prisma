@@ -11,21 +11,23 @@ datasource db {
 }
 
 model Distro {
-  id          String   @id @default(uuid())
-  name        String   @db.VarChar(255)
-  website     String   @db.VarChar(255)
-  logo        String
-  description String
-  images      String[]
-  createdAt   DateTime
+  id                  String   @id @default(uuid())
+  name                String   @db.VarChar(255)
+  website             String   @db.VarChar(255)
+  logo                String
+  description         String
+  images              String[]
+  desktopEnvironments String[]
+  basedOn             String
+  createdAt           DateTime @default(now())
 }
 
 model WaitingDistro {
-  id          String    @id @default(uuid())
+  id          String   @id @default(uuid())
   email       String
   name        String
   website     String
   logo        String
-  description String?
-  createdAt   DateTime?
+  description String
+  createdAt   DateTime @default(now())
 }

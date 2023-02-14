@@ -1,6 +1,7 @@
-import { ConvertToBase64 } from "@/helpers/convertToBase64";
+// import { ConvertToBase64 } from "@/helpers/convertToBase64";
 import { IsFileSizeOk } from "@/helpers/fileSize.validator";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "./ui/Button";
 import { Dialog } from "./ui/Dialog";
@@ -23,6 +24,8 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
     description: "",
     logo: "",
   });
+
+  const router = useRouter();
 
   function handleChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -80,6 +83,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
         method: "POST",
         body: JSON.stringify(newDistro),
       });
+      router.replace(router.asPath);
       return res.status;
     } catch (error) {
       console.error(error);

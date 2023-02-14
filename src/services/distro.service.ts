@@ -1,4 +1,5 @@
-import { Distro, PrismaClient } from "@prisma/client";
+import { Distro } from "@/interfaces/distro.interface";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -15,6 +16,10 @@ export async function createDistro(distro: Distro) {
 }
 
 // read
+export function getDistros() {
+  const distros = prisma.distro.findMany();
+  return distros;
+}
 export function getDistroByName(name: string) {
   if (name.length === 0 || name === "") throw new Error("Name is required");
 
