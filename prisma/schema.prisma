@@ -10,37 +10,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Category {
-  id       Int     @id @default(autoincrement())
-  Distro   Distro? @relation(fields: [distroId], references: [id])
-  distroId Int?
-}
-
-model DesktopEnvironment {
-  id       Int     @id @default(autoincrement())
-  name     String  @db.VarChar(255)
-  Distro   Distro? @relation(fields: [distroId], references: [id])
-  distroId Int?
-}
-
 model Distro {
-  id                 Int                  @id @default(autoincrement())
-  name               String               @db.VarChar(255)
-  category           Category[]
-  basedOn            String               @db.VarChar(255)
-  desktopEnvironment DesktopEnvironment[]
-
-  published Boolean  @default(false)
-  createdAt DateTime @default(now()) @db.Timestamp(6)
+  id          String   @id @default(uuid())
+  name        String   @db.VarChar(255)
+  website     String   @db.VarChar(255)
+  logo        String
+  description String
+  images      String[]
+  createdAt   DateTime
 }
 
 model WaitingDistro {
-  id      Int    @id @default(autoincrement())
-  email   String @unique
-  name    String @db.VarChar(255)
-  website String @db.VarChar(255)
-  brief   String @db.VarChar(255)
-  logo    String
-
-  createdAt DateTime @default(now()) @db.Timestamp(6)
+  id          String    @id @default(uuid())
+  email       String
+  name        String
+  website     String
+  logo        String
+  description String?
+  createdAt   DateTime?
 }

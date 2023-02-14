@@ -15,8 +15,9 @@ export default async function handler(
         email: data.email,
         name: data.name,
         website: data.website,
-        brief: data.message,
+        description: data.description,
         logo: data.logo,
+        createdAt: new Date(),
       },
     });
 

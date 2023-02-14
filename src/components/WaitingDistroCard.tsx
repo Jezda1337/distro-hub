@@ -1,12 +1,7 @@
-import Image from "next/image"
+// @ts-ignore
+import { CldImage } from "next-cloudinary"
 
-interface Distro {
-  id: number
-  name: string
-  logo: string
-  website: string
-  createdAt: Date
-}
+import { Distro } from "@/interfaces/distro.interface"
 
 export default function WaitingDistroCard({ distro }: { distro: Distro }) {
   const submittedDate = new Date(distro.createdAt)
@@ -18,14 +13,15 @@ export default function WaitingDistroCard({ distro }: { distro: Distro }) {
   }
 
   return (
-    <article className="w-full flex justify-between items-center border rounded border-gray-500 px-4 py-1 my-3 md:hover:shadow-lg md:hover:transition-all">
+    <article className="my-3 flex w-full items-center justify-between rounded border border-gray-500 px-4 py-1 md:hover:shadow-lg md:hover:transition-all">
       <div>
-        <Image
-          src={distro.logo ? distro.logo : "/images/arch.svg"}
+        <CldImage
           alt="test"
+          src={distro.logo}
           width="0"
           height="0"
-          className="w-8 h-8"
+          className="h-8 w-8"
+          format="svg"
         />
       </div>
 
@@ -42,7 +38,7 @@ export default function WaitingDistroCard({ distro }: { distro: Distro }) {
         rel="noreferrer"
         href={`http://www.${distro.website}`}
       >
-        <p className="ml-auto">website</p>
+        website
       </a>
     </article>
   )
