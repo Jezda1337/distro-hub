@@ -6,4 +6,6 @@ export interface Distro {
   description: string;
   images: string[];
   createdAt: string;
+  basedOn: string;
+  desktopEnvironments: string[];
 }
