@@ -4,7 +4,7 @@ import { Distro } from "@/interfaces/distro.interface";
 
 async function getWaitingList() {
   try {
-    const response = await fetch("http://localhost:3000/api/waitingList/get");
+    const response = await fetch(`${process.env.base_api}/waitingList`);
     return await response.json();
   } catch (error) {
     console.error(error);

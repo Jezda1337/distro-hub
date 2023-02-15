@@ -9,3 +9,13 @@ export interface Distro {
   basedOn: string;
   desktopEnvironments: string[];
 }
+
+export interface WaitingDistro {
+  id: string;
+  email: string;
+  name: string;
+  logo: string;
+  website: string;
+  description: string;
+  createdAt: Date;
+}

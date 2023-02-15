@@ -79,7 +79,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
     setOpen(false);
 
     try {
-      const res = await fetch("/api/waitingList/create", {
+      const res = await fetch(`${process.env.base_api}/waitingList`, {
         method: "POST",
         body: JSON.stringify(newDistro),
       });

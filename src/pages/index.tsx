@@ -24,7 +24,7 @@ export default function Home() {
         <span className="ml-auto">Details</span>
       </div>
 
-      {data.length != 0 ? (
+      {data.length != 0 && data ? (
         data.map((distro: Distro) => (
           <DistroCard key={distro.id} distro={distro} />
         ))
@@ -38,7 +38,7 @@ export default function Home() {
 
 async function getDistros() {
   try {
-    const response = await fetch("http://localhost:3000/api/v1/distro");
+    const response = await fetch(`${process.env.base_api}/distro`);
     return await response.json();
   } catch (error) {
     console.error(error);

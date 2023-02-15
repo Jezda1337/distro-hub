@@ -1,5 +1,5 @@
 import { Distro } from "@/interfaces/distro.interface";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, WaitingDistro } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -9,6 +9,14 @@ export async function createDistro(distro: Distro) {
     throw new Error("Name is required.");
 
   const newDistro = await prisma.distro.create({
+    data: distro,
+  });
+
+  return newDistro;
+}
+
+export async function addToWaitingList(distro: WaitingDistro) {
+  const newDistro = await prisma.waitingDistro.create({
     data: distro,
   });
 
@@ -30,6 +38,11 @@ export function getDistroByName(name: any) {
   });
 
   return distro;
+}
+
+export async function getWaitingDistros() {
+  const distros = await prisma.waitingDistro.findMany();
+  return distros;
 }
 
 // update

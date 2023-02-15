@@ -32,6 +32,8 @@ export default function Distro() {
     queryFn: getDistro,
   });
 
+  console.log(data);
+
   return (
     <>
       <h1>hello world</h1>
