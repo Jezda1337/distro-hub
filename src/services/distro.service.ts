@@ -20,10 +20,10 @@ export function getDistros() {
   const distros = prisma.distro.findMany();
   return distros;
 }
-export function getDistroByName(name: string) {
+export function getDistroByName(name: any) {
   if (name.length === 0 || name === "") throw new Error("Name is required");
 
-  const distro = prisma.waitingDistro.findFirst({
+  const distro = prisma.distro.findFirst({
     where: {
       name: name,
     },

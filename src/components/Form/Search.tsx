@@ -1,10 +1,10 @@
-import { MyContext } from "@/context";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { useContext, FormEvent } from "react";
+import { FormEvent } from "react";
 import { Input } from "../ui/Input";
+import { useState } from "react";
 
 export default function Search() {
-  const { search, setSearch } = useContext(MyContext);
+  const [search, setSearch] = useState("");
 
   function handleSearch(e: FormEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -12,12 +12,12 @@ export default function Search() {
   }
 
   return (
-    <div className="w-full md:w-[255px] h-9 relative mt-8 md:mt-0">
+    <div className="relative mt-8 h-9 w-full md:mt-0 md:w-[255px]">
       <Input
         onChange={handleSearch}
         placeholder="Search by name .."
         autoComplete="off"
-        className="font-black pr-8"
+        className="pr-8 font-black"
       />
       <div className="absolute inset-y-0 right-0 flex items-center pr-2">
         <MagnifyingGlassIcon

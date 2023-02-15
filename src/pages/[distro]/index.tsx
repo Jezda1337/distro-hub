@@ -1,28 +1,41 @@
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
-// TODO need to fetch single distro and disto data, display on the screen.
-export async function getServerSideProps({ params }: any) {
-  const response = await fetch(
-    `http://localhost:3000/api/v1/distro/${params.distro}`
-  );
+async function getDistro({ queryKey }: any) {
+  const [_, distro] = queryKey;
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/distro/${distro}`
+    );
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-  console.log(response);
+export async function getServerSideProps({ params }: any) {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["distro", params["distro"]], getDistro);
+
   return {
     props: {
-      data: [],
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }
 
 export default function Distro() {
-  const router = useRouter();
-  const { distro } = router.query;
+  const { query } = useRouter();
 
-  console.log(distro);
+  const { data } = useQuery({
+    queryKey: ["distro", query.distro],
+    queryFn: getDistro,
+  });
 
   return (
     <>
       <h1>hello world</h1>
+      {data.name}
     </>
   );
 }

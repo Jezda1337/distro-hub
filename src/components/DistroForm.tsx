@@ -51,8 +51,8 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
         method: "POST",
         body: formData,
       }
-    ).then((d) => d.json());
-    return data;
+    );
+    return await data.json();
   }
 
   async function handleImages(event: ChangeEvent<HTMLInputElement>) {

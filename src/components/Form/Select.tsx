@@ -17,7 +17,6 @@ interface Props {
     }[];
   };
   placeholder: string;
-  setSelect(selected: any): void;
 }
 
 interface Selected {
@@ -29,12 +28,10 @@ interface Selected {
 export default function Select({
   options,
   placeholder,
-  setSelect,
 }: {
   // options: Props["options"] | { id: number; name: string; image: string }[];
   options: any; // this needs to be fixed
   placeholder: Props["placeholder"];
-  setSelect: Props["setSelect"];
 }) {
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState<Selected | null>();
@@ -46,11 +43,11 @@ export default function Select({
   function handleSelection(selectedValue: any) {
     if (selectedValue.name === "None") {
       setSelected(null);
-      setSelect("");
+      // setSelect(""); //context
       return;
     }
     setSelected(selectedValue);
-    setSelect(selectedValue);
+    // setSelect(selectedValue); // context
   }
 
   function handleBlur() {
@@ -61,16 +58,16 @@ export default function Select({
     <div
       onClick={handleShow}
       onBlur={handleBlur}
-      className="w-full md:w-56 relative bg-white border rounded h-9"
+      className="relative h-9 w-full rounded border bg-white md:w-56"
     >
       <button
         id="menu-button"
         aria-expanded="true"
         aria-haspopup="true"
         type="button"
-        className="w-full flex items-center h-full focus:outline focus:outline-black rounded focus:outline-2"
+        className="flex h-full w-full items-center rounded focus:outline focus:outline-2 focus:outline-black"
       >
-        <span className="block text-left py-2 px-3 w-full h-full leading-none">
+        <span className="block h-full w-full py-2 px-3 text-left leading-none">
           {selected ? (
             <div className="flex items-center">
               <div className="mr-3">
@@ -79,11 +76,11 @@ export default function Select({
                     src={selected.image}
                     width="0"
                     height="0"
-                    className="w-5 h-5"
+                    className="h-5 w-5"
                     alt=""
                   />
                 ) : (
-                  <NoSymbolIcon className="w-5 h-5 " />
+                  <NoSymbolIcon className="h-5 w-5 " />
                 )}
               </div>
               <span>{selected.name}</span>
@@ -92,8 +89,8 @@ export default function Select({
             <span className="text-slate-400">{placeholder}</span>
           )}
         </span>
-        <span className="absolute block right-3">
-          <ChevronUpDownIcon className="w-6 h-6 text-gray-500" />
+        <span className="absolute right-3 block">
+          <ChevronUpDownIcon className="h-6 w-6 text-gray-500" />
         </span>
       </button>
 
@@ -105,7 +102,7 @@ export default function Select({
           ${show ? "block" : "hidden"}`}
       >
         {Object.hasOwn(options, "de") ? (
-          <li className="px-2 py-1 font-bold border-b mb-2">
+          <li className="mb-2 border-b px-2 py-1 font-bold">
             Desktop Environment
           </li>
         ) : null}
@@ -124,13 +121,13 @@ export default function Select({
                 >
                   <div tabIndex={0} className="mr-3">
                     {option.id === 0 ? (
-                      <NoSymbolIcon className="w-5 h-5" />
+                      <NoSymbolIcon className="h-5 w-5" />
                     ) : (
                       <Image
                         src={`${option.image}`}
                         width="0"
                         height="0"
-                        className="w-5 h-5"
+                        className="h-5 w-5"
                         alt="some image"
                       />
                     )}
@@ -153,13 +150,13 @@ export default function Select({
                 >
                   <div tabIndex={0} className="mr-3">
                     {option.id === 0 ? (
-                      <NoSymbolIcon className="w-5 h-5" />
+                      <NoSymbolIcon className="h-5 w-5" />
                     ) : (
                       <Image
                         src={`${option?.image}`}
                         width="0"
                         height="0"
-                        className="w-5 h-5"
+                        className="h-5 w-5"
                         alt="some image"
                       />
                     )}
@@ -169,7 +166,7 @@ export default function Select({
               )
             )}
         {Object.hasOwn(options, "wm") ? (
-          <div className="px-2 py-1 font-bold border my-2">Window Menager</div>
+          <div className="my-2 border px-2 py-1 font-bold">Window Menager</div>
         ) : null}
         {Object.hasOwn(options, "wm")
           ? options.wm.map(
@@ -190,11 +187,11 @@ export default function Select({
                         src={`${option.image}`}
                         width="0"
                         height="0"
-                        className="w-5 h-5"
+                        className="h-5 w-5"
                         alt="some image"
                       />
                     ) : (
-                      <NoSymbolIcon className="w-5 h-5" />
+                      <NoSymbolIcon className="h-5 w-5" />
                     )}
                   </div>
                   {option.name}

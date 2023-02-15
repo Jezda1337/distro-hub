@@ -1,12 +1,14 @@
 import DistroCard from "@/components/DistroCard";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import Filters from "@/components/Filters";
 import WorkInProgressBar from "@/components/WorkInProgressBar";
 import { Distro } from "@/interfaces/distro.interface";
-// import { MyContext } from "@/context";
-// import { useContext } from "react";
 
-export default function Home({ data }: { data: Distro[] }) {
-  // const { list } = useContext(MyContext);
+export default function Home() {
+  const { data } = useQuery({
+    queryKey: ["distros"],
+    queryFn: getDistros,
+  });
 
   return (
     <section>
@@ -34,13 +36,22 @@ export default function Home({ data }: { data: Distro[] }) {
   );
 }
 
+async function getDistros() {
+  try {
+    const response = await fetch("http://localhost:3000/api/v1/distro");
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function getServerSideProps() {
-  const response = await fetch("http://localhost:3000/api/v1/distro");
-  const data = await response.json();
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["distros"], getDistros);
 
   return {
     props: {
-      data: data,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }
