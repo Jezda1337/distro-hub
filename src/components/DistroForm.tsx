@@ -69,8 +69,6 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
     }
 
     if (!selectedFile || data === null) return;
-    // const logoBase64 = (await ConvertToBase64(selectedFile)) as string;
-
     setNewDistro({ ...newDistro, logo: data.public_id });
   }
 

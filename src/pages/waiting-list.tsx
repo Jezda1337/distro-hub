@@ -5,6 +5,7 @@ import { Distro } from "@/interfaces/distro.interface";
 async function getWaitingList() {
   try {
     const response = await fetch(`${process.env.base_api}/waitingList`);
+    // const response = await fetch("/api/v1/waitingList");
     return await response.json();
   } catch (error) {
     console.error(error);
@@ -41,7 +42,7 @@ export default function WaitingList() {
         </div>
         <span className="ml-auto">Details</span>
       </div>
-      {data.length !== 0 ? (
+      {data !== undefined ? (
         data.map((distro: Distro) => (
           <WaitingDistroCard key={distro.id} distro={distro} />
         ))

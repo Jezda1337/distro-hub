@@ -6,7 +6,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 async function getDistro({ queryKey }: any) {
-  const [_, distro] = queryKey;
+  let [_, distro] = queryKey;
+  // make first letter capital
+  distro = distro.charAt(0).toUpperCase() + distro.slice(1);
+
   try {
     const response = await fetch(
       `http://localhost:3000/api/v1/distro/${distro}`
@@ -36,21 +39,19 @@ export default function Distro() {
     queryFn: getDistro,
   });
 
-  const colors = ["red", "green", "blue"];
-
   return (
     <section className="my-20">
       <div className="my-20 h-[300px] w-full bg-red-100"></div>
       <div className="flex items-end">
         <CldImage
           alt="test"
-          src={data.logo}
+          src={"logos/" + data.logo}
           width="0"
           height="0"
           className="h-12 w-12"
           format="svg"
         />
-        <h2 className=" ml-4 text-2xl">{data.name}</h2>
+        <h2 className=" ml-4 text-2xl first-letter:uppercase">{data.name}</h2>
 
         <div className="ml-auto flex gap-4">
           <Button className="">
