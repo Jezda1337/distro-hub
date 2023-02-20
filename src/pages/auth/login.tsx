@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 
 export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -22,16 +24,21 @@ export default function Login() {
       method: "POST",
       body: JSON.stringify(credentials),
     });
-
-    console.log(await admin.json());
+    const adminMessage = await admin.json();
+    console.log(adminMessage);
+    router.push("/dashboard/admin");
   }
   return (
     <>
       <form className="mx-auto mt-[300px] max-w-md" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4">
           <div>
-            <label className="mb-2">Username:</label>
+            <label htmlFor="userName" className="mb-2">
+              Username:
+            </label>
             <Input
+              id="userName"
+              autoFocus
               onChange={(e) => setUserName(e.target.value)}
               className="mx-0"
               placeholder="username"
@@ -40,8 +47,11 @@ export default function Login() {
             />
           </div>
           <div>
-            <label className="mb-2">Password:</label>
+            <label htmlFor="password" className="mb-2">
+              Password:
+            </label>
             <Input
+              id="password"
               onChange={(e) => setPassword(e.target.value)}
               className="mx-0"
               placeholder="password"

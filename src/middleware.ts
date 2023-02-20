@@ -12,17 +12,16 @@ export async function middleware(req: NextRequest) {
   if (nextUrl.pathname.startsWith("/auth/login") && !verifiedToken) return;
 
   if (url.includes("/auth/login") && verifiedToken)
-    return NextResponse.redirect(new URL("/waiting-list", url));
+    return NextResponse.redirect(new URL("/dashboard/admin", url));
 
-  if (url.includes("/waiting-list") && !verifiedToken) {
-    console.log("test");
+  if (url.includes("/dashboard") && !verifiedToken) {
     return NextResponse.redirect(new URL("/auth/login", url));
   }
 
-  if (nextUrl.pathname.startsWith("/waitingList") && !verifiedToken)
+  if (nextUrl.pathname.startsWith("/dashborad") && !verifiedToken)
     return NextResponse.redirect(new URL("/auth/login", url));
 }
 
 export const config = {
-  matcher: ["/auth/login", "/waiting-list"],
+  matcher: ["/auth/login", "/dashboard/:path*"],
 };

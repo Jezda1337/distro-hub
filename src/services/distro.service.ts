@@ -28,12 +28,14 @@ export function getDistros() {
   const distros = prisma.distro.findMany();
   return distros;
 }
-export function getDistroByName(name: any) {
-  if (name.length === 0 || name === "") throw new Error("Name is required");
+
+export function getDistroByName(distroName: string) {
+  if (distroName.length === 0 || !distroName)
+    throw new Error("Name is required");
 
   const distro = prisma.distro.findFirst({
     where: {
-      name: name,
+      name: distroName,
     },
   });
 
@@ -43,6 +45,15 @@ export function getDistroByName(name: any) {
 export async function getWaitingDistros() {
   const distros = await prisma.waitingDistro.findMany();
   return distros;
+}
+
+export async function getWaitingDistro(distroName: string) {
+  const distro = await prisma.waitingDistro.findFirst({
+    where: {
+      name: distroName,
+    },
+  });
+  return distro;
 }
 
 // update

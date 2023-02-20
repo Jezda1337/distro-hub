@@ -22,7 +22,7 @@ export async function verifyAuth(token: string) {
   }
 }
 
-export async function setUserCookie(res: NextApiResponse) {
+export async function setUserCookie(res: NextApiResponse, expTime: number) {
   const token = await new SignJWT({})
     .setProtectedHeader({ alg: "HS256" })
     .setJti(nanoid())
@@ -36,8 +36,8 @@ export async function setUserCookie(res: NextApiResponse) {
       httpOnly: true,
       path: "/",
       secure: true,
-      maxAge: 60 * 60 * 2,
+      maxAge: expTime,
     })
   );
-  return res.status(200).json({ message: "bravo kralju" });
+  return res.status(200).json({ message: "Success!" });
 }
