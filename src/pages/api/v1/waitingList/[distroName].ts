@@ -9,7 +9,7 @@ export default async function handler(
 
   if (req.method === "GET") {
     try {
-      const waitingDistro = await getWaitingDistro(distroName);
+      const waitingDistro = await getWaitingDistro(distroName as string);
       return res.status(200).json([waitingDistro]);
     } catch (error) {
       throw new Error("Something is wrong in GET request.");
