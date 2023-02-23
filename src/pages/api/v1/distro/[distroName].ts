@@ -8,7 +8,7 @@ export default async function handler(
   const { distroName } = req.query;
 
   if (req.method === "GET") {
-    const distro = await getDistroByName(distroName);
+    const distro = await getDistroByName(distroName as string);
     return res.status(200).json(distro);
   }
 }
