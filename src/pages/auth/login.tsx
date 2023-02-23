@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 
@@ -30,6 +31,10 @@ export default function Login() {
   }
   return (
     <>
+      <Head>
+        <title>DistroHub - Login</title>
+      </Head>
+
       <form className="mx-auto mt-[300px] max-w-md" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4">
           <div>

@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/Input";
+import Head from "next/head";
 import { FormEvent, useEffect, useState } from "react";
 
 export default function Admin() {
@@ -21,6 +22,9 @@ export default function Admin() {
   }, [data]);
   return (
     <>
+      <Head>
+        <title>DistroHub - Admin</title>
+      </Head>
       <form onSubmit={getWaitingDistro}>
         <Input onChange={(e) => setDistroName(e.target.value)} />
         <button type="submit">submit</button>

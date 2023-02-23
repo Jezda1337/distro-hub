@@ -1,15 +1,15 @@
 // @ts-ignore
-import { CldImage } from "next-cloudinary"
+import { CldImage } from "next-cloudinary";
 
-import { Distro } from "@/interfaces/distro.interface"
+import { Distro } from "@/interfaces/distro.interface";
 
 export default function WaitingDistroCard({ distro }: { distro: Distro }) {
-  const submittedDate = new Date(distro.createdAt)
+  const submittedDate = new Date(distro.createdAt);
 
   function toJSONLocal(date: Date) {
-    var local = new Date(date)
-    local.setMinutes(date.getMinutes() - date.getTimezoneOffset())
-    return local.toJSON().slice(0, 10)
+    var local = new Date(date);
+    local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
   }
 
   return (
@@ -20,7 +20,7 @@ export default function WaitingDistroCard({ distro }: { distro: Distro }) {
           src={distro.logo}
           width="0"
           height="0"
-          className="h-8 w-8"
+          className="aspect-square w-8"
           format="svg"
         />
       </div>
@@ -41,5 +41,5 @@ export default function WaitingDistroCard({ distro }: { distro: Distro }) {
         website
       </a>
     </article>
-  )
+  );
 }

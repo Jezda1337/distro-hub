@@ -1,6 +1,7 @@
 import WaitingDistroCard from "@/components/WaitingDistroCard";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { Distro } from "@/interfaces/distro.interface";
+import Head from "next/head";
 
 async function getWaitingList() {
   try {
@@ -31,6 +32,9 @@ export default function WaitingList() {
 
   return (
     <section className="mt-40">
+      <Head>
+        <title>DistroHub - Waiting List</title>
+      </Head>
       <div className="flex w-full items-center justify-between border-gray-500 px-4 py-1 text-sm text-slate-500">
         <div className="w-full">
           <span>Logo</span>

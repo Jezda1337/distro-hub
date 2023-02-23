@@ -3,6 +3,7 @@ import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import Filters from "@/components/Filters";
 import WorkInProgressBar from "@/components/WorkInProgressBar";
 import { Distro } from "@/interfaces/distro.interface";
+import Head from "next/head";
 
 export default function Home() {
   const { data } = useQuery({
@@ -12,6 +13,9 @@ export default function Home() {
 
   return (
     <section>
+      <Head>
+        <title>DistroHub</title>
+      </Head>
       <Filters />
       <h1 className="mb-8 text-3xl font-bold">Most Popular</h1>
 

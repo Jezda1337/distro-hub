@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/Button";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 // @ts-ignore
 import { CldImage } from "next-cloudinary";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -41,6 +42,10 @@ export default function Distro() {
 
   return (
     <section className="my-20">
+      <Head>
+        <title>DistroHub - {data.name}</title>
+      </Head>
+
       <div className="my-20 h-[300px] w-full bg-red-100"></div>
       <div className="flex items-end">
         <CldImage

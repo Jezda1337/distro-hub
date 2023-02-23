@@ -12,7 +12,7 @@ export default function DistroCard({ distro }: { distro: Distro }) {
           src={"logos/" + distro.logo}
           width="0"
           height="0"
-          className="h-8 w-8"
+          className="aspect-square w-8"
           format="svg"
         />
       </div>
