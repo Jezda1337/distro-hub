@@ -20,10 +20,7 @@ export default function Header() {
       </Link>
       <div className="flex gap-6">
         <DropdownMenu />
-        <Button
-          onClick={handleOpen}
-          className="relative border-none bg-black text-xl text-white after:absolute after:inset-0 after:-z-10 after:translate-x-1 after:translate-y-1 after:rounded after:border after:transition-all hover:after:translate-x-2 hover:after:translate-y-2 hover:after:bg-black"
-        >
+        <Button onClick={handleOpen} className="text-xl">
           Submit distro
         </Button>
       </div>
