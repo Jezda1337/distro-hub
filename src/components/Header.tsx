@@ -14,7 +14,9 @@ export default function Header() {
   return (
     <header className="mt-14 flex justify-between md:mt-12">
       <Link href="/">
-        <h1 className="text-2xl font-bold">DistroHub</h1>
+        <h1 className="text-2xl font-bold transition-all hover:scale-110">
+          DistroHub
+        </h1>
       </Link>
       <div className="flex gap-6">
         <DropdownMenu />

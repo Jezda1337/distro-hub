@@ -1,43 +1,7 @@
-import de_list from "../de_list.json";
+import de_list from "../static/de_list.json";
 import Search from "./Form/Search";
 import Select from "./Form/Select";
-
-const basedOn = [
-  {
-    id: 0,
-    name: "None",
-  },
-  {
-    id: 1,
-    name: "Ubuntu",
-    image: "/images/ubuntu.svg",
-  },
-  {
-    id: 2,
-    name: "Debian",
-    image: "/images/debian.svg",
-  },
-  {
-    id: 3,
-    name: "Arch",
-    image: "/images/arch.svg",
-  },
-  {
-    id: 4,
-    name: "Fedora",
-    image: "/images/fedora.svg",
-  },
-  {
-    id: 5,
-    name: "Debian Stable",
-    image: "/images/debian.svg",
-  },
-  {
-    id: 6,
-    name: "Debian Nightly",
-    image: "/images/debian.svg",
-  },
-];
+import basedOn from "../static/based_on.json";
 
 export default function Filters() {
   return (

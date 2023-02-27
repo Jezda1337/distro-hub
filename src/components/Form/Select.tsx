@@ -22,7 +22,7 @@ interface Props {
 interface Selected {
   id: number;
   name: string;
-  image?: string;
+  path?: string;
 }
 
 export default function Select({
@@ -40,14 +40,20 @@ export default function Select({
     setShow(!show);
   }
 
-  function handleSelection(selectedValue: any) {
+  function handleSelection(selectedValue: {
+    id: number;
+    name: string;
+    path?: string;
+  }) {
     if (selectedValue.name === "None") {
       setSelected(null);
-      // setSelect(""); //context
       return;
     }
-    setSelected(selectedValue);
-    // setSelect(selectedValue); // context
+
+    if (selectedValue) {
+      // setSelected({ ...selectedValue, name: selectedValue.name.toLowerCase() });
+      setSelected(selectedValue);
+    }
   }
 
   function handleBlur() {
@@ -71,9 +77,9 @@ export default function Select({
           {selected ? (
             <div className="flex items-center">
               <div className="mr-3">
-                {selected.image ? (
+                {selected.path ? (
                   <Image
-                    src={selected.image}
+                    src={selected.path}
                     width="0"
                     height="0"
                     className="h-5 w-5"
@@ -108,7 +114,7 @@ export default function Select({
         ) : null}
         {Object.hasOwn(options, "de")
           ? options.de.map(
-              (option: { id: number; name: string; image?: string }) => (
+              (option: { id: number; name: string; path?: string }) => (
                 <li
                   role="menuitem"
                   className={`flex items-center hover:text-white hover:bg-black hover:cursor-pointer px-2 py-1 ${
@@ -124,7 +130,7 @@ export default function Select({
                       <NoSymbolIcon className="h-5 w-5" />
                     ) : (
                       <Image
-                        src={`${option.image}`}
+                        src={`${option.path}`}
                         width="0"
                         height="0"
                         className="h-5 w-5"
@@ -137,7 +143,7 @@ export default function Select({
               )
             )
           : options.map(
-              (option: { id: number; name: string; image: string }) => (
+              (option: { id: number; name: string; path: string }) => (
                 <li
                   role="menuitem"
                   className={`flex items-center hover:text-white hover:bg-black hover:cursor-pointer px-2 py-1 ${
@@ -153,7 +159,7 @@ export default function Select({
                       <NoSymbolIcon className="h-5 w-5" />
                     ) : (
                       <Image
-                        src={`${option?.image}`}
+                        src={`${option?.path}`}
                         width="0"
                         height="0"
                         className="h-5 w-5"
@@ -170,7 +176,7 @@ export default function Select({
         ) : null}
         {Object.hasOwn(options, "wm")
           ? options.wm.map(
-              (option: { id: number; name: string; image: string }) => (
+              (option: { id: number; name: string; path: string }) => (
                 <li
                   role="menuitem"
                   className={`flex items-center hover:text-white hover:bg-black hover:cursor-pointer px-2 py-1 ${
@@ -182,9 +188,9 @@ export default function Select({
                   key={option.id}
                 >
                   <div tabIndex={0} className="mr-3">
-                    {option.image !== "undefined" ? (
+                    {option.path !== "undefined" ? (
                       <Image
-                        src={`${option.image}`}
+                        src={`${option.path}`}
                         width="0"
                         height="0"
                         className="h-5 w-5"
