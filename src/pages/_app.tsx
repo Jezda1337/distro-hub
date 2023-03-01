@@ -11,6 +11,7 @@ import { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { ReactElement, ReactNode, useState } from "react";
 import "tailwindcss/tailwind.css";
+import { ContextProvider } from "../context/store";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
@@ -29,11 +30,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     return (
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <div className={`max-w-4xl mx-auto px-3 ${poppins.className}`}>
-            <AdminHeader />
-            {Component.getLayout(<Component {...pageProps} />)}
-            <ReactQueryDevtools />
-          </div>
+          <ContextProvider>
+            <div className={`max-w-4xl mx-auto px-3 ${poppins.className}`}>
+              <AdminHeader />
+              {Component.getLayout(<Component {...pageProps} />)}
+              <ReactQueryDevtools />
+            </div>
+          </ContextProvider>
         </Hydrate>
       </QueryClientProvider>
     );
@@ -42,11 +45,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <div className={`max-w-4xl mx-auto px-3 ${poppins.className}`}>
-          <Header />
-          <Component {...pageProps} />
-          <ReactQueryDevtools />
-        </div>
+        <ContextProvider>
+          <div className={`max-w-4xl mx-auto px-3 ${poppins.className}`}>
+            <Header />
+            <Component {...pageProps} />
+            <ReactQueryDevtools />
+          </div>
+        </ContextProvider>
       </Hydrate>
     </QueryClientProvider>
   );

@@ -4,12 +4,34 @@ import Filters from "@/components/Filters";
 import WorkInProgressBar from "@/components/WorkInProgressBar";
 import { Distro } from "@/interfaces/distro.interface";
 import Head from "next/head";
+import { useStore } from "@/context/store";
+import { useMemo } from "react";
 
 export default function Home() {
   const { data } = useQuery({
     queryKey: ["distros"],
     queryFn: getDistros,
   });
+
+  const { env, basedOn, search } = useStore();
+
+  const filteredData = useMemo(() => {
+    if (search)
+      return data.filter((d: any) =>
+        d.name.toLowerCase().match(search.toLowerCase())
+      );
+    if ((!env && !basedOn) || (env === null && basedOn === null)) return data;
+    if (basedOn && !env)
+      return data.filter(
+        (d: any) => d.basedOn.toLowerCase() === basedOn?.name.toLowerCase()
+      );
+    if (env && !basedOn)
+      return data.filter((d: any) =>
+        d.desktopEnvironments.includes(env.name.toLowerCase())
+      );
+
+    return [];
+  }, [search, data, env, basedOn]);
 
   return (
     <section>
@@ -28,8 +50,8 @@ export default function Home() {
         <span className="ml-auto">Details</span>
       </div>
 
-      {data.length != 0 && data ? (
-        data.map((distro: Distro) => (
+      {filteredData.length !== 0 ? (
+        filteredData.map((distro: Distro) => (
           <DistroCard key={distro.id} distro={distro} />
         ))
       ) : (

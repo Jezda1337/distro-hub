@@ -19,22 +19,20 @@ interface Props {
   placeholder: string;
 }
 
-interface Selected {
-  id: number;
-  name: string;
-  path?: string;
-}
-
 export default function Select({
   options,
   placeholder,
+  ctxState: selected,
+  ctxSetState,
 }: {
   // options: Props["options"] | { id: number; name: string; image: string }[];
   options: any; // this needs to be fixed
   placeholder: Props["placeholder"];
+  ctxState: any;
+  ctxSetState: any;
 }) {
   const [show, setShow] = useState(false);
-  const [selected, setSelected] = useState<Selected | null>();
+  // const [selected, setSelected] = useState<Selected | null>();
 
   function handleShow() {
     setShow(!show);
@@ -46,13 +44,15 @@ export default function Select({
     path?: string;
   }) {
     if (selectedValue.name === "None") {
-      setSelected(null);
+      // setSelected(null);
+      ctxSetState(null);
       return;
     }
 
     if (selectedValue) {
       // setSelected({ ...selectedValue, name: selectedValue.name.toLowerCase() });
-      setSelected(selectedValue);
+      // setSelected(selectedValue);
+      ctxSetState(selectedValue);
     }
   }
 
