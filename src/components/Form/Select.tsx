@@ -32,7 +32,6 @@ export default function Select({
   ctxSetState: any;
 }) {
   const [show, setShow] = useState(false);
-  // const [selected, setSelected] = useState<Selected | null>();
 
   function handleShow() {
     setShow(!show);
@@ -44,14 +43,12 @@ export default function Select({
     path?: string;
   }) {
     if (selectedValue.name === "None") {
-      // setSelected(null);
       ctxSetState(null);
       return;
     }
 
     if (selectedValue) {
       // setSelected({ ...selectedValue, name: selectedValue.name.toLowerCase() });
-      // setSelected(selectedValue);
       ctxSetState(selectedValue);
     }
   }

@@ -1,14 +1,10 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { FormEvent } from "react";
 import { Input } from "../ui/Input";
-// import { useState } from "react";
 
 export default function Search({ ctxState, ctxSetState }: any) {
-  // const [search, setSearch] = useState("");
-
   function handleSearch(e: FormEvent<HTMLInputElement>) {
     e.preventDefault();
-    // setSearch(e.currentTarget.value);
     ctxSetState(e.currentTarget.value);
   }
 

@@ -1,4 +1,5 @@
 import { Distro } from "@/interfaces/distro.interface";
+import { DistroForm } from "@/interfaces/distroInput.interfaces";
 import { PrismaClient, WaitingDistro } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -15,7 +16,7 @@ export async function createDistro(distro: Distro) {
   return newDistro;
 }
 
-export async function addToWaitingList(distro: WaitingDistro) {
+export async function addToWaitingList(distro: DistroForm) {
   const newDistro = await prisma.waitingDistro.create({
     data: distro,
   });

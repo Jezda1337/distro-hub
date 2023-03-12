@@ -1,12 +1,14 @@
 // import { ConvertToBase64 } from "@/helpers/convertToBase64";
 import { IsFileSizeOk } from "@/helpers/fileSize.validator";
-import { XMarkIcon } from "@heroicons/react/20/solid";
+import type { DistroForm } from "@/interfaces/distroInput.interfaces";
+import { DocumentPlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "./ui/Button";
 import { Dialog } from "./ui/Dialog";
 import { Input } from "./ui/Input";
 import { InputFile } from "./ui/InputFile";
+import Image from "next/image";
 
 interface Props {
   handleOpen(): void;
@@ -15,31 +17,36 @@ interface Props {
 }
 
 export default function DistroForm({ handleOpen, setOpen, open }: Props) {
-  const [fileName, setFileName] = useState("");
-  const [fileError, setFileError] = useState(false);
-  const [newDistro, setNewDistro] = useState({
-    email: "",
+  const [newDistro, setNewDistro] = useState<DistroForm>({
     name: "",
     website: "",
     description: "",
     logo: "",
+    basedOn: "",
+    desktopEnvironments: [],
+    downloadLink: "",
+    distroScreenShoots: [],
   });
 
-  const router = useRouter();
+  // const router = useRouter();
 
   function handleChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     const target = event.target;
+
+    if (target.name === "desktopEnvironments") {
+      console.log(target.value);
+      // setNewDistro({ ...newDistro, desktopEnvironments: [target.value] });
+    }
+
     setNewDistro({
       ...newDistro,
       [target.name]: target.value,
     });
   }
 
-  async function handleLogo(file: any) {
-    setFileName(file?.name);
-
+  async function handleLogo(file: File) {
     const formData = new FormData();
 
     formData.append("file", file);
@@ -60,12 +67,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
     let data = null;
 
     if (IsFileSizeOk(selectedFile?.size)) {
-      setFileName(selectedFile?.name);
-      setFileError(false);
       data = await handleLogo(selectedFile);
-    } else {
-      setFileName("");
-      setFileError(true);
     }
 
     if (!selectedFile || data === null) return;
@@ -74,18 +76,19 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setOpen(false);
+    // setOpen(false);
+    console.table(newDistro);
 
-    try {
-      const res = await fetch(`${process.env.base_api}/waitingList`, {
-        method: "POST",
-        body: JSON.stringify(newDistro),
-      });
-      router.replace(router.asPath);
-      return res.status;
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   const res = await fetch(`${process.env.base_api}/waitingList`, {
+    //     method: "POST",
+    //     body: JSON.stringify(newDistro),
+    //   });
+    //   router.replace(router.asPath);
+    //   return res.status;
+    // } catch (error) {
+    //   console.error(error);
+    // }
   }
 
   return (
@@ -98,7 +101,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
       <Dialog
         onClick={(e) => e.stopPropagation()}
         open={open}
-        className="w-11/12 rounded border bg-white shadow md:w-6/12"
+        className="h-11/12 w-11/12 max-w-4xl rounded border bg-white shadow"
       >
         <header className="mb-3 flex items-start justify-between border-b pb-3">
           <div>
@@ -114,55 +117,98 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
           onSubmit={handleSubmit}
           className="mt-4 flex flex-col gap-4"
         >
-          <div>
+          <div className="flex flex-col gap-4 md:flex-row">
             <Input
-              onChange={handleChange}
-              name="email"
-              type="email"
-              required={true}
-              placeholder="Email"
-            />
-          </div>
-          <div>
-            <Input
-              onChange={handleChange}
+              type="text"
               name="name"
-              required={true}
-              placeholder="Distro name"
+              onChange={handleChange}
+              placeholder="Ex. Ubuntu"
+              label="Disto name"
+            />
+            <Input
+              type="text"
+              name="desktopEnvironments"
+              onChange={handleChange}
+              placeholder="Ex. Gnome"
+              label="Desktop environments"
             />
           </div>
-          <div className="flex items-center">
-            <div className="mr-2 h-9 rounded border px-3 py-2 leading-none md:mr-4">
-              www.
+          <div className="flex flex-col gap-4 md:flex-row">
+            <Input
+              type="text"
+              name="website"
+              onChange={handleChange}
+              placeholder="ubuntu.org"
+              label="Website"
+            />
+            <Input
+              type="text"
+              name="downloadLink"
+              onChange={handleChange}
+              prefix={true}
+              className="rounded-l-none"
+              placeholder="www.example.com"
+              label="Download link/page"
+            />
+          </div>
+          <div className="flex flex-col gap-4 md:flex-row md:items-center">
+            <div className="gal-4 flex w-full items-end">
+              <Image
+                src={"/images/arch.svg"}
+                alt="Logo"
+                width={0}
+                height={0}
+                className="aspect-square w-16"
+              />
+              <InputFile
+                name="logo"
+                label="Upload"
+                onChange={handleChange}
+                className="w-full"
+              />
             </div>
             <Input
-              className="w-full"
+              type="text"
+              name="basedOn"
               onChange={handleChange}
-              name="website"
-              required={true}
-              placeholder="Distro website"
+              label="Based on"
+              placeholder="Ex. Debian"
             />
           </div>
           <div>
-            <InputFile
-              className={`${fileName != "" ? "bg-green-400" : ""} ${
-                fileError ? "bg-red-500" : ""
-              }`}
-              accept=".jpg, .jpeg, .svg, .png, .webp"
-              onChange={handleImages}
-              label={fileName ? fileName : fileError ? "File is too big" : ""}
-            />
-          </div>
-          <div>
+            <label className="mb-1 inline-block text-base">About</label>
             <textarea
               onChange={handleChange}
-              className="w-full rounded border px-3 py-2 focus:outline-black"
+              className="h-32 w-full rounded border px-3 py-2 focus:outline-black"
               name="description"
               required={true}
-              placeholder="Distro Brief"
+              placeholder="Brief description od distro"
+            />
+            <span className="text-sm text-slate-500">
+              Brief description of distribution.
+            </span>
+          </div>
+          <div>
+            <span className="mb-1 inline-block">Distro screenshots</span>
+            <label
+              htmlFor="screenShoots"
+              className="group flex h-32 w-full flex-col place-items-center justify-center rounded border border-dashed md:hover:cursor-pointer md:hover:border-solid md:hover:transition-all"
+            >
+              <DocumentPlusIcon className="transition-hover relative aspect-square w-8 group-hover:scale-125" />
+              <span className="text-blue-500">Upload files</span>
+              <span className="text-slate-500">PNG, JPG, WEBP</span>
+            </label>
+            <input
+              type="file"
+              name="distroScreenShoots"
+              onChange={handleChange}
+              accept=".png, .jpg, .jpge, .webp"
+              multiple
+              className="hidden"
+              id="screenShoots"
             />
           </div>
-          <div className="mt-6 text-right">
+          <div className="self-end">
             <Button>Submit</Button>
           </div>
         </form>

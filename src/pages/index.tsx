@@ -55,7 +55,7 @@ export default function Home() {
           <DistroCard key={distro.id} distro={distro} />
         ))
       ) : (
-        <p className="mt-7 text-center text-2xl font-bold">Nothing found.</p>
+        <p className=" mt-7 text-center text-2xl font-bold">Nothing found.</p>
       )}
       <WorkInProgressBar />
     </section>
