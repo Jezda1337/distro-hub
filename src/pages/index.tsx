@@ -6,6 +6,7 @@ import { Distro } from "@/interfaces/distro.interface";
 import Head from "next/head";
 import { useStore } from "@/context/store";
 import { useMemo } from "react";
+import dummyData from "@/data.json";
 
 export default function Home() {
   const { data } = useQuery({
@@ -50,7 +51,13 @@ export default function Home() {
         <span className="ml-auto">Details</span>
       </div>
 
-      {filteredData.length !== 0 ? (
+      {!filteredData ? (
+        <>
+          {dummyData.map((distro: any) => (
+            <DistroCard key={distro.id} distro={distro} />
+          ))}
+        </>
+      ) : filteredData.length !== 0 ? (
         filteredData.map((distro: Distro) => (
           <DistroCard key={distro.id} distro={distro} />
         ))

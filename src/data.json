@@ -1,47 +1,67 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "name": "Ubuntu",
-    "image": "ubuntu_ygcbqw",
+    "logo": "download_3_hfrvqx",
     "category": ["gaming", "programming", "general", "begginner"],
     "popularity": "hight",
     "desktopEnvironments": ["gnome", "kde", "xfce"],
-    "basedOn": ["debian"]
+    "basedOn": ["debian"],
+    "website": "www.ubuntu.org",
+    "description": "test",
+    "images": [],
+    "createdAt": "danas"
   },
   {
-    "id": 2,
-    "name": "Arch",
-    "image": "arch_ybiuyr",
-    "category": ["gaming", "programming", "advanced"],
+    "id": "2",
+    "name": "Ubuntu",
+    "logo": "download_3_hfrvqx",
+    "category": ["gaming", "programming", "general", "begginner"],
     "popularity": "hight",
-    "desktopEnvironments": ["gnome", "kde", "xfce", "i3", "mate"],
-    "basedOn": ["independent"]
+    "desktopEnvironments": ["gnome", "kde", "xfce"],
+    "basedOn": ["debian"],
+    "website": "www.ubuntu.org",
+    "description": "test",
+    "images": [],
+    "createdAt": "danas"
   },
   {
-    "id": 3,
-    "name": "Mint",
-    "image": "mint_fkftoj",
-    "category": ["gaming", "general", "begginner"],
+    "id": "3",
+    "name": "Ubuntu",
+    "logo": "download_3_hfrvqx",
+    "category": ["gaming", "programming", "general", "begginner"],
     "popularity": "hight",
-    "desktopEnvironments": ["cinnemon", "xfce", "mate"],
-    "basedOn": ["debian", "ubuntu"]
+    "desktopEnvironments": ["gnome", "kde", "xfce"],
+    "basedOn": ["debian"],
+    "website": "www.ubuntu.org",
+    "description": "test",
+    "images": [],
+    "createdAt": "danas"
   },
   {
-    "id": 4,
-    "name": "PoP!_OS",
-    "image": "pop-os_ewokji",
-    "category": ["gaming", "general", "begginner", "programming"],
+    "id": "4",
+    "name": "Ubuntu",
+    "logo": "download_3_hfrvqx",
+    "category": ["gaming", "programming", "general", "begginner"],
     "popularity": "hight",
-    "desktopEnvironments": ["cosmic", "gnome"],
-    "basedOn": ["ubuntu"]
+    "desktopEnvironments": ["gnome", "kde", "xfce"],
+    "basedOn": ["debian"],
+    "website": "www.ubuntu.org",
+    "description": "test",
+    "images": [],
+    "createdAt": "danas"
   },
   {
-    "id": 5,
-    "name": "Kubuntu",
-    "image": "kubuntu_wpazbt",
-    "category": ["gaming", "general", "begginner"],
+    "id": "5",
+    "name": "Ubuntu",
+    "logo": "download_3_hfrvqx",
+    "category": ["gaming", "programming", "general", "begginner"],
     "popularity": "hight",
-    "desktopEnvironments": ["kde"],
-    "basedOn": ["ubuntu"]
+    "desktopEnvironments": ["gnome", "kde", "xfce"],
+    "basedOn": ["debian"],
+    "website": "www.ubuntu.org",
+    "description": "test",
+    "images": [],
+    "createdAt": "danas"
   }
 ]
