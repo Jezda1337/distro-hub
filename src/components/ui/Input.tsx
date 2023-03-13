@@ -5,7 +5,7 @@ const defaultStyling = `w-full border rounded py-2 pr-7 px-3 h-9 focus:outline-b
 
 type InputProps = {
   label?: string;
-  prefixText?: unknown;
+  prefixText?: boolean;
 };
 
 const Input = React.forwardRef<
