@@ -5,20 +5,20 @@ const defaultStyling = `w-full border rounded py-2 pr-7 px-3 h-9 focus:outline-b
 
 type InputProps = {
   label?: string;
-  prefix?: boolean;
+  prefixText?: unknown;
 };
 
 const Input = React.forwardRef<
   HTMLInputElement,
   React.InputHTMLAttributes<HTMLInputElement> & InputProps
->(({ className, label, prefix, ...props }, ref) => {
+>(({ className, label, prefixText, ...props }, ref) => {
   return (
     <div className="w-full">
       {label ? (
         <label className="mb-1 inline-block text-base">{label}</label>
       ) : null}
       <div className="flex w-full">
-        {prefix ? (
+        {prefixText ? (
           <span className="inline-flex h-9 items-center rounded-l-md border border-r-0 px-3 text-slate-500">
             https://
           </span>

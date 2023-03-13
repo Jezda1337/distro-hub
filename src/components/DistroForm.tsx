@@ -34,6 +34,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     const target = event.target;
+    console.log(target.value);
 
     if (target.name === "desktopEnvironments") {
       console.log(target.value);
@@ -145,7 +146,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
               type="text"
               name="downloadLink"
               onChange={handleChange}
-              prefix={true}
+              prefixText={true}
               className="rounded-l-none"
               placeholder="www.example.com"
               label="Download link/page"
@@ -201,7 +202,8 @@ export default function DistroForm({ handleOpen, setOpen, open }: Props) {
             <input
               type="file"
               name="distroScreenShoots"
-              onChange={handleChange}
+              // onChange={handleChange}
+              onChange={(e) => console.log(e.target.files)}
               accept=".png, .jpg, .jpge, .webp"
               multiple
               className="hidden"
