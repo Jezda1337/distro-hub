@@ -6,8 +6,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const distros = await getDistros();
-    return res.status(200).json(distros);
+    try {
+      const distros = await getDistros();
+      return res.status(200).json(distros);
+    } catch (err) {
+      console.error(err);
+      throw new Error("Something is not right with db");
+    }
   }
 
   if (req.method === "POST") {
