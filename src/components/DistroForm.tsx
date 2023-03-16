@@ -5,7 +5,7 @@ import { DocumentPlusIcon, XMarkIcon } from "@heroicons/react/20/solid"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { ChangeEvent, FormEvent, useState } from "react"
-import Select from "react-select"
+import Select, { ActionMeta } from "react-select"
 import makeAnimated from "react-select/animated"
 import { Button } from "./ui/Button"
 import { Dialog } from "./ui/Dialog"
@@ -13,6 +13,12 @@ import { Input } from "./ui/Input"
 import { InputFile } from "./ui/InputFile"
 
 const animatedComponents = makeAnimated()
+
+interface Option {
+	id: number
+	value: string
+	label: string
+}
 
 interface Props {
 	handleOpen(): void
@@ -46,8 +52,13 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 		distroScreenShoots: [],
 	})
 
-	const [_deskEnv, setDeskEnv] = useState([])
+	const [_deskEnv, setDeskEnv] = useState<Option[]>([])
 
+	function test(option: readonly Option[], _actionMeta: ActionMeta<Option>) {
+		console.log(option)
+		const t = [...option]
+		setDeskEnv(t)
+	}
 	const router = useRouter()
 	const options = [...de_list.de, ...de_list.wm].map(({ name, id }) => {
 		return { id: id, value: name, label: name }
@@ -137,7 +148,7 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 								className=" w-full self-end"
 								styles={reactSelectCustomStyle}
 								closeMenuOnSelect={false}
-								onChange={setDeskEnv}
+								onChange={test}
 								components={animatedComponents}
 								isMulti
 								options={options}
