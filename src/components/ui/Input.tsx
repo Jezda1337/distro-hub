@@ -1,12 +1,12 @@
-import * as React from "react";
-import { twMerge } from "tailwind-merge";
+import * as React from "react"
+import { twMerge } from "tailwind-merge"
 
-const defaultStyling = `w-full border border-neutral-300 rounded py-2 pr-7 px-3 h-[38.6px] hover:border-neutral-400 focus:outline outline-2 focus:outline-black outline-offset-[-1px] transition-colors`;
+const defaultStyling = `w-full border border-neutral-300 rounded py-2 pr-7 px-3 h-[38.6px] hover:border-neutral-400 focus:outline outline-2 focus:outline-black outline-offset-[-1px] transition-colors`
 
 type InputProps = {
-	label?: string;
-	prefixText?: boolean;
-};
+	label?: string
+	prefixText?: boolean
+}
 
 const Input = React.forwardRef<
 	HTMLInputElement,
@@ -34,9 +34,9 @@ const Input = React.forwardRef<
 				/>
 			</div>
 		</div>
-	);
-});
+	)
+})
 
-Input.displayName = "Input";
+Input.displayName = "Input"
 
-export { Input };
+export { Input }

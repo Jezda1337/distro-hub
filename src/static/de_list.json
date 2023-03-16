@@ -1,65 +1,65 @@
 {
-  "de": [
-    {
-      "id": 0,
-      "name": "None"
-    },
-    {
-      "id": 1,
-      "name": "Gnome",
-      "path": "/de/gnome.svg"
-    },
-    {
-      "id": 2,
-      "name": "KDE",
-      "path": "/de/kde.svg"
-    },
-    {
-      "id": 3,
-      "name": "Mate",
-      "path": "/de/mate.svg"
-    },
-    {
-      "id": 4,
-      "name": "Budgie",
-      "path": "/de/budgie.svg"
-    },
-    {
-      "id": 5,
-      "name": "Lxqt",
-      "path": "/de/lxqt.svg"
-    },
-    {
-      "id": 6,
-      "name": "Cinnamon",
-      "path": "/de/cinnamon.svg"
-    },
-    {
-      "id": 7,
-      "name": "Deepin",
-      "path": "/de/deepin.svg"
-    },
-    {
-      "id": 8,
-      "name": "Xfce",
-      "path": "/de/xfce.svg"
-    }
-  ],
-  "wm": [
-    {
-      "id": 1,
-      "name": "Awesome",
-      "path": "/wm/awesome.svg"
-    },
-    {
-      "id": 2,
-      "name": "I3",
-      "path": "/wm/i3.svg"
-    },
-    {
-      "id": 3,
-      "name": "BSPWM",
-      "path": "/wm/bspwm.svg"
-    }
-  ]
+	"de": [
+		{
+			"id": 0,
+			"name": "None"
+		},
+		{
+			"id": 1,
+			"name": "Gnome",
+			"path": "/de/gnome.svg"
+		},
+		{
+			"id": 2,
+			"name": "KDE",
+			"path": "/de/kde.svg"
+		},
+		{
+			"id": 3,
+			"name": "Mate",
+			"path": "/de/mate.svg"
+		},
+		{
+			"id": 4,
+			"name": "Budgie",
+			"path": "/de/budgie.svg"
+		},
+		{
+			"id": 5,
+			"name": "Lxqt",
+			"path": "/de/lxqt.svg"
+		},
+		{
+			"id": 6,
+			"name": "Cinnamon",
+			"path": "/de/cinnamon.svg"
+		},
+		{
+			"id": 7,
+			"name": "Deepin",
+			"path": "/de/deepin.svg"
+		},
+		{
+			"id": 8,
+			"name": "Xfce",
+			"path": "/de/xfce.svg"
+		}
+	],
+	"wm": [
+		{
+			"id": 1,
+			"name": "Awesome",
+			"path": "/wm/awesome.svg"
+		},
+		{
+			"id": 2,
+			"name": "I3",
+			"path": "/wm/i3.svg"
+		},
+		{
+			"id": 3,
+			"name": "BSPWM",
+			"path": "/wm/bspwm.svg"
+		}
+	]
 }

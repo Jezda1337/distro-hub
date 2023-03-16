@@ -1,5 +1,5 @@
 export interface DesktopEnvironment {
-  id: number;
-  name: string;
-  path: string;
+	id: number
+	name: string
+	path: string
 }

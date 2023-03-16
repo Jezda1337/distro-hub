@@ -1,3 +1,3 @@
 export interface Search {
-  value: string;
+	value: string
 }

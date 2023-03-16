@@ -1,7 +1,7 @@
 export default function WorkInProgressBar() {
-  return (
-    <div className="w-full fixed bottom-0 text-center left-0 bg-amber-200 py-3">
-      <p className="text-2xl">🚧 Work in Progress 🚧</p>
-    </div>
-  );
+	return (
+		<div className="fixed bottom-0 left-0 w-full bg-amber-200 py-3 text-center">
+			<p className="text-2xl">🚧 Work in Progress 🚧</p>
+		</div>
+	)
 }

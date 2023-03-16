@@ -1,22 +1,23 @@
 // import { ConvertToBase64 } from "@/helpers/convertToBase64";
-import type { DistroForm } from "@/interfaces/distroInput.interfaces";
-import de_list from "@/static/de_list.json";
-import { DocumentPlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import Image from "next/image";
-import { ChangeEvent, FormEvent, useState } from "react";
-import Select from "react-select";
-import makeAnimated from "react-select/animated";
-import { Button } from "./ui/Button";
-import { Dialog } from "./ui/Dialog";
-import { Input } from "./ui/Input";
-import { InputFile } from "./ui/InputFile";
+import type { DistroForm } from "@/interfaces/distroInput.interfaces"
+import de_list from "@/static/de_list.json"
+import { DocumentPlusIcon, XMarkIcon } from "@heroicons/react/20/solid"
+import Image from "next/image"
+import { useRouter } from "next/router"
+import { ChangeEvent, FormEvent, useState } from "react"
+import Select from "react-select"
+import makeAnimated from "react-select/animated"
+import { Button } from "./ui/Button"
+import { Dialog } from "./ui/Dialog"
+import { Input } from "./ui/Input"
+import { InputFile } from "./ui/InputFile"
 
-const animatedComponents = makeAnimated();
+const animatedComponents = makeAnimated()
 
 interface Props {
-	handleOpen(): void;
-	setOpen(open: boolean): void;
-	open: boolean;
+	handleOpen(): void
+	setOpen(open: boolean): void
+	open: boolean
 }
 
 const reactSelectCustomStyle = {
@@ -31,9 +32,9 @@ const reactSelectCustomStyle = {
 	valueContainer: (baseStyles: any) => ({
 		...baseStyles,
 	}),
-};
+}
 
-export default function DistroForm({ handleOpen, open }: Props) {
+export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 	const [newDistro, setNewDistro] = useState<DistroForm>({
 		name: "",
 		website: "",
@@ -43,60 +44,69 @@ export default function DistroForm({ handleOpen, open }: Props) {
 		desktopEnvironments: [],
 		downloadLink: "",
 		distroScreenShoots: [],
-	});
-	// const router = useRouter();
+	})
+
+	const [_deskEnv, setDeskEnv] = useState([])
+
+	const router = useRouter()
 	const options = [...de_list.de, ...de_list.wm].map(({ name, id }) => {
 		return { id: id, value: name, label: name }
-	});
-	options.shift()  // return arr without none value
+	})
+	options.shift() // return arr without none value
 
 	function handleChange(
 		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) {
-		const target = event.target;
-		console.log(target.value);
-
-		if (target.name === "desktopEnvironments") {
-			console.log(target.value);
-			// setNewDistro({ ...newDistro, desktopEnvironments: [target.value] });
-		}
-
+		const target = event.target
 		setNewDistro({
 			...newDistro,
 			[target.name]: target.value,
-		});
+		})
 	}
 
-
+	function handleFiles(e: React.ChangeEvent) {
+		const target = (e.target as HTMLInputElement).files
+		setNewDistro({
+			...newDistro,
+			distroScreenShoots: [...newDistro.distroScreenShoots, ..._deskEnv],
+			...target,
+		})
+	}
 
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-		event.preventDefault();
-		// setOpen(false);
-		console.table(newDistro);
+		event.preventDefault()
+		setOpen(false)
 
-		// try {
-		//   const res = await fetch(`${process.env.base_api}/waitingList`, {
-		//     method: "POST",
-		//     body: JSON.stringify(newDistro),
-		//   });
-		//   router.replace(router.asPath);
-		//   return res.status;
-		// } catch (error) {
-		//   console.error(error);
-		// }
+		const formData = new FormData(event.currentTarget)
+		const payload = Object.fromEntries(formData)
+		setNewDistro({
+			...newDistro,
+			desktopEnvironments: [...newDistro.desktopEnvironments, ..._deskEnv],
+			...payload,
+		})
+		console.log(newDistro)
+
+		try {
+			const res = await fetch(`${process.env.base_api}/waitingList`, {
+				method: "POST",
+				body: JSON.stringify(newDistro),
+			})
+			router.replace(router.asPath)
+			return res.status
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	return (
 		<div
 			className={`${open ? "grid" : "hidden"
 				} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
-			onClick={handleOpen}
-		>
+			onClick={handleOpen}>
 			<Dialog
 				onClick={(e) => e.stopPropagation()}
 				open={open}
-				className="h-11/12 w-11/12 max-w-3xl rounded border bg-white shadow"
-			>
+				className="h-11/12 w-11/12 max-w-3xl rounded border bg-white shadow">
 				<header className="mb-3 flex items-start justify-between border-b pb-3">
 					<div>
 						<p className="text-lg font-medium">Submit distro</p>
@@ -109,8 +119,7 @@ export default function DistroForm({ handleOpen, open }: Props) {
 				<form
 					method="POST"
 					onSubmit={handleSubmit}
-					className="mt-4 flex flex-col gap-4"
-				>
+					className="mt-4 flex flex-col gap-4">
 					<div className="flex flex-col gap-4 md:flex-row">
 						<Input
 							type="text"
@@ -128,6 +137,7 @@ export default function DistroForm({ handleOpen, open }: Props) {
 								className=" w-full self-end"
 								styles={reactSelectCustomStyle}
 								closeMenuOnSelect={false}
+								onChange={setDeskEnv}
 								components={animatedComponents}
 								isMulti
 								options={options}
@@ -203,16 +213,15 @@ export default function DistroForm({ handleOpen, open }: Props) {
 						<span className="mb-1 inline-block">Distro screenshots</span>
 						<label
 							htmlFor="screenShoots"
-							className="group flex h-32 w-full flex-col place-items-center justify-center rounded border border-dashed md:hover:cursor-pointer md:hover:border-solid md:hover:transition-all"
-						>
+							className="group flex h-32 w-full flex-col place-items-center justify-center rounded border border-dashed md:hover:cursor-pointer md:hover:border-solid md:hover:transition-all">
 							<DocumentPlusIcon className="transition-hover relative aspect-square w-8 group-hover:scale-125" />
 							<span className="text-blue-500">Upload files</span>
 							<span className="text-slate-500">PNG, JPG, WEBP</span>
 						</label>
 						<input
 							type="file"
-							name="distroScreenShoots"
-							onChange={handleChange}
+							// name="distroScreenShoots"
+							onChange={handleFiles}
 							accept=".png, .jpg, .jpge, .webp"
 							multiple
 							className="hidden"
@@ -225,5 +234,5 @@ export default function DistroForm({ handleOpen, open }: Props) {
 				</form>
 			</Dialog>
 		</div>
-	);
+	)
 }

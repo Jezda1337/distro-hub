@@ -1,71 +1,71 @@
 [
-  {
-    "id": 0,
-    "name": "None"
-  },
-  {
-    "id": 1,
-    "name": "Arch",
-    "path": "/based-on/arch.svg"
-  },
-  {
-    "id": 2,
-    "name": "Debian",
-    "path": "/based-on/debian.svg"
-  },
-  {
-    "id": 3,
-    "name": "Debian Testing",
-    "path": "/based-on/debian.svg"
-  },
-  {
-    "id": 4,
-    "name": "Debian Unstable",
-    "path": "/based-on/debian.svg"
-  },
-  {
-    "id": 5,
-    "name": "FreeBSD",
-    "path": "/based-on/freebsd.svg"
-  },
-  {
-    "id": 6,
-    "name": "Gento",
-    "path": "/based-on/gento.svg"
-  },
-  {
-    "id": 7,
-    "name": "Manjaro",
-    "path": "/based-on/manjaro.svg"
-  },
-  {
-    "id": 8,
-    "name": "Mint",
-    "path": "/based-on/mint.svg"
-  },
-  {
-    "id": 9,
-    "name": "OpenBSD",
-    "path": "/based-on/openbsd.svg"
-  },
-  {
-    "id": 10,
-    "name": "RedHat",
-    "path": "/based-on/redhat.svg"
-  },
-  {
-    "id": 11,
-    "name": "OpenSuse",
-    "path": "/based-on/suse.svg"
-  },
-  {
-    "id": 12,
-    "name": "Ubuntu",
-    "path": "/based-on/ubuntu.svg"
-  },
-  {
-    "id": 13,
-    "name": "Ubuntu LTS",
-    "path": "/based-on/ubuntu.svg"
-  }
+	{
+		"id": 0,
+		"name": "None"
+	},
+	{
+		"id": 1,
+		"name": "Arch",
+		"path": "/based-on/arch.svg"
+	},
+	{
+		"id": 2,
+		"name": "Debian",
+		"path": "/based-on/debian.svg"
+	},
+	{
+		"id": 3,
+		"name": "Debian Testing",
+		"path": "/based-on/debian.svg"
+	},
+	{
+		"id": 4,
+		"name": "Debian Unstable",
+		"path": "/based-on/debian.svg"
+	},
+	{
+		"id": 5,
+		"name": "FreeBSD",
+		"path": "/based-on/freebsd.svg"
+	},
+	{
+		"id": 6,
+		"name": "Gento",
+		"path": "/based-on/gento.svg"
+	},
+	{
+		"id": 7,
+		"name": "Manjaro",
+		"path": "/based-on/manjaro.svg"
+	},
+	{
+		"id": 8,
+		"name": "Mint",
+		"path": "/based-on/mint.svg"
+	},
+	{
+		"id": 9,
+		"name": "OpenBSD",
+		"path": "/based-on/openbsd.svg"
+	},
+	{
+		"id": 10,
+		"name": "RedHat",
+		"path": "/based-on/redhat.svg"
+	},
+	{
+		"id": 11,
+		"name": "OpenSuse",
+		"path": "/based-on/suse.svg"
+	},
+	{
+		"id": 12,
+		"name": "Ubuntu",
+		"path": "/based-on/ubuntu.svg"
+	},
+	{
+		"id": 13,
+		"name": "Ubuntu LTS",
+		"path": "/based-on/ubuntu.svg"
+	}
 ]
