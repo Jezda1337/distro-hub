@@ -5,7 +5,8 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	// res.setHeader("Access-Control-Allow-Origins", ["res.cloudinary.com"])
+	res.setHeader("Access-Control-Allow-Origins", "*")
+	res.setHeader("cors", "*")
 	if (req.method === "GET") {
 		try {
 			const distros = await getDistros()
