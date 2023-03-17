@@ -112,8 +112,9 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 
 	return (
 		<div
-			className={`${open ? "grid" : "hidden"
-				} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
+			className={`${
+				open ? "grid" : "hidden"
+			} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
 			onClick={handleOpen}>
 			<Dialog
 				onClick={(e) => e.stopPropagation()}

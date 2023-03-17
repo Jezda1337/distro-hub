@@ -8,7 +8,7 @@ import Head from "next/head"
 import { useMemo } from "react"
 
 export default function Home() {
-	const { data } = useQuery({
+	const { data, isLoading } = useQuery({
 		queryKey: ["distros"],
 		queryFn: getDistros,
 	})
@@ -32,7 +32,6 @@ export default function Home() {
 
 		return []
 	}, [search, data, env, basedOn])
-	console.log(data)
 
 	return (
 		<section>
@@ -50,7 +49,7 @@ export default function Home() {
 				</div>
 				<span className="ml-auto">Details</span>
 			</div>
-			{filteredData?.length !== 0 ? (
+			{!isLoading && filteredData.length !== 0 ? (
 				filteredData?.map((distro: Distro, index: number) => (
 					<DistroCard
 						key={index}

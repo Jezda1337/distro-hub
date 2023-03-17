@@ -6,7 +6,6 @@ import Head from "next/head"
 async function getWaitingList() {
 	try {
 		const response = await fetch("/api/v1/waitingList")
-		console.log(response)
 		return await response.json()
 	} catch (error) {
 		console.error(error)
@@ -25,12 +24,10 @@ export async function getServerSideProps() {
 }
 
 export default function WaitingList() {
-	const { data } = useQuery({
+	const { data, isLoading } = useQuery({
 		queryKey: ["waitingList"],
 		queryFn: getWaitingList,
 	})
-
-	console.log(data)
 
 	return (
 		<section className="mt-40">
@@ -48,7 +45,7 @@ export default function WaitingList() {
 				</div>
 				<span className="ml-auto">Details</span>
 			</div>
-			{data !== undefined ? (
+			{!isLoading && data.length !== 0 ? (
 				data.map((distro: Distro) => (
 					<WaitingDistroCard
 						key={distro.id}
