@@ -99,7 +99,7 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 		console.log(newDistro)
 
 		try {
-			const res = await fetch(`${process.env.base_api}/waitingList`, {
+			const res = await fetch(`/api/v1/waitingList`, {
 				method: "POST",
 				body: JSON.stringify(newDistro),
 			})
@@ -112,9 +112,8 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 
 	return (
 		<div
-			className={`${
-				open ? "grid" : "hidden"
-			} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
+			className={`${open ? "grid" : "hidden"
+				} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
 			onClick={handleOpen}>
 			<Dialog
 				onClick={(e) => e.stopPropagation()}

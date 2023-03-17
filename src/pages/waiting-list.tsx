@@ -5,7 +5,6 @@ import Head from "next/head"
 
 async function getWaitingList() {
 	try {
-		// const response = await fetch(`${process.env.base_api}/waitingList`)
 		const response = await fetch("/api/v1/waitingList")
 		console.log(response)
 		return await response.json()

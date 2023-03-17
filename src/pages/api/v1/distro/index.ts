@@ -9,6 +9,9 @@ export default async function handler(
 	if (req.method === "GET") {
 		try {
 			const distros = await getDistros()
+			console.log("---------")
+			console.log(distros)
+			console.log("---------")
 			return res.status(200).json(distros)
 		} catch (err) {
 			console.error(err)

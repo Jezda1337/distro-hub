@@ -2,7 +2,6 @@ import DistroCard from "@/components/DistroCard"
 import Filters from "@/components/Filters"
 import WorkInProgressBar from "@/components/WorkInProgressBar"
 import { useStore } from "@/context/store"
-import dummyData from "@/data.json"
 import { Distro } from "@/interfaces/distro.interface"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 import Head from "next/head"
@@ -33,6 +32,7 @@ export default function Home() {
 
 		return []
 	}, [search, data, env, basedOn])
+	console.log(data)
 
 	return (
 		<section>
@@ -50,8 +50,8 @@ export default function Home() {
 				</div>
 				<span className="ml-auto">Details</span>
 			</div>
-			{filteredData.length !== 0 ? (
-				filteredData.map((distro: Distro, index: number) => (
+			{filteredData?.length !== 0 ? (
+				filteredData?.map((distro: Distro, index: number) => (
 					<DistroCard
 						key={index}
 						distro={distro}
@@ -67,16 +67,16 @@ export default function Home() {
 
 async function getDistros() {
 	try {
-		const response = await fetch(`${process.env.base_api}/distro`)
+		const response = await fetch(`/api/v1/distro`)
 		return await response.json()
 	} catch (error) {
 		console.error(error)
-		return dummyData
 	}
 }
 
 export async function getServerSideProps() {
 	const queryClient = new QueryClient()
+	queryClient.clear()
 	await queryClient.prefetchQuery(["distros"], getDistros)
 
 	return {
