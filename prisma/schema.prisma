@@ -6,31 +6,57 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Distro {
-  id                  String   @id @default(uuid())
-  name                String   @db.VarChar(255)
-  website             String   @db.VarChar(255)
+  id                  String               @id @default(uuid())
+  name                String               @db.VarChar(255)
+  website             String               @db.VarChar(255)
   logo                String
   description         String
-  images              String[]
-  desktopEnvironments String[]
+  images              Image[]
+  desktopEnvironments DesktopEnvironment[]
   basedOn             String
-  createdAt           DateTime @default(now())
+  createdAt           DateTime             @default(now())
 }
 
 model WaitingDistro {
-  id                  String   @id @default(uuid())
+  id                  String               @id @default(uuid())
   email               String
-  name                String   @db.VarChar(255)
-  website             String   @db.VarChar(255)
+  name                String               @db.VarChar(255)
+  website             String               @db.VarChar(255)
   logo                String
   description         String
-  images              String[]
-  desktopEnvironments String[]
+  images              Image[]
+  desktopEnvironments DesktopEnvironment[]
   basedOn             String
-  createdAt           DateTime @default(now())
+  createdAt           DateTime             @default(now())
+}
+
+model Image {
+  id              String         @id @default(uuid())
+  value           String
+  WaitingDistro   WaitingDistro? @relation(fields: [waitingDistroId], references: [id])
+  waitingDistroId String?
+  Distro          Distro?        @relation(fields: [distroId], references: [id])
+  distroId        String?
+
+  @@index([waitingDistroId])
+  @@index([distroId])
+}
+
+model DesktopEnvironment {
+  id              String         @id @default(uuid())
+  value           String
+  label           String
+  WaitingDistro   WaitingDistro? @relation(fields: [waitingDistroId], references: [id])
+  waitingDistroId String?
+  Distro          Distro?        @relation(fields: [distroId], references: [id])
+  distroId        String?
+
+  @@index([waitingDistroId])
+  @@index([distroId])
 }

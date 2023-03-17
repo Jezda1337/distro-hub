@@ -54,10 +54,11 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 
 	const [_deskEnv, setDeskEnv] = useState<Option[]>([])
 
-	function test(option: readonly Option[], _actionMeta: ActionMeta<Option>) {
-		console.log(option)
-		const t = [...option]
-		setDeskEnv(t)
+	function handleMultiSelect(
+		option: readonly Option[],
+		_actionMeta: ActionMeta<Option>
+	) {
+		setDeskEnv([...option])
 	}
 	const router = useRouter()
 	const options = [...de_list.de, ...de_list.wm].map(({ name, id }) => {
@@ -111,8 +112,9 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 
 	return (
 		<div
-			className={`${open ? "grid" : "hidden"
-				} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
+			className={`${
+				open ? "grid" : "hidden"
+			} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
 			onClick={handleOpen}>
 			<Dialog
 				onClick={(e) => e.stopPropagation()}
@@ -148,7 +150,7 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 								className=" w-full self-end"
 								styles={reactSelectCustomStyle}
 								closeMenuOnSelect={false}
-								onChange={test}
+								onChange={handleMultiSelect}
 								components={animatedComponents}
 								isMulti
 								options={options}
