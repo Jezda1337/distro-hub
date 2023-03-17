@@ -6,7 +6,11 @@ export default function About() {
 			<Head>
 				<title>DistroHub - About</title>
 			</Head>
-			<h1>hello from about</h1>
+			<section className="mt-12">
+				<h1 className="text-center text-2xl">
+					About page is still in development.
+				</h1>
+			</section>
 		</>
 	)
 }

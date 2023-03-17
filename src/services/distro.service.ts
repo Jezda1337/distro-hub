@@ -42,6 +42,10 @@ export function getDistroByName(distroName: string) {
 		where: {
 			name: distroName,
 		},
+		include: {
+			desktopEnvironments: true,
+			images: true,
+		},
 	})
 
 	return distro

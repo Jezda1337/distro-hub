@@ -13,7 +13,12 @@ import { ReactElement, ReactNode, useState } from "react"
 import "tailwindcss/tailwind.css"
 import { ContextProvider } from "../context/store"
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] })
+const poppins = Poppins({
+	subsets: ["latin"],
+	weight: ["400", "500", "600"],
+	preload: true,
+	fallback: ["system-ui", "arial"],
+})
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 	getLayout?: (page: ReactElement) => ReactNode

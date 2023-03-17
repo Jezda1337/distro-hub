@@ -38,7 +38,7 @@ export default function Distro() {
 	})
 
 	if (!data) {
-		return <h1>Still in development</h1>
+		return <h1 className="">Still in development</h1>
 	}
 
 	return (
