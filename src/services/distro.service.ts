@@ -25,7 +25,12 @@ export async function addToWaitingList(distro: WaitingDistro) {
 
 // read
 export function getDistros() {
-	const distros = prisma.distro.findMany()
+	const distros = prisma.distro.findMany({
+		include: {
+			desktopEnvironments: true,
+			images: true,
+		},
+	})
 	return distros
 }
 

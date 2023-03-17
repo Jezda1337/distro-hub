@@ -4,6 +4,7 @@ const nextConfig = {
 	env: {
 		cloudinary_logos: process.env.CLOUDINARY_LOGOS,
 		base_api: process.env.BASE_API,
+		DATABASE_URL: process.env.DATABASE_URL,
 	},
 	// async rewrites() {
 	// 	return [

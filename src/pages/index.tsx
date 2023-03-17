@@ -26,10 +26,20 @@ export default function Home() {
 				(d: any) => d.basedOn.toLowerCase() === basedOn?.name.toLowerCase()
 			)
 		if (env && !basedOn)
+			return data.filter((d: any, _i: number) => {
+				return d.desktopEnvironments.find(
+					(obj: any) => obj.value.toLowerCase() === env.name.toLowerCase()
+				)
+			})
+		if (env && basedOn) {
 			return data.filter((d: any) =>
-				d.desktopEnvironments.includes(env.name.toLowerCase())
+				d.desktopEnvironments.find(
+					(obj: any) =>
+						obj.value === env.name.toLowerCase() &&
+						d.basedOn === basedOn.name.toLowerCase()
+				)
 			)
-
+		}
 		return []
 	}, [search, data, env, basedOn])
 
@@ -52,7 +62,7 @@ export default function Home() {
 			{isLoading ? (
 				<> loading...</>
 			) : filteredData.length !== 0 ? (
-				filteredData?.map((distro: Distro, index: number) => (
+				filteredData.map((distro: Distro, index: number) => (
 					<DistroCard
 						key={index}
 						distro={distro}
@@ -68,10 +78,9 @@ export default function Home() {
 
 async function getDistros() {
 	try {
-		// const response = await fetch(`${process.env.base_api}/distro`)
 		const response = await fetch("/api/v1/distro")
-		if (response.status === 200) return await response.json()
-		return response.status
+		if (response.status !== 200) return []
+		return await response.json()
 	} catch (error) {
 		console.error(error)
 	}
@@ -79,7 +88,6 @@ async function getDistros() {
 
 export async function getServerSideProps() {
 	const queryClient = new QueryClient()
-	queryClient.clear()
 	await queryClient.prefetchQuery(["distros"], getDistros)
 
 	return {

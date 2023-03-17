@@ -3,7 +3,6 @@ import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 // @ts-ignore
 import { CldImage } from "next-cloudinary"
 import Head from "next/head"
-import Link from "next/link"
 import { useRouter } from "next/router"
 
 async function getDistro({ queryKey }: any) {
@@ -39,7 +38,7 @@ export default function Distro() {
 	})
 
 	if (!data) {
-		return <h1>hello</h1>
+		return <h1>Still in development</h1>
 	}
 
 	return (
@@ -62,11 +61,21 @@ export default function Distro() {
 
 				<div className="ml-auto flex gap-4">
 					<Button className="">
-						<Link href={data.website}>web</Link>
+						<a
+							rel="noreferrer"
+							target="_blank"
+							href={`//${data.website}`}>
+							web
+						</a>
 					</Button>
 					<Button className="">
 						{/* href need change */}
-						<Link href={data.download || ""}>download</Link>
+						<a
+							rel="noreferrer"
+							target="_blank"
+							href={data.download || ""}>
+							download
+						</a>
 					</Button>
 				</div>
 			</div>
