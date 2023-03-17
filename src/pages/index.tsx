@@ -49,7 +49,9 @@ export default function Home() {
 				</div>
 				<span className="ml-auto">Details</span>
 			</div>
-			{!isLoading && filteredData.length !== 0 ? (
+			{isLoading ? (
+				<> loading...</>
+			) : filteredData.length !== 0 ? (
 				filteredData?.map((distro: Distro, index: number) => (
 					<DistroCard
 						key={index}

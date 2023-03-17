@@ -45,7 +45,9 @@ export default function WaitingList() {
 				</div>
 				<span className="ml-auto">Details</span>
 			</div>
-			{!isLoading && data.length !== 0 ? (
+			{isLoading ? (
+				<>loading...</>
+			) : data.length !== 0 ? (
 				data.map((distro: Distro) => (
 					<WaitingDistroCard
 						key={distro.id}
