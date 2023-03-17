@@ -6,7 +6,6 @@ import Head from "next/head"
 async function getWaitingList() {
 	try {
 		const response = await fetch(`${process.env.base_api}/waitingList`)
-		console.log(response.status)
 		return await response.json()
 	} catch (error) {
 		console.error(error)

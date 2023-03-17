@@ -68,8 +68,7 @@ export default function Home() {
 
 async function getDistros() {
 	try {
-		const response = await fetch(`/api/v1/distro`)
-		console.log(response.status)
+		const response = await fetch(`${process.env.base_api}/distro`)
 		if (response.status === 200) return await response.json()
 		return response.status
 	} catch (error) {
