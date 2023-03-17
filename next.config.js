@@ -5,6 +5,14 @@ const nextConfig = {
 		cloudinary_logos: process.env.CLOUDINARY_LOGOS,
 		base_api: process.env.BASE_API,
 	},
+	async rewrites() {
+		return [
+			{
+				source: "/api/:path*",
+				destination: "http://localhost:3000/:path*",
+			},
+		]
+	},
 }
 
 module.exports = nextConfig
