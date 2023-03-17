@@ -50,17 +50,7 @@ export default function Home() {
 				</div>
 				<span className="ml-auto">Details</span>
 			</div>
-
-			{!filteredData || data === undefined ? (
-				<>
-					{dummyData.map((distro: any) => (
-						<DistroCard
-							key={distro.id}
-							distro={distro}
-						/>
-					))}
-				</>
-			) : filteredData.length !== 0 ? (
+			{filteredData.length !== 0 ? (
 				filteredData.map((distro: Distro, index: number) => (
 					<DistroCard
 						key={index}
