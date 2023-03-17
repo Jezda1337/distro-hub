@@ -5,7 +5,7 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	res.setHeader("Access-Control-Allow-Origins", ["res.cloudinary.com"])
+	// res.setHeader("Access-Control-Allow-Origins", ["res.cloudinary.com"])
 	if (req.method === "GET") {
 		try {
 			const distros = await getDistros()
@@ -20,7 +20,9 @@ export default async function handler(
 	}
 
 	if (req.method === "POST") {
-		const distro = await createDistro({ distro: req.body })
+		const { body } = req
+		console.log(body)
+		const distro = await createDistro(req.body)
 		return res.status(200).json(distro)
 	}
 }

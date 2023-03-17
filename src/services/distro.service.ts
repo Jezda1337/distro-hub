@@ -1,10 +1,10 @@
-import { Distro } from "@/interfaces/distro.interface"
-import { PrismaClient, WaitingDistro } from "@prisma/client"
+// import { Distro } from "@/interfaces/distro.interface"
+import { Distro, PrismaClient, WaitingDistro } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
 // create
-export async function createDistro({ distro }: { distro: Distro }) {
+export async function createDistro(distro: Distro) {
 	if (distro.name === "" || distro.name.length === 0)
 		throw new Error("Name is required.")
 

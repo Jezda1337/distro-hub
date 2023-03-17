@@ -69,7 +69,9 @@ export default function Home() {
 async function getDistros() {
 	try {
 		const response = await fetch(`/api/v1/distro`)
-		return await response.json()
+		console.log(response.status)
+		if (response.status === 200) return await response.json()
+		return response.status
 	} catch (error) {
 		console.error(error)
 	}
