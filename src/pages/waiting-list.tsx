@@ -1,12 +1,13 @@
 import WaitingDistroCard from "@/components/WaitingDistroCard"
-import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 import { Distro } from "@/interfaces/distro.interface"
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 import Head from "next/head"
 
 async function getWaitingList() {
 	try {
-		const response = await fetch(`${process.env.base_api}/waitingList`)
-		// const response = await fetch("/api/v1/waitingList");
+		// const response = await fetch(`${process.env.base_api}/waitingList`)
+		const response = await fetch("/api/v1/waitingList")
+		console.log(response)
 		return await response.json()
 	} catch (error) {
 		console.error(error)
@@ -29,6 +30,8 @@ export default function WaitingList() {
 		queryKey: ["waitingList"],
 		queryFn: getWaitingList,
 	})
+
+	console.log(data)
 
 	return (
 		<section className="mt-40">

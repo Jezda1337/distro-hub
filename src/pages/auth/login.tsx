@@ -21,7 +21,7 @@ export default function Login() {
 
 		const credentials = { userName: userName, password: password }
 
-		const admin = await fetch(`http://localhost:3000/api/v1/auth/login`, {
+		const admin = await fetch(`/api/v1/auth/login`, {
 			method: "POST",
 			body: JSON.stringify(credentials),
 		})

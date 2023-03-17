@@ -5,10 +5,7 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	res.setHeader("Access-Control-Allow-Origins", [
-		"res.cloudinary.com",
-		"localhost:3000",
-	])
+	res.setHeader("Access-Control-Allow-Origins", ["res.cloudinary.com"])
 	if (req.method === "GET") {
 		try {
 			const distros = await getDistros()
@@ -16,7 +13,6 @@ export default async function handler(
 		} catch (err) {
 			console.error(err)
 			throw new Error("Something is not right with db")
-			// return res.status(500).json([{ message: "something is not right with db" }])
 		}
 	}
 

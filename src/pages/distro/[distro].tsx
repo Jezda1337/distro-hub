@@ -12,9 +12,7 @@ async function getDistro({ queryKey }: any) {
 	distro = distro.charAt(0).toUpperCase() + distro.slice(1)
 
 	try {
-		const response = await fetch(
-			`http://localhost:3000/api/v1/distro/${distro}`
-		)
+		const response = await fetch(`/api/v1/distro/${distro}`)
 		return await response.json()
 	} catch (error) {
 		console.error(error)
