@@ -25,10 +25,14 @@ export async function getServerSideProps() {
 }
 
 export default function WaitingList() {
-	const { data, isLoading } = useQuery({
+	const { data, isLoading, error } = useQuery({
 		queryKey: ["waitingList"],
 		queryFn: getWaitingList,
 	})
+
+	if (error) {
+		return <> Error</>
+	}
 
 	return (
 		<section className="mt-40">

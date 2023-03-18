@@ -3,8 +3,7 @@ import type { DistroForm } from "@/interfaces/distroInput.interfaces"
 import de_list from "@/static/de_list.json"
 import { DocumentPlusIcon, XMarkIcon } from "@heroicons/react/20/solid"
 import Image from "next/image"
-import { useRouter } from "next/router"
-import { ChangeEvent, FormEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import Select, { ActionMeta } from "react-select"
 import makeAnimated from "react-select/animated"
 import { Button } from "./ui/Button"
@@ -54,17 +53,29 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 
 	const [_deskEnv, setDeskEnv] = useState<Option[]>([])
 
+	useEffect(() => {
+		console.log(newDistro)
+	}, [newDistro])
+
 	function handleMultiSelect(
 		option: readonly Option[],
 		_actionMeta: ActionMeta<Option>
 	) {
 		setDeskEnv([...option])
 	}
-	const router = useRouter()
+	//combine lists into one array
 	const options = [...de_list.de, ...de_list.wm].map(({ name, id }) => {
 		return { id: id, value: name, label: name }
 	})
 	options.shift() // return arr without none value
+
+	function handleFiles(e: React.ChangeEvent) {
+		const target = (e.target as HTMLInputElement).files
+		setNewDistro({
+			...newDistro,
+			distroScreenShoots: [...target],
+		})
+	}
 
 	function handleChange(
 		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -76,33 +87,22 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 		})
 	}
 
-	function handleFiles(e: React.ChangeEvent) {
-		const target = (e.target as HTMLInputElement).files
-		setNewDistro({
-			...newDistro,
-			distroScreenShoots: [...newDistro.distroScreenShoots, ..._deskEnv],
-			...target,
-		})
-	}
-
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault()
-		setOpen(false)
+		setOpen(true)
 
-		const formData = new FormData(event.currentTarget)
-		const payload = Object.fromEntries(formData)
 		setNewDistro({
 			...newDistro,
-			desktopEnvironments: [...newDistro.desktopEnvironments, ..._deskEnv],
-			...payload,
+			desktopEnvironments: [..._deskEnv],
 		})
 
 		try {
 			const res = await fetch(`/api/v1/waitingList`, {
+				headers: { "content-type": "multipart/form-data" },
 				method: "POST",
 				body: JSON.stringify(newDistro),
 			})
-			router.replace(router.asPath)
+			// router.replace(router.asPath)
 			return res.status
 		} catch (error) {
 			console.error(error)
@@ -111,9 +111,8 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 
 	return (
 		<div
-			className={`${
-				open ? "grid" : "hidden"
-			} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
+			className={`${open ? "grid" : "hidden"
+				} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
 			onClick={handleOpen}>
 			<Dialog
 				onClick={(e) => e.stopPropagation()}
@@ -232,7 +231,6 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 						</label>
 						<input
 							type="file"
-							// name="distroScreenShoots"
 							onChange={handleFiles}
 							accept=".png, .jpg, .jpge, .webp"
 							multiple

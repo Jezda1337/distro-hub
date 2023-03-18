@@ -12,51 +12,38 @@ datasource db {
 }
 
 model Distro {
-  id                  String               @id @default(uuid())
-  name                String               @db.VarChar(255)
-  website             String               @db.VarChar(255)
-  logo                String
-  description         String
-  images              Image[]
-  desktopEnvironments DesktopEnvironment[]
-  basedOn             String
-  createdAt           DateTime             @default(now())
-}
-
-model WaitingDistro {
-  id                  String               @id @default(uuid())
-  email               String
-  name                String               @db.VarChar(255)
-  website             String               @db.VarChar(255)
-  logo                String
-  description         String
-  images              Image[]
-  desktopEnvironments DesktopEnvironment[]
-  basedOn             String
-  createdAt           DateTime             @default(now())
+  id           String   @id @default(uuid())
+  name         String   @db.Char(255)
+  about        String   @db.Text
+  website      String   @db.Char(255)
+  downloadLink String   @db.Char(255)
+  logo         String   @db.Char(255)
+  basedOn      String   @db.Char(255)
+  screenShoots Image[]
+  de           DE[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Image {
-  id              String         @id @default(uuid())
-  value           String
-  WaitingDistro   WaitingDistro? @relation(fields: [waitingDistroId], references: [id])
-  waitingDistroId String?
-  Distro          Distro?        @relation(fields: [distroId], references: [id])
-  distroId        String?
+  id        String   @id @default(uuid())
+  value     String   @db.Char(255)
+  Distro    Distro?  @relation(fields: [distroId], references: [id])
+  distroId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([waitingDistroId])
   @@index([distroId])
 }
 
-model DesktopEnvironment {
-  id              String         @id @default(uuid())
-  value           String
-  label           String
-  WaitingDistro   WaitingDistro? @relation(fields: [waitingDistroId], references: [id])
-  waitingDistroId String?
-  Distro          Distro?        @relation(fields: [distroId], references: [id])
-  distroId        String?
+model DE {
+  id        String   @id @default(uuid())
+  label     String   @db.Char(255)
+  value     String   @db.Char(255)
+  Distro    Distro?  @relation(fields: [distroId], references: [id])
+  distroId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([waitingDistroId])
   @@index([distroId])
 }
