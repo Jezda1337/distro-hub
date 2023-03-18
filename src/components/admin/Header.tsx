@@ -6,9 +6,13 @@ export function AdminHeader() {
 	const router = useRouter()
 
 	async function handleLogout() {
-		const response = await fetch("/api/v1/auth/logout")
-		console.log(await response.json())
-		router.push("/")
+		try {
+			const response = await fetch("/api/v1/auth/logout")
+			router.push("/")
+			return await response.json()
+		} catch (error) {
+			throw new Error("Chekc logout function")
+		}
 	}
 	return (
 		<header className="my-mt-12 my-14 flex items-center justify-between">

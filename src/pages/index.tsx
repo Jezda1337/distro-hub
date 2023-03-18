@@ -1,5 +1,6 @@
 import DistroCard from "@/components/DistroCard"
 import Filters from "@/components/Filters"
+import Loading from "@/components/Loading"
 import WorkInProgressBar from "@/components/WorkInProgressBar"
 import { useStore } from "@/context/store"
 import { Distro } from "@/interfaces/distro.interface"
@@ -60,7 +61,7 @@ export default function Home() {
 				<span className="ml-auto">Details</span>
 			</div>
 			{isLoading ? (
-				<> loading...</>
+				<Loading />
 			) : filteredData.length !== 0 ? (
 				filteredData.map((distro: Distro, index: number) => (
 					<DistroCard

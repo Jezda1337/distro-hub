@@ -1,3 +1,4 @@
+import Loading from "@/components/Loading"
 import WaitingDistroCard from "@/components/WaitingDistroCard"
 import { Distro } from "@/interfaces/distro.interface"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
@@ -5,7 +6,6 @@ import Head from "next/head"
 
 async function getWaitingList() {
 	try {
-		// const response = await fetch(`${process.env.base_api}/waitingList`)
 		const response = await fetch("/api/v1/waitingList")
 		return await response.json()
 	} catch (error) {
@@ -47,7 +47,7 @@ export default function WaitingList() {
 				<span className="ml-auto">Details</span>
 			</div>
 			{isLoading ? (
-				<>loading...</>
+				<Loading />
 			) : data.length !== 0 ? (
 				data.map((distro: Distro) => (
 					<WaitingDistroCard

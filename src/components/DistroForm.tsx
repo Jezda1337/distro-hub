@@ -96,7 +96,6 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 			desktopEnvironments: [...newDistro.desktopEnvironments, ..._deskEnv],
 			...payload,
 		})
-		console.log(newDistro)
 
 		try {
 			const res = await fetch(`/api/v1/waitingList`, {

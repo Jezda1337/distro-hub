@@ -56,6 +56,8 @@ export default function Distro() {
 					height="0"
 					className="h-12 w-12"
 					format="svg"
+					placeholder="blur"
+					blurDataURL="rgba(237, 181, 6)"
 				/>
 				<h2 className=" ml-4 text-2xl first-letter:uppercase">{data.name}</h2>
 

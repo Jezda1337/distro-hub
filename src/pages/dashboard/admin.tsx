@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/Input"
 import Head from "next/head"
-import { FormEvent, useEffect, useState } from "react"
+import { FormEvent, useState } from "react"
 
 export default function Admin() {
 	const [data, setData] = useState<any>([])
@@ -17,9 +17,6 @@ export default function Admin() {
 		}
 	}
 
-	useEffect(() => {
-		console.log(data)
-	}, [data])
 	return (
 		<>
 			<Head>

@@ -14,6 +14,8 @@ export default function DistroCard({ distro }: { distro: Distro }) {
 					height="0"
 					className="aspect-square w-8"
 					format="svg"
+					placeholder="blur"
+					blurDataURL="rgba(237, 181, 6)"
 				/>
 			</div>
 			<h3 className="ml-4 font-bold first-letter:uppercase">{distro.name}</h3>
