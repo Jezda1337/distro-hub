@@ -13,7 +13,6 @@ import { InputFile } from "./ui/InputFile"
 const animatedComponents = makeAnimated()
 
 interface Option {
-	id: number
 	value: string
 	label: string
 }
@@ -53,7 +52,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 	}
 	//combine lists into one array
 	const options = [...de_list.de, ...de_list.wm].map(({ name }) => {
-		return { value: name, label: name }
+		return { value: name.toLowerCase(), label: name }
 	})
 	options.shift() // return arr without none value
 
