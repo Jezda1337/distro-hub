@@ -1,4 +1,3 @@
-// import { Distro } from "@/interfaces/distro.interface"
 import { Distro, PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
@@ -16,8 +15,17 @@ export async function createDistro(distro: Distro) {
 }
 
 export async function addToWaitingList(distro: any) {
-	const newDistro = await prisma.waitingDistro.create({
-		data: distro,
+	console.log("------------------")
+	console.log(distro)
+	console.log("------------------")
+
+	const newDistro = await prisma.distro.create({
+		data: {
+			...distro,
+			de: {
+				create: [...distro.de],
+			},
+		},
 	})
 
 	return newDistro
@@ -27,8 +35,8 @@ export async function addToWaitingList(distro: any) {
 export function getDistros() {
 	const distros = prisma.distro.findMany({
 		include: {
-			desktopEnvironments: true,
-			images: true,
+			de: true,
+			screenShoots: true,
 		},
 	})
 	return distros
@@ -43,8 +51,8 @@ export function getDistroByName(distroName: string) {
 			name: distroName,
 		},
 		include: {
-			desktopEnvironments: true,
-			images: true,
+			de: true,
+			screenShoots: true,
 		},
 	})
 
@@ -52,12 +60,12 @@ export function getDistroByName(distroName: string) {
 }
 
 export async function getWaitingDistros() {
-	const distros = await prisma.waitingDistro.findMany()
+	const distros = await prisma.distro.findMany()
 	return distros
 }
 
 export async function getWaitingDistro(distroName: string) {
-	const distro = await prisma.waitingDistro.findFirst({
+	const distro = await prisma.distro.findFirst({
 		where: {
 			name: distroName,
 		},

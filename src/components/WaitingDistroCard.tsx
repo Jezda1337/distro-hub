@@ -1,7 +1,6 @@
+import { Distro } from "@prisma/client"
 // @ts-ignore
 import { CldImage } from "next-cloudinary"
-
-import { Distro } from "@/interfaces/distro.interface"
 
 export default function WaitingDistroCard({ distro }: { distro: Distro }) {
 	const submittedDate = new Date(distro.createdAt)

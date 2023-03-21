@@ -1,6 +1,6 @@
-import { Distro } from "@/interfaces/distro.interface"
 import Link from "next/link"
 // @ts-ignore
+import { Distro } from "@prisma/client"
 import { CldImage } from "next-cloudinary"
 
 export default function DistroCard({ distro }: { distro: Distro }) {
@@ -9,7 +9,7 @@ export default function DistroCard({ distro }: { distro: Distro }) {
 			<div>
 				<CldImage
 					alt="test"
-					src={"logos/" + distro.logo}
+					src={distro.logo}
 					width="0"
 					height="0"
 					className="aspect-square w-8"

@@ -6,6 +6,11 @@ const nextConfig = {
 		base_api: process.env.BASE_API,
 		DATABASE_URL: process.env.DATABASE_URL,
 	},
+
+	images: {
+		domains: [],
+	},
+
 	// async rewrites() {
 	// 	return [
 	// 		{

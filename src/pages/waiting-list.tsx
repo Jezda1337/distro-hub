@@ -1,6 +1,6 @@
 import Loading from "@/components/Loading"
 import WaitingDistroCard from "@/components/WaitingDistroCard"
-import { Distro } from "@/interfaces/distro.interface"
+import { Distro } from "@prisma/client"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 import Head from "next/head"
 

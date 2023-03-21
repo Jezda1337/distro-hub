@@ -3,19 +3,21 @@ import Filters from "@/components/Filters"
 import Loading from "@/components/Loading"
 import WorkInProgressBar from "@/components/WorkInProgressBar"
 import { useStore } from "@/context/store"
-import { Distro } from "@/interfaces/distro.interface"
+import { Distro } from "@prisma/client"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 import Head from "next/head"
 import { useMemo } from "react"
 
 export default function Home() {
-	const { data, isLoading } = useQuery({
+	const { data, isLoading, error } = useQuery({
 		queryKey: ["distros"],
 		queryFn: getDistros,
 	})
 
+	// context
 	const { env, basedOn, search } = useStore()
 
+	// filtering
 	const filteredData = useMemo(() => {
 		if (search)
 			return data.filter((d: any) =>
@@ -43,6 +45,11 @@ export default function Home() {
 		}
 		return []
 	}, [search, data, env, basedOn])
+
+	// check if there is an error
+	if (error) {
+		return <>error</>
+	}
 
 	return (
 		<section>

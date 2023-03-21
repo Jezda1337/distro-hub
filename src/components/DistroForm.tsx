@@ -1,28 +1,21 @@
 // import { ConvertToBase64 } from "@/helpers/convertToBase64";
-import type { DistroForm } from "@/interfaces/distroInput.interfaces"
 import de_list from "@/static/de_list.json"
 import { DocumentPlusIcon, XMarkIcon } from "@heroicons/react/20/solid"
+import { CldImage } from "next-cloudinary"
 import Image from "next/image"
-import { ChangeEvent, FormEvent, useEffect, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import Select, { ActionMeta } from "react-select"
 import makeAnimated from "react-select/animated"
 import { Button } from "./ui/Button"
 import { Dialog } from "./ui/Dialog"
 import { Input } from "./ui/Input"
 import { InputFile } from "./ui/InputFile"
-
 const animatedComponents = makeAnimated()
 
 interface Option {
 	id: number
 	value: string
 	label: string
-}
-
-interface Props {
-	handleOpen(): void
-	setOpen(open: boolean): void
-	open: boolean
 }
 
 const reactSelectCustomStyle = {
@@ -39,23 +32,18 @@ const reactSelectCustomStyle = {
 	}),
 }
 
-export default function DistroForm({ handleOpen, open, setOpen }: Props) {
-	const [newDistro, setNewDistro] = useState<DistroForm>({
+export default function DistroForm({ handleOpen, setOpen, open }: any) {
+	const [newDistro, setNewDistro] = useState({
 		name: "",
+		about: "",
 		website: "",
-		description: "",
+		downloadLink: "",
 		logo: "",
 		basedOn: "",
-		desktopEnvironments: [],
-		downloadLink: "",
-		distroScreenShoots: [],
+		waitingDistro: true,
 	})
 
 	const [_deskEnv, setDeskEnv] = useState<Option[]>([])
-
-	useEffect(() => {
-		console.log(newDistro)
-	}, [newDistro])
 
 	function handleMultiSelect(
 		option: readonly Option[],
@@ -64,55 +52,75 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 		setDeskEnv([...option])
 	}
 	//combine lists into one array
-	const options = [...de_list.de, ...de_list.wm].map(({ name, id }) => {
-		return { id: id, value: name, label: name }
+	const options = [...de_list.de, ...de_list.wm].map(({ name }) => {
+		return { value: name, label: name }
 	})
 	options.shift() // return arr without none value
-
-	function handleFiles(e: React.ChangeEvent) {
-		const target = (e.target as HTMLInputElement).files
-		setNewDistro({
-			...newDistro,
-			distroScreenShoots: [...target],
-		})
-	}
 
 	function handleChange(
 		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) {
-		const target = event.target
-		setNewDistro({
-			...newDistro,
-			[target.name]: target.value,
+		const { name, value } = event.target
+		setNewDistro((): any => {
+			return {
+				...newDistro,
+				[name]: value,
+			}
 		})
+	}
+
+	async function handleLogo(logo: File) {
+		const url = "https://api.cloudinary.com/v1_1/db1fkstfm/image/upload"
+		// const logo64 = await ConvertToBase64(logo)
+
+		// setNewDistro({
+		// 	...newDistro,
+		// 	logo: logo64 as string,
+		// })
+
+		const body = new FormData()
+		body.append("file", logo, logo.name)
+		body.append("upload_preset", "distro_logos")
+
+		const config = {
+			method: "POST",
+			body,
+		}
+
+		try {
+			const response = await fetch(url, config)
+			const { public_id } = await response.json()
+			setNewDistro({
+				...newDistro,
+				logo: public_id,
+			})
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault()
 		setOpen(true)
-
-		setNewDistro({
-			...newDistro,
-			desktopEnvironments: [..._deskEnv],
-		})
+		const body = { ...newDistro, de: _deskEnv }
 
 		try {
 			const res = await fetch(`/api/v1/waitingList`, {
-				headers: { "content-type": "multipart/form-data" },
 				method: "POST",
-				body: JSON.stringify(newDistro),
+				body: JSON.stringify(body),
 			})
+			console.log(res.json())
 			// router.replace(router.asPath)
 			return res.status
 		} catch (error) {
 			console.error(error)
 		}
 	}
-
 	return (
 		<div
-			className={`${open ? "grid" : "hidden"
-				} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
+			className={`${
+				open ? "grid" : "hidden"
+			} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
 			onClick={handleOpen}>
 			<Dialog
 				onClick={(e) => e.stopPropagation()}
@@ -128,7 +136,6 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 					</Button>
 				</header>
 				<form
-					method="POST"
 					onSubmit={handleSubmit}
 					className="mt-4 flex flex-col gap-4">
 					<div className="flex flex-col gap-4 md:flex-row">
@@ -144,6 +151,7 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 								Desktop environments
 							</label>
 							<Select
+								name="de"
 								placeholder="Ex. Gnome"
 								className=" w-full self-end"
 								styles={reactSelectCustomStyle}
@@ -184,18 +192,28 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 						/>
 					</div>
 					<div className="flex flex-col gap-4 md:flex-row md:items-center">
-						<div className="gal-4 flex w-full items-end">
-							<Image
-								src={newDistro.logo ? newDistro.logo : "/images/arch.svg"}
-								alt="Logo"
-								width={0}
-								height={0}
-								className="aspect-square w-16"
-							/>
+						<div className="flex h-16 w-full items-end gap-4">
+							{!newDistro.logo ? (
+								<Image
+									src="/placeholder_img.svg"
+									alt="Logo"
+									width={0}
+									height={0}
+									className="aspect-square w-16"
+								/>
+							) : (
+								<CldImage
+									className="aspect-square w-16"
+									width={0}
+									height={0}
+									src={newDistro.logo}
+									alt="Logo"
+								/>
+							)}
 							<InputFile
 								name="logo"
 								label="Upload"
-								onChange={handleChange}
+								onChange={({ target }) => handleLogo(target.files[0])}
 								className="w-full"
 							/>
 						</div>
@@ -212,7 +230,7 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 						<textarea
 							onChange={handleChange}
 							className="h-32 w-full rounded border px-3 py-2 focus-within:outline-none focus:border-[2px] focus:border-black focus:outline-none"
-							name="description"
+							name="about"
 							required={true}
 							placeholder="Brief description od distro"
 						/>
@@ -231,7 +249,7 @@ export default function DistroForm({ handleOpen, open, setOpen }: Props) {
 						</label>
 						<input
 							type="file"
-							onChange={handleFiles}
+							// onChange={(e) => setFiles(e.target.files as any)}
 							accept=".png, .jpg, .jpge, .webp"
 							multiple
 							className="hidden"

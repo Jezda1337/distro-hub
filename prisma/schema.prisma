@@ -12,17 +12,18 @@ datasource db {
 }
 
 model Distro {
-  id           String   @id @default(uuid())
-  name         String   @db.Char(255)
-  about        String   @db.Text
-  website      String   @db.Char(255)
-  downloadLink String   @db.Char(255)
-  logo         String   @db.Char(255)
-  basedOn      String   @db.Char(255)
-  screenShoots Image[]
-  de           DE[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id            String   @id @default(uuid())
+  name          String   @db.Char(255)
+  about         String   @db.Text
+  website       String   @db.Char(255)
+  downloadLink  String   @db.Char(255)
+  logo          String   @db.Char(255)
+  basedOn       String   @db.Char(255)
+  waitingDistro Boolean  @default(true)
+  screenShoots  Image[]
+  de            DE[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Image {
@@ -37,13 +38,13 @@ model Image {
 }
 
 model DE {
-  id        String   @id @default(uuid())
-  label     String   @db.Char(255)
-  value     String   @db.Char(255)
-  Distro    Distro?  @relation(fields: [distroId], references: [id])
-  distroId  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id       String  @id @default(uuid())
+  label    String  @db.Char(255)
+  value    String  @db.Char(255)
+  Distro   Distro? @relation(fields: [distroId], references: [id])
+  distroId String?
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime @updatedAt
 
   @@index([distroId])
 }

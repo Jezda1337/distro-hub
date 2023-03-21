@@ -47,11 +47,13 @@ export default function Distro() {
 				<title>DistroHub - {data.name}</title>
 			</Head>
 
-			<div className="my-20 h-[300px] w-full bg-red-100"></div>
+			<div className="my-20 grid h-[300px] w-full place-items-center rounded bg-red-100">
+				distro images goes here
+			</div>
 			<div className="flex items-end">
 				<CldImage
 					alt="test"
-					src={"logos/" + data.logo}
+					src={data.logo}
 					width="0"
 					height="0"
 					className="h-12 w-12"
@@ -62,30 +64,25 @@ export default function Distro() {
 				<h2 className=" ml-4 text-2xl first-letter:uppercase">{data.name}</h2>
 
 				<div className="ml-auto flex gap-4">
-					<Button className="">
-						<a
-							rel="noreferrer"
-							target="_blank"
-							href={`//${data.website}`}>
-							web
-						</a>
-					</Button>
-					<Button className="">
-						{/* href need change */}
-						<a
-							rel="noreferrer"
-							target="_blank"
-							href={data.download || ""}>
-							download
-						</a>
-					</Button>
+					<a
+						rel="noreferrer"
+						target="_blank"
+						href={`//${data.website}`}>
+						<Button>web</Button>
+					</a>
+					<a
+						rel="noreferrer"
+						target="_blank"
+						href={`//${data.downloadLink}` || `${data.downloadLink}`}>
+						<Button>Download</Button>
+					</a>
 				</div>
 			</div>
 			<div className="mt-20">
 				<h2 className=" relative my-4 text-2xl first-letter:uppercase after:absolute after:top-1/2 after:ml-5 after:h-[3px] after:w-12 after:-translate-y-1/2 after:rounded-full after:bg-black">
 					About
 				</h2>
-				<p className="">{data.description}</p>
+				<p className="">{data.about}</p>
 			</div>
 		</section>
 	)

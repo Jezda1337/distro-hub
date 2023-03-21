@@ -1,4 +1,4 @@
-import { createDistro, getDistros } from "@/services/distro.service"
+import { getDistros } from "@/services/distro.service"
 import { NextApiRequest, NextApiResponse } from "next"
 
 export default async function handler(
@@ -15,8 +15,8 @@ export default async function handler(
 		}
 	}
 
-	if (req.method === "POST") {
-		const distro = await createDistro(req.body)
-		return res.status(200).json(distro)
-	}
+	// if (req.method === "POST") {
+	// 	const distro = await createDistro(req.body)
+	// 	return res.status(200).json(distro)
+	// }
 }
