@@ -20,7 +20,7 @@ model Distro {
   logo          String   @db.Char(255)
   basedOn       String   @db.Char(255)
   waitingDistro Boolean  @default(true)
-  screenShoots  Image[]
+  images        Image[]
   de            DE[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt

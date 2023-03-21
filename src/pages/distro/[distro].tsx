@@ -1,3 +1,4 @@
+import Loading from "@/components/Loading"
 import { Button } from "@/components/ui/Button"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 // @ts-ignore
@@ -38,7 +39,7 @@ export default function Distro() {
 	})
 
 	if (!data) {
-		return <h1 className="">Still in development</h1>
+		return <Loading />
 	}
 
 	return (
@@ -81,6 +82,9 @@ export default function Distro() {
 			<div className="mt-20">
 				<h2 className=" relative my-4 text-2xl first-letter:uppercase after:absolute after:top-1/2 after:ml-5 after:h-[3px] after:w-12 after:-translate-y-1/2 after:rounded-full after:bg-black">
 					About
+					{data.de.map((de: any) => (
+						<li key={de.id}>{de.label}</li>
+					))}
 				</h2>
 				<p className="">{data.about}</p>
 			</div>

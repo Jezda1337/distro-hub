@@ -15,16 +15,15 @@ export async function createDistro(distro: Distro) {
 }
 
 export async function addToWaitingList(distro: any) {
-	console.log("------------------")
-	console.log(distro)
-	console.log("------------------")
-
 	const newDistro = await prisma.distro.create({
 		data: {
 			...distro,
 			de: {
 				create: [...distro.de],
 			},
+			// images: {
+			// 	create: [...distro?.images],
+			// },
 		},
 	})
 
@@ -34,9 +33,8 @@ export async function addToWaitingList(distro: any) {
 // read
 export function getDistros() {
 	const distros = prisma.distro.findMany({
-		include: {
-			de: true,
-			screenShoots: true,
+		where: {
+			waitingDistro: false,
 		},
 	})
 	return distros
@@ -52,7 +50,7 @@ export function getDistroByName(distroName: string) {
 		},
 		include: {
 			de: true,
-			screenShoots: true,
+			images: true,
 		},
 	})
 
@@ -60,7 +58,11 @@ export function getDistroByName(distroName: string) {
 }
 
 export async function getWaitingDistros() {
-	const distros = await prisma.distro.findMany()
+	const distros = await prisma.distro.findMany({
+		where: {
+			waitingDistro: true,
+		},
+	})
 	return distros
 }
 
@@ -68,6 +70,10 @@ export async function getWaitingDistro(distroName: string) {
 	const distro = await prisma.distro.findFirst({
 		where: {
 			name: distroName,
+		},
+		include: {
+			de: true,
+			images: true,
 		},
 	})
 	return distro

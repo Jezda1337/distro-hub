@@ -105,7 +105,6 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 				method: "POST",
 				body: JSON.stringify(body),
 			})
-			console.log(res.json())
 			router.replace(router.asPath)
 			return res.status
 		} catch (error) {
