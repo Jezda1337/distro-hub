@@ -30,13 +30,13 @@ export default function Home() {
 			)
 		if (env && !basedOn)
 			return data.filter((d: any, _i: number) => {
-				return d.desktopEnvironments.find(
+				return d.de.find(
 					(obj: any) => obj.value.toLowerCase() === env.name.toLowerCase()
 				)
 			})
 		if (env && basedOn) {
 			return data.filter((d: any) =>
-				d.desktopEnvironments.find(
+				d.de.find(
 					(obj: any) =>
 						obj.value === env.name.toLowerCase() &&
 						d.basedOn === basedOn.name.toLowerCase()
