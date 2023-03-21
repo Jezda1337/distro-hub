@@ -3,6 +3,7 @@ import de_list from "@/static/de_list.json"
 import { DocumentPlusIcon, XMarkIcon } from "@heroicons/react/20/solid"
 import { CldImage } from "next-cloudinary"
 import Image from "next/image"
+import { useRouter } from "next/router"
 import { ChangeEvent, FormEvent, useState } from "react"
 import Select, { ActionMeta } from "react-select"
 import makeAnimated from "react-select/animated"
@@ -43,6 +44,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 	})
 
 	const [_deskEnv, setDeskEnv] = useState<Option[]>([])
+	const router = useRouter()
 
 	function handleMultiSelect(
 		option: readonly Option[],
@@ -68,14 +70,9 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 		})
 	}
 
-	async function handleLogo(logo: File) {
+	async function handleLogo(e: FormEvent<HTMLInputElement>) {
 		const url = "https://api.cloudinary.com/v1_1/db1fkstfm/image/upload"
-		// const logo64 = await ConvertToBase64(logo)
-
-		// setNewDistro({
-		// 	...newDistro,
-		// 	logo: logo64 as string,
-		// })
+		const logo = (e.target as HTMLInputElement)?.files![0]
 
 		const body = new FormData()
 		body.append("file", logo, logo.name)
@@ -100,7 +97,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault()
-		setOpen(true)
+		setOpen(false)
 		const body = { ...newDistro, de: _deskEnv }
 
 		try {
@@ -109,7 +106,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 				body: JSON.stringify(body),
 			})
 			console.log(res.json())
-			// router.replace(router.asPath)
+			router.replace(router.asPath)
 			return res.status
 		} catch (error) {
 			console.error(error)
@@ -212,7 +209,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 							<InputFile
 								name="logo"
 								label="Upload"
-								onChange={({ target }) => handleLogo(target.files[0])}
+								onChange={handleLogo}
 								className="w-full"
 							/>
 						</div>
