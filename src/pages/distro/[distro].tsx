@@ -31,14 +31,19 @@ export async function getServerSideProps({ params }: any) {
 }
 
 export default function Distro() {
-	const { query } = useRouter()
-
+	const { query, push } = useRouter()
 	const { data } = useQuery({
 		queryKey: ["distro", query.distro],
 		queryFn: getDistro,
 	})
 
+	if (data === null) {
+		push("/404")
+		return
+	}
+
 	if (!data) {
+		console.log(data)
 		return <Loading />
 	}
 
