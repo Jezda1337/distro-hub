@@ -36,6 +36,9 @@ export function getDistros() {
 		where: {
 			waitingDistro: false,
 		},
+		include: {
+			de: true,
+		},
 	})
 	return distros
 }

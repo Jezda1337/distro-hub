@@ -68,7 +68,7 @@ export default function Select({
 				aria-haspopup="true"
 				type="button"
 				className="flex h-full w-full items-center rounded focus:outline focus:outline-2 focus:outline-black">
-				<span className="block h-full w-full py-2 px-3 text-left leading-none">
+				<span className="block h-full w-full py-2 px-3 text-left">
 					{selected ? (
 						<div className="flex items-center">
 							<div className="mr-3">
