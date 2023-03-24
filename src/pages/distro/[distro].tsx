@@ -1,10 +1,17 @@
 import Loading from "@/components/Loading"
 import { Button } from "@/components/ui/Button"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
+import lgThumbnail from "lightgallery/plugins/thumbnail"
+import LightGallery from "lightgallery/react"
 // @ts-ignore
 import { CldImage } from "next-cloudinary"
 import Head from "next/head"
 import { useRouter } from "next/router"
+
+import "lightgallery/css/lg-thumbnail.css"
+import "lightgallery/css/lg-zoom.css"
+import "lightgallery/css/lightgallery.css"
+import lgZoom from "lightgallery/plugins/zoom"
 
 async function getDistro({ queryKey }: any) {
 	let [_, distro] = queryKey
@@ -43,22 +50,43 @@ export default function Distro() {
 	}
 
 	if (!data) {
-		console.log(data)
 		return <Loading />
 	}
-
 	return (
 		<section className="my-20">
 			<Head>
 				<title>DistroHub - {data.name}</title>
 			</Head>
 
-			<div className="my-20 grid h-[300px] w-full place-items-center rounded bg-red-100">
-				distro images goes here
+			<div className="my-20 grid h-[300px] w-full place-items-center rounded shadow">
+				<div className="flex gap-2">
+					{data.images.length >= 1 ? (
+						<LightGallery
+							elementClassNames="flex"
+							speed={500}
+							plugins={[lgThumbnail, lgZoom]}>
+							{data.images.map((image: any) => (
+								<a
+									key={image.id}
+									href={`https://res.cloudinary.com/db1fkstfm/image/upload/v1679580698/${image.value}`}>
+									<CldImage
+										src={image.value}
+										width={0}
+										height={0}
+										className="aspect-auto w-full object-cover"
+										alt="image of current distro"
+									/>
+								</a>
+							))}
+						</LightGallery>
+					) : (
+						<p>No images</p>
+					)}
+				</div>
 			</div>
 			<div className="flex items-end">
 				<CldImage
-					alt="test"
+					alt="logo"
 					src={data.logo}
 					width="0"
 					height="0"
@@ -87,9 +115,6 @@ export default function Distro() {
 			<div className="mt-20">
 				<h2 className=" relative my-4 text-2xl first-letter:uppercase after:absolute after:top-1/2 after:ml-5 after:h-[3px] after:w-12 after:-translate-y-1/2 after:rounded-full after:bg-black">
 					About
-					{data.de.map((de: any) => (
-						<li key={de.id}>{de.label}</li>
-					))}
 				</h2>
 				<p className="">{data.about}</p>
 			</div>

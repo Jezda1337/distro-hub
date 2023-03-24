@@ -1,6 +1,8 @@
 // import { ConvertToBase64 } from "@/helpers/convertToBase64";
+import multiFiles from "@/helpers/multiFiles"
 import de_list from "@/static/de_list.json"
 import { DocumentPlusIcon, XMarkIcon } from "@heroicons/react/20/solid"
+// @ts-ignore
 import { CldImage } from "next-cloudinary"
 import Image from "next/image"
 import { useRouter } from "next/router"
@@ -43,6 +45,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 		waitingDistro: true,
 	})
 
+	const [_files, setFiles] = useState([])
 	const [_deskEnv, setDeskEnv] = useState<Option[]>([])
 	const router = useRouter()
 
@@ -98,7 +101,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault()
 		setOpen(false)
-		const body = { ...newDistro, de: _deskEnv }
+		const body = { ...newDistro, de: _deskEnv, images: _files }
 
 		try {
 			const res = await fetch(`/api/v1/waitingList`, {
@@ -111,6 +114,19 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 			console.error(error)
 		}
 	}
+
+	async function handleFiles(files: FileList) {
+		const data: any[] = []
+		for (const file of Array.from(files)) {
+			console.log(file)
+			await multiFiles(file)
+				.then((d) => data.push({ value: d.public_id }))
+				.finally(() => {
+					setFiles([..._files, ...data] as any)
+				})
+		}
+	}
+
 	return (
 		<div
 			className={`${
@@ -244,7 +260,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 						</label>
 						<input
 							type="file"
-							// onChange={(e) => setFiles(e.target.files as any)}
+							onChange={(e) => handleFiles(e.target.files as any)}
 							accept=".png, .jpg, .jpge, .webp"
 							multiple
 							className="hidden"

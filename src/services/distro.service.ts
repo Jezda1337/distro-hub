@@ -21,9 +21,9 @@ export async function addToWaitingList(distro: any) {
 			de: {
 				create: [...distro.de],
 			},
-			// images: {
-			// 	create: [...distro?.images],
-			// },
+			images: {
+				create: [...distro.images],
+			},
 		},
 	})
 
