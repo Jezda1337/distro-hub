@@ -1,17 +1,16 @@
 import Loading from "@/components/Loading"
 import { Button } from "@/components/ui/Button"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
-import lgThumbnail from "lightgallery/plugins/thumbnail"
-import LightGallery from "lightgallery/react"
 // @ts-ignore
 import { CldImage } from "next-cloudinary"
 import Head from "next/head"
 import { useRouter } from "next/router"
 
+import Carousel from "@/components/Carousel"
 import "lightgallery/css/lg-thumbnail.css"
 import "lightgallery/css/lg-zoom.css"
 import "lightgallery/css/lightgallery.css"
-import lgZoom from "lightgallery/plugins/zoom"
+import { useState } from "react"
 
 async function getDistro({ queryKey }: any) {
 	let [_, distro] = queryKey
@@ -38,6 +37,7 @@ export async function getServerSideProps({ params }: any) {
 }
 
 export default function Distro() {
+	const [currentImage] = useState(0)
 	const { query, push } = useRouter()
 	const { data } = useQuery({
 		queryKey: ["distro", query.distro],
@@ -52,39 +52,27 @@ export default function Distro() {
 	if (!data) {
 		return <Loading />
 	}
+
+	console.log(currentImage)
 	return (
 		<section className="my-20">
 			<Head>
 				<title>DistroHub - {data.name}</title>
 			</Head>
 
-			<div className="my-20 grid h-[300px] w-full place-items-center rounded shadow">
-				<div className="flex gap-2">
-					{data.images.length >= 1 ? (
-						<LightGallery
-							elementClassNames="flex"
-							speed={500}
-							plugins={[lgThumbnail, lgZoom]}>
-							{data.images.map((image: any) => (
-								<a
-									key={image.id}
-									href={`https://res.cloudinary.com/db1fkstfm/image/upload/v1679580698/${image.value}`}>
-									<CldImage
-										src={image.value}
-										width={0}
-										height={0}
-										className="aspect-auto w-full object-cover"
-										alt="image of current distro"
-									/>
-								</a>
-							))}
-						</LightGallery>
+			<div className="my-20 grid w-full place-items-center rounded shadow md:min-h-[300px]">
+				<div className="relative grid h-full w-full place-items-center">
+					{data.images.length ? (
+						<Carousel
+							images={data.images}
+							distroName={data.name}
+						/>
 					) : (
 						<p>No images</p>
 					)}
 				</div>
 			</div>
-			<div className="flex items-end">
+			<div className="flex flex-col items-start md:flex-row md:items-end">
 				<CldImage
 					alt="logo"
 					src={data.logo}
@@ -95,9 +83,11 @@ export default function Distro() {
 					placeholder="blur"
 					blurDataURL="rgba(237, 181, 6)"
 				/>
-				<h2 className=" ml-4 text-2xl first-letter:uppercase">{data.name}</h2>
+				<h2 className="my-2 text-2xl first-letter:uppercase md:my-0 md:ml-4">
+					{data.name}
+				</h2>
 
-				<div className="ml-auto flex gap-4">
+				<div className="flex gap-4 md:ml-auto">
 					<a
 						rel="noreferrer"
 						target="_blank"

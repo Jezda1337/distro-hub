@@ -22,7 +22,7 @@ export default function Header() {
 				<DropdownMenu />
 				<Button
 					onClick={handleOpen}
-					className="text-xl">
+					className="text-base sm:text-xl ">
 					Submit distro
 				</Button>
 			</div>

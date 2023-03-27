@@ -136,7 +136,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 			<Dialog
 				onClick={(e) => e.stopPropagation()}
 				open={open}
-				className="h-11/12 w-11/12 max-w-3xl rounded border bg-white shadow">
+				className="h-11/12 top-12 w-11/12 max-w-3xl rounded border bg-white shadow md:top-auto">
 				<header className="mb-3 flex items-start justify-between border-b pb-3">
 					<div>
 						<p className="text-lg font-medium">Submit distro</p>

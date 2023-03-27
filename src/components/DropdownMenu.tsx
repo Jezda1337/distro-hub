@@ -34,7 +34,7 @@ export default function DropdownMenu() {
 			{open ? (
 				<div
 					tabIndex={0}
-					className="borderpy-3 absolute right-0 z-10 mt-3 min-w-[150px] rounded border bg-white shadow">
+					className="absolute right-0 z-10 mt-3 min-w-[150px] rounded border bg-white py-3 shadow">
 					<ul
 						className="py-2"
 						tabIndex={0}>
