@@ -7,9 +7,6 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 
 import Carousel from "@/components/Carousel"
-import "lightgallery/css/lg-thumbnail.css"
-import "lightgallery/css/lg-zoom.css"
-import "lightgallery/css/lightgallery.css"
 import { useState } from "react"
 
 async function getDistro({ queryKey }: any) {

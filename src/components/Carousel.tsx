@@ -35,17 +35,17 @@ export default function Carousel({ images, distroName }: any) {
 			</div>
 			<div className="absolute top-1/2 flex w-full -translate-y-1/2 justify-between px-3 text-2xl">
 				<button
-					className="-translate-x-[150%] rounded border bg-transparent px-5 py-2 text-white transition-all hover:bg-neutral-900 group-hover:-translate-x-0"
+					className="rounded border bg-transparent px-5 py-2 text-white transition-all hover:bg-neutral-900 lg:-translate-x-[150%] lg:group-hover:-translate-x-0"
 					onClick={handlePrevImage}>
 					«
 				</button>
 				<button
-					className="translate-x-[150%] rounded border bg-transparent px-5 py-2 text-white transition-all hover:bg-neutral-900 group-hover:-translate-x-0"
+					className="rounded border bg-transparent px-5 py-2 text-white transition-all hover:bg-neutral-900 lg:translate-x-[150%] lg:group-hover:-translate-x-0"
 					onClick={handleNextImage}>
 					»
 				</button>
 			</div>
-			<div className="absolute top-0 flex w-full -translate-y-full items-center justify-between bg-gradient-to-b from-black/75 to-transparent px-5 py-2 text-right text-white transition-all group-hover:translate-y-0">
+			<div className="absolute top-0 flex w-full items-center justify-between bg-gradient-to-b from-black/75 to-transparent px-5 py-2 text-right text-white transition-all lg:-translate-y-full lg:group-hover:translate-y-0">
 				<div>{distroName}</div>
 				<div>
 					{currentImage + 1}/{images.length}

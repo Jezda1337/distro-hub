@@ -46,7 +46,6 @@ export default function Home() {
 		return []
 	}, [search, data, env, basedOn])
 
-	// check if there is an error
 	if (error) {
 		return <>error</>
 	}
@@ -69,7 +68,7 @@ export default function Home() {
 			</div>
 			{isLoading ? (
 				<Loading />
-			) : filteredData.length !== 0 ? (
+			) : data ?? filteredData ? (
 				filteredData.map((distro: Distro, index: number) => (
 					<DistroCard
 						key={index}
