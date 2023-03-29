@@ -131,6 +131,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 	return (
 		<Backdrop handleClose={handleOpen}>
 			<Dialog
+				className="h-11/12 top-12 w-11/12 max-w-3xl rounded border bg-white shadow md:top-auto"
 				onClick={(e) => e.stopPropagation()}
 				open={open}>
 				<header className="mb-3 flex items-start justify-between border-b pb-3">
