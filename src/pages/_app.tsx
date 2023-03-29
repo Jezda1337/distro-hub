@@ -1,6 +1,6 @@
 import { AdminHeader } from "@/components/admin/Header"
 import Header from "@/components/Header"
-import { Poppins } from "@next/font/google"
+import { Poppins } from "next/font/google"
 import {
   Hydrate,
   QueryClient,
