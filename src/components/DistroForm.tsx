@@ -9,6 +9,7 @@ import { useRouter } from "next/router"
 import { ChangeEvent, FormEvent, useState } from "react"
 import Select, { ActionMeta } from "react-select"
 import makeAnimated from "react-select/animated"
+import Backdrop from "./Backdrop"
 import { Button } from "./ui/Button"
 import { Dialog } from "./ui/Dialog"
 import { Input } from "./ui/Input"
@@ -128,15 +129,10 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 	}
 
 	return (
-		<div
-			className={`${
-				open ? "grid" : "hidden"
-			} absolute z-10 backdrop-blur-sm inset-0 place-items-center`}
-			onClick={handleOpen}>
+		<Backdrop handleClose={handleOpen}>
 			<Dialog
 				onClick={(e) => e.stopPropagation()}
-				open={open}
-				className="h-11/12 top-12 w-11/12 max-w-3xl rounded border bg-white shadow md:top-auto">
+				open={open}>
 				<header className="mb-3 flex items-start justify-between border-b pb-3">
 					<div>
 						<p className="text-lg font-medium">Submit distro</p>
@@ -272,6 +268,6 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 					</div>
 				</form>
 			</Dialog>
-		</div>
+		</Backdrop>
 	)
 }
