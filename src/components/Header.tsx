@@ -2,6 +2,7 @@ import DistroForm from "@/components/DistroForm"
 import { AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { useState } from "react"
+import Backdrop from "./Backdrop"
 import DropdownMenu from "./DropdownMenu"
 import { Button } from "./ui/Button"
 
@@ -29,11 +30,15 @@ export default function Header() {
 			</div>
 			<AnimatePresence>
 				{open ? (
-					<DistroForm
-						handleOpen={handleOpen}
-						open
-						setOpen={setOpen}
-					/>
+					<Backdrop
+						handleClose={handleOpen}
+						open={open}>
+						<DistroForm
+							open
+							setOpen={setOpen}
+							handleOpen={handleOpen}
+						/>
+					</Backdrop>
 				) : null}
 			</AnimatePresence>
 		</header>
