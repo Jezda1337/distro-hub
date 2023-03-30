@@ -9,13 +9,13 @@ export default function LightBox({
 	open,
 }: any) {
 	function handleNextImage() {
-		setCurrentImage((a) => a + 1)
+		setCurrentImage((a: number) => a + 1)
 		if (currentImage == images.length - 1) {
 			setCurrentImage(0)
 		}
 	}
 	function handlePrevImage() {
-		setCurrentImage((a) => a - 1)
+		setCurrentImage((a: number) => a - 1)
 		if (currentImage <= 0) {
 			setCurrentImage(images.length - 1)
 		}
