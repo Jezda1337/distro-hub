@@ -7,10 +7,10 @@ export default function Thumbnail({
 	setCurrentImage,
 	thumbnail,
 }: any) {
-	const ref = useRef(null)
+	const ref = useRef<HTMLAnchorElement>(null)
 	function handleThumbnail() {
 		setCurrentImage(index)
-		ref.current.scrollIntoView({
+		ref.current?.scrollIntoView({
 			block: "nearest",
 			inline: "start",
 			behavior: "smooth",
@@ -21,14 +21,14 @@ export default function Thumbnail({
 		if (currentImage === index) {
 			// solves the problem on chromium base browsers, not good but workaround
 			setTimeout(function () {
-				ref.current.scrollIntoView({
+				ref.current?.scrollIntoView({
 					block: "nearest",
 					inline: "start",
 					behavior: "smooth",
 				})
 			}, 0)
 		}
-	}, [currentImage])
+	}, [currentImage, index])
 
 	return (
 		<a
