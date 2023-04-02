@@ -5,6 +5,9 @@ const nextConfig = {
 		cloudinary_logos: process.env.CLOUDINARY_LOGOS,
 		base_api: process.env.BASE_API,
 		DATABASE_URL: process.env.DATABASE_URL,
+		cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+		cloud_api_key: process.env.CLOUDINARY_API_KEY,
+		cloud_api_secret: process.env.CLOUDINARY_API_SECRET,
 	},
 
 	images: {

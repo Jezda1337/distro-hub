@@ -1,11 +1,9 @@
-import Link from "next/link"
-// @ts-ignore
-import { Distro } from "@prisma/client"
 import { CldImage } from "next-cloudinary"
+import Link from "next/link"
 
-export default function DistroCard({ distro }: { distro: Distro }) {
+export default function DistroCard({ distro }: { distro: any }): JSX.Element {
 	return (
-		<article className="my-3 flex w-full items-center rounded border border-gray-500 px-4 py-1 md:hover:shadow-lg md:hover:transition-all">
+		<article className="my-3 flex w-full items-center rounded border border-gray-500 px-4 py-1 transition-all md:hover:scale-[1.025] md:hover:shadow-2xl md:hover:transition-all">
 			<div>
 				<CldImage
 					alt="test"
@@ -20,7 +18,7 @@ export default function DistroCard({ distro }: { distro: Distro }) {
 			</div>
 			<h3 className="ml-4 font-bold first-letter:uppercase">{distro.name}</h3>
 			<Link
-				className="ml-auto"
+				className="ml-auto rounded px-2 py-1 transition-colors hover:bg-black hover:text-white"
 				href={"/distro/" + distro.name.toLowerCase()}>
 				<p className="ml-auto">read more</p>
 			</Link>

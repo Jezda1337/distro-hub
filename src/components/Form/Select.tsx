@@ -1,5 +1,6 @@
 import { NoSymbolIcon } from "@heroicons/react/20/solid"
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline"
+import { motion } from "framer-motion"
 import Image from "next/image"
 import { useState } from "react"
 
@@ -62,7 +63,8 @@ export default function Select({
 			onClick={handleShow}
 			onBlur={handleBlur}
 			className="relative h-[38.6px] w-full rounded border bg-white md:w-56">
-			<button
+			<motion.button
+				whileTap={{ scale: 0.97 }}
 				id="menu-button"
 				aria-expanded="true"
 				aria-haspopup="true"
@@ -93,7 +95,7 @@ export default function Select({
 				<span className="absolute right-3 block">
 					<ChevronUpDownIcon className="h-6 w-6 text-gray-500" />
 				</span>
-			</button>
+			</motion.button>
 
 			<ul
 				role="menu"

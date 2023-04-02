@@ -1,3 +1,4 @@
+import { motion } from "framer-motion"
 import * as React from "react"
 import { twMerge } from "tailwind-merge"
 
@@ -13,7 +14,9 @@ const Input = React.forwardRef<
 	React.InputHTMLAttributes<HTMLInputElement> & InputProps
 >(({ className, label, prefixText, ...props }, ref) => {
 	return (
-		<div className="w-full">
+		<motion.div
+			className="w-full"
+			whileTap={{ scale: 0.97 }}>
 			{label ? (
 				<label className="mb-1 inline-block text-base">{label}</label>
 			) : null}
@@ -33,7 +36,7 @@ const Input = React.forwardRef<
 					{...props}
 				/>
 			</div>
-		</div>
+		</motion.div>
 	)
 })
 

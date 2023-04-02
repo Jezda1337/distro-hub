@@ -7,7 +7,6 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 
 import Carousel from "@/components/Carousel"
-import { useState } from "react"
 
 async function getDistro({ queryKey }: any) {
 	let [_, distro] = queryKey
@@ -34,7 +33,6 @@ export async function getServerSideProps({ params }: any) {
 }
 
 export default function Distro() {
-	const [currentImage] = useState(0)
 	const { query, push } = useRouter()
 	const { data } = useQuery({
 		queryKey: ["distro", query.distro],
@@ -50,7 +48,6 @@ export default function Distro() {
 		return <Loading />
 	}
 
-	console.log(currentImage)
 	return (
 		<section className="my-20">
 			<Head>
@@ -65,7 +62,7 @@ export default function Distro() {
 							distroName={data.name}
 						/>
 					) : (
-						<p>No images</p>
+						<p>No images 😭</p>
 					)}
 				</div>
 			</div>

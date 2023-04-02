@@ -3,12 +3,15 @@ import multiFiles from "@/helpers/multiFiles"
 import de_list from "@/static/de_list.json"
 import { DocumentPlusIcon, XMarkIcon } from "@heroicons/react/20/solid"
 // @ts-ignore
+import { motion } from "framer-motion"
 import { CldImage } from "next-cloudinary"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { ChangeEvent, FormEvent, useState } from "react"
 import Select, { ActionMeta } from "react-select"
 import makeAnimated from "react-select/animated"
+import FileCard from "./FileCard"
+import Loading from "./Loading"
 import { Button } from "./ui/Button"
 import { Dialog } from "./ui/Dialog"
 import { Input } from "./ui/Input"
@@ -44,8 +47,9 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 		basedOn: "",
 		waitingDistro: true,
 	})
-
+	const [status, setStatus] = useState(false)
 	const [_files, setFiles] = useState([])
+	const [images, setImages] = useState<any>([])
 	const [_deskEnv, setDeskEnv] = useState<Option[]>([])
 	const router = useRouter()
 
@@ -86,6 +90,10 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 			body,
 		}
 
+		if (newDistro.logo !== "") {
+			console.log(newDistro.logo)
+			handleRemoveLogo()
+		}
 		try {
 			const response = await fetch(url, config)
 			const { public_id } = await response.json()
@@ -95,6 +103,17 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 			})
 		} catch (error) {
 			console.error(error)
+		}
+	}
+
+	async function handleRemoveLogo() {
+		const res = await fetch("api/v1/distro/delete-image", {
+			method: "POST",
+			body: JSON.stringify(newDistro.logo),
+		})
+
+		if (res.status !== 200) {
+			console.error(res.statusText)
 		}
 	}
 
@@ -118,18 +137,24 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 	async function handleFiles(files: FileList) {
 		const data: any[] = []
 		for (const file of Array.from(files)) {
-			console.log(file)
+			setStatus(true)
 			await multiFiles(file)
-				.then((d) => data.push({ value: d.public_id }))
+				.then((d) => {
+					setStatus(true)
+					console.log(status)
+					setImages((prevImages: any) => [...prevImages, d])
+					data.push({ value: d.public_id })
+				})
 				.finally(() => {
 					setFiles([..._files, ...data] as any)
+					setStatus(false)
 				})
 		}
 	}
 
 	return (
 		<Dialog
-			className="h-11/12 top-12 w-11/12 max-w-3xl rounded border bg-white shadow md:top-auto"
+			className="md:h-11/12 top-12 w-11/12 max-w-3xl rounded border bg-white shadow md:top-auto"
 			onClick={(e) => e.stopPropagation()}
 			open={open}>
 			<header className="mb-3 flex items-start justify-between border-b pb-3">
@@ -232,7 +257,7 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 						placeholder="Ex. Debian"
 					/>
 				</div>
-				<div>
+				<motion.div whileTap={{ scale: 0.97 }}>
 					<label className="mb-1 inline-block text-base">About</label>
 					<textarea
 						onChange={handleChange}
@@ -244,26 +269,47 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 					<span className="text-sm text-slate-500">
 						Brief description of distribution.
 					</span>
-				</div>
+				</motion.div>
 				<div>
-					<span className="mb-1 inline-block">Distro screenshots</span>
+					<div className="flex justify-between pr-4">
+						<span className="mb-1 inline-block">Distro screenshots</span>
+						{status ? (
+							<div className="absolute right-6">
+								<Loading />
+							</div>
+						) : null}
+					</div>
 					<label
 						htmlFor="screenShoots"
-						className="group flex h-32 w-full flex-col place-items-center justify-center rounded border border-dashed md:hover:cursor-pointer md:hover:border-solid md:hover:transition-all">
-						<DocumentPlusIcon className="transition-hover relative aspect-square w-8 group-hover:scale-125" />
-						<span className="text-blue-500">Upload files</span>
-						<span className="text-slate-500">PNG, JPG, WEBP</span>
+						className="group flex h-32 w-full flex-col place-items-center gap-2 overflow-auto rounded border border-dashed p-2 md:hover:cursor-pointer md:hover:border-solid md:hover:transition-all">
+						{images.length !== 0 ? (
+							images.map((image: File, index: number) => (
+								<FileCard
+									key={index}
+									image={image}
+									images={images}
+									setImages={setImages}
+									index={index}
+								/>
+							))
+						) : (
+							<div className="flex h-full flex-col place-items-center justify-center">
+								<DocumentPlusIcon className="transition-hover relative aspect-square w-8 group-hover:scale-125" />
+								<span className="text-blue-500">Upload files</span>
+								<span className="text-slate-500">PNG, JPG, WEBP</span>
+							</div>
+						)}
 					</label>
 					<input
 						type="file"
-						onChange={(e) => handleFiles(e.target.files as any)}
+						onChange={(e) => handleFiles(e.target.files as FileList)}
 						accept=".png, .jpg, .jpge, .webp"
 						multiple
 						className="hidden"
 						id="screenShoots"
 					/>
 				</div>
-				<div className="self-end">
+				<div className="flex items-center gap-4 self-end">
 					<Button>Submit</Button>
 				</div>
 			</form>

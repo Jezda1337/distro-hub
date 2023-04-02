@@ -14,9 +14,4 @@ export default async function handler(
 			throw new Error("Something is not right with db")
 		}
 	}
-
-	// if (req.method === "POST") {
-	// 	const distro = await createDistro(req.body)
-	// 	return res.status(200).json(distro)
-	// }
 }

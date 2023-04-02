@@ -1,7 +1,7 @@
 import DistroCard from "@/components/DistroCard"
 import Filters from "@/components/Filters"
+import Footer from "@/components/Footer"
 import Loading from "@/components/Loading"
-import WorkInProgressBar from "@/components/WorkInProgressBar"
 import { useStore } from "@/context/store"
 import { Distro } from "@prisma/client"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
@@ -51,12 +51,12 @@ export default function Home() {
 	}
 
 	return (
-		<section>
+		<section className="flex min-h-[calc(100vh-5.375rem)] flex-col">
 			<Head>
 				<title>DistroHub</title>
 			</Head>
 			<Filters />
-			<h1 className="mb-8 text-3xl font-bold">Most Popular</h1>
+			<h1 className="mb-8 text-3xl font-bold">All Distros</h1>
 
 			<div className="mb-4 flex items-center px-4 text-sm text-slate-500">
 				<div>
@@ -66,19 +66,22 @@ export default function Home() {
 				</div>
 				<span className="ml-auto">Details</span>
 			</div>
-			{isLoading ? (
-				<Loading />
-			) : data ?? filteredData ? (
-				filteredData.map((distro: Distro, index: number) => (
-					<DistroCard
-						key={index}
-						distro={distro}
-					/>
-				))
-			) : (
-				<p className=" mt-7 text-center text-2xl font-bold">Nothing found.</p>
-			)}
-			<WorkInProgressBar />
+			<div>
+				{isLoading ? (
+					<Loading />
+				) : data && filteredData.length !== 0 ? (
+					filteredData.map((distro: Distro, index: number) => (
+						<DistroCard
+							key={index}
+							distro={distro}
+						/>
+					))
+				) : (
+					<p className=" mt-7 text-center text-2xl font-bold">Nothing found.</p>
+				)}
+			</div>
+
+			<Footer />
 		</section>
 	)
 }
