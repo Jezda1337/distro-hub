@@ -36,7 +36,7 @@ export default function FileCard({
 			<p>{image.original_filename}</p>
 			<Button
 				type="button"
-				onClick={handleRemove}
+				onMouseUp={handleRemove}
 				className="after:bg-red-500 hover:bg-red-500">
 				<TrashIcon className="h-5 w-5" />
 			</Button>

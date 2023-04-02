@@ -91,7 +91,6 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 		}
 
 		if (newDistro.logo !== "") {
-			console.log(newDistro.logo)
 			handleRemoveLogo()
 		}
 		try {
@@ -141,7 +140,6 @@ export default function DistroForm({ handleOpen, setOpen, open }: any) {
 			await multiFiles(file)
 				.then((d) => {
 					setStatus(true)
-					console.log(status)
 					setImages((prevImages: any) => [...prevImages, d])
 					data.push({ value: d.public_id })
 				})

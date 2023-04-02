@@ -15,7 +15,6 @@ export default async function handler(
 	}
 
 	if (req.method === "POST") {
-		console.log(JSON.parse(req.body))
 		try {
 			const newDistro = await addToWaitingList(JSON.parse(req.body))
 			return res.status(200).json(newDistro)
