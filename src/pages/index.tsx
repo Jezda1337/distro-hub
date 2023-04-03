@@ -35,13 +35,14 @@ export default function Home() {
 				)
 			})
 		if (env && basedOn) {
-			return data.filter((d: any) =>
-				d.de.find(
+			return data.filter((d: any) => {
+				const { name } = env
+				return d.de.find(
 					(obj: any) =>
-						obj.value === env.name.toLowerCase() &&
-						d.basedOn === basedOn.name.toLowerCase()
+						obj.value === name.toLowerCase() &&
+						basedOn.name.toLowerCase() === d.basedOn.toLowerCase()
 				)
-			)
+			})
 		}
 		return []
 	}, [search, data, env, basedOn])
