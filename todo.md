@@ -6,3 +6,5 @@ should be form for that.
 [ ] - disable buttom for submiting the form, until all fields are full fild.
 [ ] - additional information for distro on [distro].tsx, like all desktop
 environments and package manger that distro uses.
+[ ] - add toast notification to the project, when user create new distro or when
+admin get login

@@ -8,7 +8,7 @@ export function AdminHeader() {
 	async function handleLogout() {
 		try {
 			const response = await fetch("/api/v1/auth/logout")
-			router.push("/")
+			router.reload()
 			return await response.json()
 		} catch (error) {
 			throw new Error("Chekc logout function")
