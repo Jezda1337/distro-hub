@@ -2,6 +2,8 @@ import { Input } from "@/components/ui/Input"
 import Head from "next/head"
 import { FormEvent, useState } from "react"
 
+export const runtime = "edge"
+
 export default function Admin() {
 	const [data, setData] = useState<any>([])
 	const [distroName, setDistroName] = useState("")

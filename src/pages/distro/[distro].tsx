@@ -8,6 +8,8 @@ import { useRouter } from "next/router"
 
 import Carousel from "@/components/Carousel"
 
+export const runtime = "edge"
+
 async function getDistro({ queryKey }: any) {
 	let [_, distro] = queryKey
 	// make first letter capital

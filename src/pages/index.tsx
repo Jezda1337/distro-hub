@@ -8,6 +8,8 @@ import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 import Head from "next/head"
 import { useMemo } from "react"
 
+export const runtime = "edge"
+
 export default function Home() {
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["distros"],
