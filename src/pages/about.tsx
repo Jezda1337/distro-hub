@@ -1,5 +1,7 @@
 import Head from "next/head"
 
+export const runtime = "experimental-edge"
+
 export default function About() {
 	return (
 		<>

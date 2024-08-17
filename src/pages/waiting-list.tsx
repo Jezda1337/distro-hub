@@ -4,8 +4,6 @@ import { Distro } from "@prisma/client"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 import Head from "next/head"
 
-export const runtime = "edge"
-
 async function getWaitingList() {
 	try {
 		const response = await fetch("/api/v1/waitingList")
