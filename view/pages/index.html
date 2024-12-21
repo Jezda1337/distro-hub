@@ -1,20 +1,70 @@
 {{define "index"}}
   {{template "layout" .}}
 {{end}}
+
 {{define "content"}}
 <section class="tabs-section">
-  <div class="tabs">
-    <button data-tab="trending" class="tab tab--active">Trending</button>
-    <button data-tab="popular" class="tab">Popular</button>
-    <button data-tab="new" class="tab">New</button>
+  <div class="tabs" hx-push-url="true">
+    <button
+      role="category"
+      data-category="trending"
+      hx-get="/?category=trending"
+      hx-swap="innerHTML"
+      hx-target="#category"
+      class="tab tab--active"
+    >
+      Trending
+    </button>
+    <button
+      role="category"
+      data-category="popular"
+      hx-get="/?category=popular"
+      hx-swap="innerHTML"
+      hx-target="#category"
+      class="tab"
+    >
+      Popular
+    </button>
+    <button
+      role="category"
+      data-category="new"
+      hx-get="/?category=new"
+      hx-swap="innerHTML"
+      hx-target="#category"
+      class="tab"
+    >
+      New
+    </button>
   </div>
 </section>
+
 <section>
-  <div>Trending</div>
+  <div id="category">
+    {{- if eq .Category "trending" }}
+       {{ template "trending" }}
+    {{- else if eq .Category "popular" }}
+       {{ template "popular" }}
+    {{- else if eq .Category "new" }}
+       {{ template "new" }}
+    {{- else }}
+      {{ template "trending" . }}
+    {{- end }}
+  </div>
 </section>
+
 <script>
-  const tabs = document.querySelectorAll(".tab");
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParam, prop) => searchParam.get(prop),
+  });
+
+  const tabs = document.querySelectorAll("[role='category']");
   tabs.forEach((tab) => {
+    if (params.category) {
+      tab.dataset.category === params.category
+        ? tab.classList.add("tab--active")
+        : tab.classList.remove("tab--active");
+    }
+
     tab.addEventListener("click", () => {
       for (let i = 0; i < tabs.length; i++) {
         tabs[i].classList.remove("tab--active");
