@@ -1,5 +1,10 @@
 {{ define "new" }}
-
-<h1>New</h1>
-
+<div>
+  {{range .Distros}}
+    <div>
+      <h2>{{.Name}}</h2>
+      <p>{{.Description}}</p>
+    </div>
+  {{end}}
+</div>
 {{ end }}

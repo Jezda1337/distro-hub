@@ -40,15 +40,15 @@
 
 <section>
   <div id="category">
-    {{- if eq .Category "trending" }}
-       {{ template "trending" }}
-    {{- else if eq .Category "popular" }}
-       {{ template "popular" }}
-    {{- else if eq .Category "new" }}
-       {{ template "new" }}
-    {{- else }}
-      {{ template "trending" . }}
-    {{- end }}
+    {{if eq .Category "trending"}}
+      {{template "trending" .}}
+    {{else if eq .Category "popular"}}
+      {{template "popular" .}}
+    {{else if eq .Category "new"}}
+      {{template "new" .}}
+    {{else}}
+      {{template "trending" .}}
+    {{end}}
   </div>
 </section>
 
