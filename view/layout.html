@@ -1,0 +1,27 @@
+{{define "base" .}}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{block "title" .}}DistroHub{{end}}</title>
+    <link rel="stylesheet" href="assets/index.css" />
+  </head>
+  <body>
+    <header class="header">
+      <a class="logo" href="/">DistroHub</a>
+      <input type="search" class="header_search" placeholder="Search..." />
+      <nav role="navigation">
+        <ul>
+          <li><a href="/packages">packages</a></li>
+          <li><a href="/waiting-list">waiting list</a></li>
+          <li><button class="btn">Add new distro</button></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      {{block "content" .}}{{end}}
+    </main>
+  </body>
+</html>
+{{end}}

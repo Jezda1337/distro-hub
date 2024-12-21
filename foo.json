@@ -1,0 +1,20 @@
+{
+  "id": 1,
+  "name": "Arch Linux",
+  "logo": "",
+  "website_link": "",
+  "download_link": "",
+  "images": "",
+  "description": "",
+  "informations": [
+    {
+      "install_size": "700MB",
+      "download_size": "450MB",
+      "arch": "x68_64",
+      "total_installs": "1000"
+    }
+  ],
+
+  "created_at": "",
+  "updated_at": ""
+}

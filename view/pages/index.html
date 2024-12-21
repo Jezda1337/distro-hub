@@ -1,0 +1,26 @@
+{{define "index"}}
+  {{template "base" .}}
+{{end}}
+{{define "content"}}
+<section class="tabs-section">
+  <div class="tabs">
+    <button data-tab="trending" class="tab tab--active">Trending</button>
+    <button data-tab="popular" class="tab">Popular</button>
+    <button data-tab="new" class="tab">New</button>
+  </div>
+</section>
+<section>
+  <div>Trending</div>
+</section>
+<script>
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      for (let i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove("tab--active");
+      }
+      tab.classList.add("tab--active");
+    });
+  });
+</script>
+{{end}}
