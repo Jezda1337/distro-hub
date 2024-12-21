@@ -1,15 +1,11 @@
 package main
 
 import (
-	"embed"
 	"fmt"
 	"html/template"
 	"io"
 	"net/http"
 )
-
-//go:embed view/**/*.html
-var templatesFS embed.FS
 
 type Templates struct {
 	template *template.Template
@@ -20,17 +16,14 @@ func (t *Templates) Render(w io.Writer, name string, data interface{}) error {
 }
 
 func newTmpl() *Templates {
-	t := template.Must(template.ParseGlob("view/**/*.html"))
+	// parseGlob method cannot accept /**/*.html since 2015 fck shit
+	t := template.Must(template.ParseGlob("view/*.html"))
+	template.Must(t.ParseGlob("view/**/*.html"))
 	for _, tmpl := range t.Templates() {
 		fmt.Println("Parsed template:", tmpl.Name())
 	}
-
-	// return &Templates
-	// 	template: template.Must(template.ParseFS(templatesFS, "view/**/*.html")),
-	// }
-
-	return &Templates {
-		template: template.Must(template.ParseGlob("view/**/*.html")),
+	return &Templates{
+		template: t,
 	}
 }
 
