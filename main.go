@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"io"
 	"net/http"
@@ -26,6 +27,30 @@ func newTmpl() *Templates {
 	}
 }
 
+type Distro struct {
+	ID          int
+	Name 				string
+	Description string
+}
+
+var Distros = []Distro {
+	{
+		ID: 1,
+		Name: "Arch Linux",
+		Description: "The best linux so far",
+	},
+	{
+		ID: 2,
+		Name: "Debian",
+		Description: "The best linux so far",
+	},
+}
+
+type IndexProps struct {
+	Category string
+	Distros []Distro
+}
+
 func main() {
 	mux := http.NewServeMux()
 	fs := http.FileServer(http.Dir("./view/assets/"))
@@ -38,14 +63,24 @@ func main() {
 		category := params.Get("category")
 
 		if category == "" {
-			tmpl.Render(w, "index", nil)
+			tmpl.Render(w, "index", IndexProps{
+				Category: "trending",
+				Distros: Distros,
+			})
 			return
 		}
 
 		if r.Header.Get("HX-Request") == "true" {
-			tmpl.Render(w, category, nil)
+			tmpl.Render(w, category, IndexProps{
+				Category: category,
+				Distros: Distros,
+			})
 		} else {
-			tmpl.Render(w, "index", nil)
+			fmt.Println("else")
+			tmpl.Render(w, "index", IndexProps{
+				Category: category,
+				Distros: Distros,
+			})
 		}
 	})
 
