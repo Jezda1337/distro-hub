@@ -2,10 +2,10 @@
 <div class="trending">
   <h1>Trending</h1>
   {{range .Distros}}
-    <div>
+    <a href="/distros/{{.ID}}">
       <h2>{{.Name}}</h2>
       <p>{{.Description}}</p>
-    </div>
+    </a>
   {{end}}
 </div>
 {{ end }}

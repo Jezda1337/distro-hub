@@ -1,0 +1,10 @@
+{{ define "content" }}
+  <div>
+    <h1>Distro Page</h1>
+		{{ range . }}
+			<div>
+				{{ .Name }}
+			</div>
+		{{ end }}
+  </div>
+{{ end }}

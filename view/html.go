@@ -6,19 +6,23 @@ import (
 	"io"
 )
 
-//go:embed *.tmpl pages/*.tmpl components/*.tmpl
-var files embed.FS
+//go:embed *
+var templateFS embed.FS
 
-var tmpls = map[string]*template.Template {
-	"index": parse("pages/index.tmpl"),
+var shared = template.Must(template.ParseFS(templateFS, "shared/*"))
+var tmpls = map[string]*template.Template{
+	"index":    parse("pages/index.tmpl"),
 	"packages": parse("pages/packages.tmpl"),
+	"distro":   parse("pages/distro.tmpl"),
 }
 
 func parse(file string) *template.Template {
-	tmpl := template.Must(template.ParseFS(files, "base.tmpl", file, "components/*.tmpl"))
-	//for _, t := range tmpl.Templates() {
-	//	fmt.Println("Parsed template:", t.Name())
-	//}
+	var clone = template.Must(shared.Clone())
+
+	tmpl, _ := clone.ParseFS(templateFS, file)
+	// for _, t := range tmpl.Templates() {
+	// 	fmt.Println("Parsed template:", t.Name())
+	// }
 	return tmpl
 }
 
