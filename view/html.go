@@ -1,31 +1,31 @@
-// package view
-//
-// import (
-// 	"embed"
-// 	"html/template"
-// 	"io"
-// )
-//
-// //go:embed *
-// var files embed.FS
-//
-// var (
-// 	_        = parse("**/*.html")
-// 	index    = parse("pages/index.html")
-// 	packages = parse("pages/packages.html")
-// )
-//
-// func IndexPage(w io.Writer) {
-// 	index.Execute(w, nil)
-// }
-//
-// func PackagesPage(w io.Writer) {
-// 	packages.Execute(w, nil)
-// }
-//
-// func parse(file string, rest ...string) *template.Template {
-// 	allFiles := append([]string{"layout.html"}, file)
-// 	allFiles = append(allFiles, rest...)
-// 	return template.Must(
-// 		template.New("layout.html").ParseFS(files, allFiles...))
-// }
+package view
+
+import (
+	"embed"
+	"html/template"
+	"io"
+)
+
+//go:embed *.tmpl pages/*.tmpl components/*.tmpl
+var files embed.FS
+
+var tmpls = map[string]*template.Template {
+	"index": parse("pages/index.tmpl"),
+	"packages": parse("pages/packages.tmpl"),
+}
+
+func parse(file string) *template.Template {
+	tmpl := template.Must(template.ParseFS(files, "base.tmpl", file, "components/*.tmpl"))
+	//for _, t := range tmpl.Templates() {
+	//	fmt.Println("Parsed template:", t.Name())
+	//}
+	return tmpl
+}
+
+func Render(w io.Writer, page string, data interface{}) error {
+	return tmpls[page].Execute(w, data)
+}
+
+func ChildRender(w io.Writer, page, child string, data interface{}) error {
+	return tmpls[page].ExecuteTemplate(w, child, data)
+}

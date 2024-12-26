@@ -2,30 +2,10 @@ package main
 
 import (
 	"fmt"
-	"html/template"
-	"io"
 	"net/http"
+
+	"distro-hub/view"
 )
-
-type Templates struct {
-	template *template.Template
-}
-
-func (t *Templates) Render(w io.Writer, name string, data interface{}) error {
-	return t.template.ExecuteTemplate(w, name, data)
-}
-
-func newTmpl() *Templates {
-	// parseGlob method cannot accept /**/*.html since 2015 fck shit
-	t := template.Must(template.ParseGlob("view/*.html"))
-	template.Must(t.ParseGlob("view/**/*.html"))
-	//for _, tmpl := range t.Templates() {
-	//	fmt.Println("Parsed template:", tmpl.Name())
-	//}
-	return &Templates{
-		template: t,
-	}
-}
 
 type Distro struct {
 	ID          int
@@ -46,42 +26,47 @@ var Distros = []Distro {
 	},
 }
 
-type IndexProps struct {
-	Category string
-	Distros []Distro
-}
-
 func main() {
 	mux := http.NewServeMux()
 	fs := http.FileServer(http.Dir("./view/assets/"))
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
-	tmpl := newTmpl()
-
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		params := r.URL.Query()
-		category := params.Get("category")
+		category := r.URL.Query().Get("category")
 
-		if category == "" {
-			tmpl.Render(w, "index", IndexProps{
-				Category: "trending",
-				Distros: Distros,
+		if category != "" {
+			if r.Header.Get("HX-Request") == "true" {
+				err := view.ChildRender(w, "index", category, map[string]any{
+					"Category": category,
+					"Distros":  Distros,
+				})
+				if err != nil {
+					fmt.Println(err)
+				}
+				return
+			}
+			err := view.Render(w, "index", map[string]any{
+				"Category": category,
+				"Distros":  Distros,
 			})
+			if err != nil {
+				fmt.Println(err)
+			}
 			return
 		}
 
-		if r.Header.Get("HX-Request") == "true" {
-			tmpl.Render(w, category, IndexProps{
-				Category: category,
-				Distros: Distros,
-			})
-		} else {
-			fmt.Println("else")
-			tmpl.Render(w, "index", IndexProps{
-				Category: category,
-				Distros: Distros,
-			})
+		err := view.Render(w, "index", map[string]any{
+			"Category": "trending",
+			"Distros": Distros,
+		})
+
+		if err != nil {
+			fmt.Println(err)
 		}
+	})
+
+	mux.HandleFunc("GET /packages", func(w http.ResponseWriter, r *http.Request) {
+		view.Render(w, "packages", nil)
 	})
 
 	http.ListenAndServe(":6969", mux)

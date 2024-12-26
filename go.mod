@@ -1,3 +1,3 @@
-module github.com/Jezda1337/distro-hub
+module distro-hub
 
 go 1.23.4

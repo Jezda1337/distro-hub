@@ -1,4 +1,3 @@
-{{define "layout" }}
 <!doctype html>
 <html lang="en">
   <head>
@@ -21,8 +20,9 @@
       </nav>
     </header>
     <main>
-      {{block "content" .}}{{end}}
+      {{block "content" .}}
+        <span>No content, come back later ...</span>
+      {{end}}
     </main>
   </body>
 </html>
-{{end}}
