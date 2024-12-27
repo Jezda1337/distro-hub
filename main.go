@@ -13,6 +13,7 @@ type Distro struct {
 	Name        string
 	Description string
 	Category    []string
+	Logo string
 }
 
 var Distros = []Distro{
@@ -20,13 +21,36 @@ var Distros = []Distro{
 		ID:          1,
 		Name:        "Arch Linux",
 		Description: "The best linux so far",
-		Category: []string {"popular", "trending"},
+		Category:    []string{"popular", "trending"},
+		Logo: "public/logos/arch.svg",
 	},
 	{
 		ID:          2,
 		Name:        "Debian",
 		Description: "The best linux so far",
-		Category: []string {"new", "trending"},
+		Category:    []string{"new", "trending"},
+		Logo: "public/logos/debian.svg",
+	},
+	{
+		ID:          3,
+		Name:        "Debian",
+		Description: "The best linux so far",
+		Category:    []string{"new", "trending"},
+		Logo: "public/logos/debian.svg",
+	},
+		{
+		ID:          4,
+		Name:        "Debian",
+		Description: "The best linux so far",
+		Category:    []string{"new", "trending"},
+		Logo: "public/logos/debian.svg",
+	},
+	{
+		ID:          5,
+		Name:        "Debian",
+		Description: "The best linux so far",
+		Category:    []string{"new", "trending"},
+		Logo: "public/logos/debian.svg",
 	},
 }
 
