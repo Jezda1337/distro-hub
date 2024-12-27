@@ -79,7 +79,6 @@ func main() {
 		}
 		var distro Distro
 		for i := 0; i < len(Distros); i++ {
-			fmt.Println(ID)
 			if Distros[i].ID == ID {
 				distro = Distros[i]
 			}
