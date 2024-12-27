@@ -12,6 +12,7 @@ type Distro struct {
 	ID          int
 	Name        string
 	Description string
+	Category    []string
 }
 
 var Distros = []Distro{
@@ -19,12 +20,32 @@ var Distros = []Distro{
 		ID:          1,
 		Name:        "Arch Linux",
 		Description: "The best linux so far",
+		Category: []string {"popular", "trending"},
 	},
 	{
 		ID:          2,
 		Name:        "Debian",
 		Description: "The best linux so far",
+		Category: []string {"new", "trending"},
 	},
+}
+
+func filterDistros(category string) []Distro {
+	if category == "" {
+		return Distros
+	}
+	newDistros := []Distro{}
+
+	for _, distro := range Distros {
+		for _, cat := range distro.Category {
+			if cat == category {
+				newDistros = append(newDistros, distro)
+				break
+			}
+		}
+	}
+
+	return newDistros
 }
 
 func main() {
@@ -35,9 +56,10 @@ func main() {
 	mux.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
 		category := r.URL.Query().Get("category")
 
+		filteredDistros := filterDistros(category)
 		indexProps := map[string]any{
 			"Category": category,
-			"Distros":  Distros,
+			"Distros":  filteredDistros,
 		}
 
 		if category != "" {

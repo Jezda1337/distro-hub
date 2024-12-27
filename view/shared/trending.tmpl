@@ -1,6 +1,5 @@
 {{ define "trending" }}
-<div class="trending">
-  <h1>Trending</h1>
+<div>
   {{range .Distros}}
     <a href="/distros/{{.ID}}">
       <h2>{{.Name}}</h2>

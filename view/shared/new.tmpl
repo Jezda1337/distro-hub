@@ -1,11 +1,10 @@
 {{ define "new" }}
-<div class="new">
-  <h1>New</h1>
+<div>
   {{range .Distros}}
-    <div>
+    <a href="/distros/{{.ID}}">
       <h2>{{.Name}}</h2>
       <p>{{.Description}}</p>
-    </div>
+    </a>
   {{end}}
 </div>
 {{ end }}
