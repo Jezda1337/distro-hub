@@ -5,9 +5,6 @@
       <img src="{{ .Logo }}" />
       <h2>{{.Name}}</h2>
       <p>{{.Description}}</p>
-      {{ range .Category }}
-        <span class="distro-card-category">{{ . }}</span>
-      {{ end }}
     </a>
   </div>
   {{end}}
