@@ -1,6 +1,6 @@
-{{ define "trending" -}}
+{{ define "category" -}}
   {{range .Distros}}
-  <div class="distro-card distro-card--trending">
+  <div class="distro-card distro-card--new">
     <a href="/distros/{{.ID}}">
       <img src="{{ .Logo }}" />
       <h2>{{.Name}}</h2>

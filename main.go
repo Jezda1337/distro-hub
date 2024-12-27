@@ -88,7 +88,7 @@ func main() {
 
 		if category != "" {
 			if r.Header.Get("HX-Request") == "true" {
-				err := view.ChildRender(w, "index", category, indexProps)
+				err := view.ChildRender(w, "index", "category", indexProps)
 				if err != nil {
 					fmt.Println(err)
 				}

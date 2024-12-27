@@ -151,7 +151,7 @@ main {
   color: black;
 }
 .distro-card:hover {
-  background: lightgray;
+  background: white;
   scale: 1.1;
 }
 .distro-card img {
