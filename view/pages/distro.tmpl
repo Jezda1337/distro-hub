@@ -1,9 +1,13 @@
+{{ define "style" }}
+<link rel="stylesheet" href="/public/css/distro.page.css" />
+{{ end }}
+
 {{ define "content" }}
   <div>
-    <h1>Distro Page</h1>
 		{{ range . }}
-			<div>
-				{{ .Name }}
+			<div class="distro-header">
+				<img src="{{ .Logo }}" width="128" height="128"/>
+				<h2>{{ .Name }}</h2>
 			</div>
 		{{ end }}
   </div>

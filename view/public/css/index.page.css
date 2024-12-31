@@ -1,0 +1,42 @@
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  max-width: 768px;
+  margin: auto;
+  border: 1px solid black;
+  gap: 8px;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.tabs .tab {
+  flex: 1;
+  display: block;
+  border: none;
+  padding: 6px;
+  font-weight: 500;
+  background: white;
+  transition: all 250ms ease;
+  border-radius: 2px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.tabs .tab:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.tabs .tab--active {
+  background: lightgray;
+  font-weight: 700;
+  color: black;
+}
+
+#category {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-block: 1rem;
+  max-width: 768px;
+  margin-inline: auto;
+}
