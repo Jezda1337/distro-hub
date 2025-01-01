@@ -3,6 +3,30 @@
 <link rel="stylesheet" href="/public/css/category.partial.css" />
 {{ end }}
 
+{{ define "script" }}
+<script>
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParam, prop) => searchParam.get(prop),
+  });
+
+  const tabs = document.querySelectorAll("[role='category']");
+  tabs.forEach((tab) => {
+    if (params.category) {
+      tab.dataset.category === params.category
+        ? tab.classList.add("tab--active")
+        : tab.classList.remove("tab--active");
+    }
+
+    tab.addEventListener("click", () => {
+      for (let i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove("tab--active");
+      }
+      tab.classList.add("tab--active");
+    });
+  });
+</script>
+{{ end }}
+
 {{define "content"}}
 <section class="tabs-section">
   <div class="tabs" hx-push-url="true">
@@ -44,26 +68,4 @@
     {{ template "category" . }}
   </div>
 </section>
-
-<script>
-  const params = new Proxy(new URLSearchParams(window.location.search), {
-    get: (searchParam, prop) => searchParam.get(prop),
-  });
-
-  const tabs = document.querySelectorAll("[role='category']");
-  tabs.forEach((tab) => {
-    if (params.category) {
-      tab.dataset.category === params.category
-        ? tab.classList.add("tab--active")
-        : tab.classList.remove("tab--active");
-    }
-
-    tab.addEventListener("click", () => {
-      for (let i = 0; i < tabs.length; i++) {
-        tabs[i].classList.remove("tab--active");
-      }
-      tab.classList.add("tab--active");
-    });
-  });
-</script>
 {{end}}
