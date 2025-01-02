@@ -2,8 +2,6 @@
   "id": 1,
   "name": "Arch Linux",
   "logo": "",
-  "website_link": "",
-  "download_link": "",
   "images": "",
   "description": "",
   "informations": [
@@ -12,6 +10,28 @@
       "download_size": "450MB",
       "arch": "x68_64",
       "total_installs": "1000"
+    }
+  ],
+  "links": [
+    {
+      "project_website": "Project Website",
+      "icon": "world",
+      "href": "https://archlinux.org/"
+    },
+    {
+      "project_issue": "Report an Issue",
+      "icon": "flag",
+      "href": "https://gitlab.archlinux.org/groups/archlinux/-/issues"
+    },
+    {
+      "project_forum": "Community Forum",
+      "icon": "forum",
+      "href": "https://bbs.archlinux.org/"
+    },
+    {
+      "project_documentation": "Project Documentation",
+      "icon": "file",
+      "href": "http://wiki.archlinux.org/"
     }
   ],
 
