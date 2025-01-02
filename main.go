@@ -97,5 +97,5 @@ func main() {
 		})
 	})
 
-	http.ListenAndServe(":6969", mux)
+	http.ListenAndServe("0.0.0.0:6969", mux)
 }
