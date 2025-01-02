@@ -7,7 +7,10 @@
 		{{ range . }}
 			<div class="distro-header">
 				<img src="{{ .Logo }}" width="128" height="128"/>
-				<h2>{{ .Name }}</h2>
+        <div class="title">
+          <h2>{{ .Name }}</h2>
+          <p>{{ .Description }}</p>
+        </div>
 			</div>
 		{{ end }}
   </div>

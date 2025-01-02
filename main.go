@@ -6,62 +6,17 @@ import (
 	"strconv"
 
 	"distro-hub/view"
+	"distro-hub/internal/distro"
 )
 
-type Distro struct {
-	ID          int
-	Name        string
-	Description string
-	Category    []string
-	Logo        string
-}
-
-var Distros = []Distro{
-	{
-		ID:          1,
-		Name:        "Arch Linux",
-		Description: "The best linux so far",
-		Category:    []string{"popular", "trending"},
-		Logo:        "/public/logos/arch.svg",
-	},
-	{
-		ID:          2,
-		Name:        "Debian",
-		Description: "The best linux so far",
-		Category:    []string{"new", "trending"},
-		Logo:        "/public/logos/debian.svg",
-	},
-	{
-		ID:          3,
-		Name:        "Debian",
-		Description: "The best linux so far",
-		Category:    []string{"new", "trending"},
-		Logo:        "/public/logos/debian.svg",
-	},
-	{
-		ID:          4,
-		Name:        "Debian",
-		Description: "The best linux so far",
-		Category:    []string{"new", "trending"},
-		Logo:        "/public/logos/debian.svg",
-	},
-	{
-		ID:          5,
-		Name:        "Debian",
-		Description: "The best linux so far",
-		Category:    []string{"new", "trending"},
-		Logo:        "/public/logos/debian.svg",
-	},
-}
-
-func filterDistros(category string) []Distro {
+func filterDistros(category string, distros []distro.Distro) []distro.Distro {
 	if category == "" {
-		return Distros
+		return distros
 	}
-	newDistros := []Distro{}
+	newDistros := []distro.Distro{}
 
-	for _, distro := range Distros {
-		for _, cat := range distro.Category {
+	for _, distro := range distros {
+		for _, cat := range distro.Categories {
 			if cat == category {
 				newDistros = append(newDistros, distro)
 				break
@@ -77,10 +32,17 @@ func main() {
 	fs := http.FileServer(http.Dir("./view/public/"))
 	mux.Handle("GET /public/", http.StripPrefix("/public/", fs))
 
+
+	var distros, err = distro.LoadDistrosFromFile("./distros.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+
 	mux.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
 		category := r.URL.Query().Get("category")
 
-		filteredDistros := filterDistros(category)
+		filteredDistros := filterDistros(category, distros)
 		indexProps := map[string]any{
 			"Category": category,
 			"Distros":  filteredDistros,
@@ -119,14 +81,14 @@ func main() {
 			return
 		}
 
-		if ID < 0 || ID > len(Distros) {
+		if ID < 0 || ID > len(distros) {
 			http.Error(w, "Distro not found", http.StatusNotFound)
 			return
 		}
-		var distro Distro
-		for i := 0; i < len(Distros); i++ {
-			if Distros[i].ID == ID {
-				distro = Distros[i]
+		var distro distro.Distro
+		for i := 0; i < len(distros); i++ {
+			if distros[i].ID == ID {
+				distro = distros[i]
 			}
 		}
 

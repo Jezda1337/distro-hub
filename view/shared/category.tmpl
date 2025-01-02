@@ -1,13 +1,12 @@
-{{ define "style" }}
-{{ end }}
-
 {{ define "category" -}}
   {{range .Distros}}
   <div class="distro-card distro-card--new">
     <a href="/distros/{{.ID}}">
       <img src="{{ .Logo }}" />
-      <h2>{{.Name}}</h2>
-      <p>{{.Description}}</p>
+      <div class="distro-card-body">
+        <h2>{{.Name}}</h2>
+        <p>{{.Description}}</p>
+      </div>
     </a>
   </div>
   {{end}}
