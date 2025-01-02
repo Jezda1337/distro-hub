@@ -5,6 +5,7 @@
 
 {{ define "script" }}
 <script>
+(() => {
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParam, prop) => searchParam.get(prop),
   });
@@ -24,12 +25,13 @@
       tab.classList.add("tab--active");
     });
   });
+})();
 </script>
 {{ end }}
 
 {{define "content"}}
 <section class="tabs-section">
-  <div class="tabs" hx-push-url="true">
+  <div class="tabs">
     <button
       role="category"
       data-category="trending"
@@ -37,6 +39,7 @@
       hx-swap="innerHTML"
       hx-target="#category"
       class="tab tab--active"
+      hx-push-url="true"
     >
       Trending
     </button>
@@ -47,6 +50,7 @@
       hx-swap="innerHTML"
       hx-target="#category"
       class="tab"
+      hx-push-url="true"
     >
       Popular
     </button>
@@ -57,6 +61,7 @@
       hx-swap="innerHTML"
       hx-target="#category"
       class="tab"
+      hx-push-url="true"
     >
       New
     </button>
