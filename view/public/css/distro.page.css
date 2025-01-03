@@ -7,6 +7,7 @@
   align-items: center;
   padding-block: 1.7rem;
   grid-column-start: 2;
+  position: relative;
 }
 .distro-header .title {
   font-size: 1.5rem;
@@ -22,4 +23,22 @@
 }
 .distro-content {
   grid-column-start: 2;
+}
+
+#distro-links-toggle {
+  margin-left: 0.2rem;
+  anchor-name: --anchor_1;
+  font-size: 1rem;
+}
+
+#distro-links-list {
+  position-area: bottom;
+  margin-top: 10px;
+  position-anchor: --anchor_1;
+  border-radius: 10px;
+  padding: 0.8rem;
+}
+
+::backdrop {
+  background-color: rgba(0,0,0,0.1);
 }

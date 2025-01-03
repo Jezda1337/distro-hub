@@ -11,6 +11,20 @@
         <p>{{ .Description }}</p>
       </div>
       <a class="btn" href="{{ .Links.Website.URL }}" target="_blank">Web Page</a>
+      <button class="btn" id="distro-links-toggle" popovertarget="distro-links-list">Open</button>
+      <div popover id="distro-links-list" anchor="distro-links-toggle">
+        <ul>
+          <li>
+            <a target="_blank" href="{{ .Links.IssueTracker.URL }}">{{ .Links.IssueTracker.Label }}</a>
+          </li>
+          <li>
+            <a target="_blank" href="{{ .Links.Forum.URL }}">{{ .Links.Forum.Label }}</a>
+          </li>
+          <li>
+            <a target="_blank" href="{{ .Links.Documentation.URL }}">{{ .Links.Documentation.Label }}</a>
+          </li>
+        </ul>
+      </div>
     </div>
     <section class="distro-content">
       <h1>Hi mom!</h1>
