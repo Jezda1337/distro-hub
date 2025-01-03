@@ -92,9 +92,7 @@ func main() {
 			}
 		}
 
-		view.Render(w, "distro", map[string]any{
-			"Distro": distro,
-		})
+		view.Render(w, "distro", distro)
 	})
 
 	http.ListenAndServe("0.0.0.0:6969", mux)

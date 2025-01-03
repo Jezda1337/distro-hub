@@ -1,6 +1,12 @@
+.distro-body {
+  display: grid;
+  grid-template-columns: auto 90% auto;
+}
 .distro-header {
   display: flex;
   align-items: center;
+  padding-block: 1.7rem;
+  grid-column-start: 2;
 }
 .distro-header .title {
   font-size: 1.5rem;
@@ -8,4 +14,12 @@
 }
 .distro-header .title p {
   font-size: 1rem;
+}
+
+.distro-header a {
+  font-size: 1rem;
+  margin-left: auto;
+}
+.distro-content {
+  grid-column-start: 2;
 }

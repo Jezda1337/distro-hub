@@ -3,15 +3,17 @@
 {{ end }}
 
 {{ define "content" }}
-  <div>
-		{{ range . }}
-			<div class="distro-header">
-				<img src="{{ .Logo }}" width="128" height="128"/>
-        <div class="title">
-          <h2>{{ .Name }}</h2>
-          <p>{{ .Description }}</p>
-        </div>
-			</div>
-		{{ end }}
+  <div class="distro-body">
+    <div class="distro-header">
+      <img src="{{ .Logo }}" width="128" height="128"/>
+      <div class="title">
+        <h2>{{ .Name }}</h2>
+        <p>{{ .Description }}</p>
+      </div>
+      <a class="btn" href="{{ .Links.Website.URL }}" target="_blank">Web Page</a>
+    </div>
+    <section class="distro-content">
+      <h1>Hi mom!</h1>
+    </section>
   </div>
 {{ end }}
