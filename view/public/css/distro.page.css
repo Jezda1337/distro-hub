@@ -69,6 +69,7 @@ details ul {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  background-color: white;
 }
 details ul a {
   display: block;
